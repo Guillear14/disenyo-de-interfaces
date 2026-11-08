@@ -1,0 +1,104 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>di.unidad3.ejercicio2</RootNamespace>
+    <AssemblyName>di.unidad3.ejercicio2</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="recursos\Iconos\addarticulo.png" />
+    <None Remove="recursos\Iconos\addarticulomvvm.png" />
+    <None Remove="recursos\Iconos\addinventario.png" />
+    <None Remove="recursos\Iconos\addmodelomvvm.png" />
+    <None Remove="recursos\Iconos\adduser.png" />
+    <None Remove="recursos\Iconos\addusermvvm.png" />
+    <None Remove="recursos\Iconos\arbolarticulos.png" />
+    <None Remove="recursos\Iconos\arbolmodelo.png" />
+    <None Remove="recursos\Iconos\arbolmodelos.png" />
+    <None Remove="recursos\Iconos\arboltipo.png" />
+    <None Remove="recursos\Iconos\arbolusuarios.png" />
+    <None Remove="recursos\Iconos\borrar.png" />
+    <None Remove="recursos\Iconos\buscar.png" />
+    <None Remove="recursos\Iconos\cerrar.png" />
+    <None Remove="recursos\Iconos\charts.png" />
+    <None Remove="recursos\Iconos\devolucion.png" />
+    <None Remove="recursos\Iconos\editar.png" />
+    <None Remove="recursos\Iconos\espacios.png" />
+    <None Remove="recursos\Iconos\facebook.png" />
+    <None Remove="recursos\Iconos\gesarticulo.png" />
+    <None Remove="recursos\Iconos\gesarticulomvvm.png" />
+    <None Remove="recursos\Iconos\gesusuario.png" />
+    <None Remove="recursos\Iconos\gesusuariomvvm.png" />
+    <None Remove="recursos\Iconos\iconmodelo.png" />
+    <None Remove="recursos\Iconos\icon_right.png" />
+    <None Remove="recursos\Iconos\infinity.png" />
+    <None Remove="recursos\Iconos\infinityblanco.png" />
+    <None Remove="recursos\Iconos\informe.png" />
+    <None Remove="recursos\Iconos\listaarticulos.png" />
+    <None Remove="recursos\Iconos\listamodelos.png" />
+    <None Remove="recursos\Iconos\listausuarios.png" />
+    <None Remove="recursos\Iconos\matisse - copia.png" />
+    <None Remove="recursos\Iconos\matisse.png" />
+    <None Remove="recursos\Iconos\pass.png" />
+    <None Remove="recursos\Iconos\perfil.png" />
+    <None Remove="recursos\Iconos\principal.png" />
+    <None Remove="recursos\Iconos\quitafiltro.png" />
+    <None Remove="recursos\Iconos\resetclave.png" />
+    <None Remove="recursos\Iconos\salida.png" />
+    <None Remove="recursos\Iconos\stock.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fluent.Ribbon" Version="11.0.2" />
+    <PackageReference Include="MaterialDesignThemes.MahApps" Version="5.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="recursos\Iconos\addarticulo.png" />
+    <Resource Include="recursos\Iconos\addarticulomvvm.png" />
+    <Resource Include="recursos\Iconos\addinventario.png" />
+    <Resource Include="recursos\Iconos\addmodelomvvm.png" />
+    <Resource Include="recursos\Iconos\adduser.png" />
+    <Resource Include="recursos\Iconos\addusermvvm.png" />
+    <Resource Include="recursos\Iconos\arbolarticulos.png" />
+    <Resource Include="recursos\Iconos\arbolmodelo.png" />
+    <Resource Include="recursos\Iconos\arbolmodelos.png" />
+    <Resource Include="recursos\Iconos\arboltipo.png" />
+    <Resource Include="recursos\Iconos\arbolusuarios.png" />
+    <Resource Include="recursos\Iconos\borrar.png" />
+    <Resource Include="recursos\Iconos\buscar.png" />
+    <Resource Include="recursos\Iconos\cerrar.png" />
+    <Resource Include="recursos\Iconos\charts.png" />
+    <Resource Include="recursos\Iconos\devolucion.png" />
+    <Resource Include="recursos\Iconos\editar.png" />
+    <Resource Include="recursos\Iconos\espacios.png" />
+    <Resource Include="recursos\Iconos\facebook.png" />
+    <Resource Include="recursos\Iconos\gesarticulo.png" />
+    <Resource Include="recursos\Iconos\gesarticulomvvm.png" />
+    <Resource Include="recursos\Iconos\gesusuario.png" />
+    <Resource Include="recursos\Iconos\gesusuariomvvm.png" />
+    <Resource Include="recursos\Iconos\iconmodelo.png" />
+    <Resource Include="recursos\Iconos\icon_right.png" />
+    <Resource Include="recursos\Iconos\infinity.png" />
+    <Resource Include="recursos\Iconos\infinityblanco.png" />
+    <Resource Include="recursos\Iconos\informe.png" />
+    <Resource Include="recursos\Iconos\listaarticulos.png" />
+    <Resource Include="recursos\Iconos\listamodelos.png" />
+    <Resource Include="recursos\Iconos\listausuarios.png" />
+    <Resource Include="recursos\Iconos\matisse - copia.png" />
+    <Resource Include="recursos\Iconos\matisse.png" />
+    <Resource Include="recursos\Iconos\pass.png" />
+    <Resource Include="recursos\Iconos\perfil.png" />
+    <Resource Include="recursos\Iconos\principal.png" />
+    <Resource Include="recursos\Iconos\quitafiltro.png" />
+    <Resource Include="recursos\Iconos\resetclave.png" />
+    <Resource Include="recursos\Iconos\salida.png" />
+    <Resource Include="recursos\Iconos\stock.png" />
+  </ItemGroup>
+
+</Project>
