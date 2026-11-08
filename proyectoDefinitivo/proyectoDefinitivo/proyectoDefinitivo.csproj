@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Recursos\Imagenes\LocoClaro.jpg" />
+    <None Remove="Recursos\Imagenes\LogoOscur-removebg-preview.png" />
+    <None Remove="Recursos\Imagenes\LogoOscur.jpg" />
+    <None Remove="Recursos\Imagenes\Onades de seda blava i daurada.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Datos\Repositorios\" />
+    <Folder Include="Modelos\" />
+    <Folder Include="Recursos\Estilos\" />
+    <Folder Include="Recursos\Iconos\" />
+    <Folder Include="Servicios\Interfaces\" />
+    <Folder Include="ViewModel\" />
+    <Folder Include="Vista\UserControl\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.4.11" />
+    <PackageReference Include="MaterialDesignThemes.MahApps" Version="5.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Recursos\Imagenes\LocoClaro.jpg" />
+    <Resource Include="Recursos\Imagenes\LogoOscur-removebg-preview.png" />
+    <Resource Include="Recursos\Imagenes\LogoOscur.jpg" />
+    <Resource Include="Recursos\Imagenes\Onades de seda blava i daurada.png" />
+  </ItemGroup>
+
+</Project>

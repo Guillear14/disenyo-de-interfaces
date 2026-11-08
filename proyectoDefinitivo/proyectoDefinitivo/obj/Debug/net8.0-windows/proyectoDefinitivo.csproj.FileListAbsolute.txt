@@ -1,0 +1,65 @@
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.csproj.AssemblyReference.cache
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\Vista\Dialogo\PantallaLogin.g.cs
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo_MarkupCompile.cache
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo_MarkupCompile.lref
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\proyectoDefinitivo.exe
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\proyectoDefinitivo.deps.json
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\proyectoDefinitivo.runtimeconfig.json
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\proyectoDefinitivo.dll
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\proyectoDefinitivo.pdb
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\ControlzEx.dll
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\MahApps.Metro.dll
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\MaterialDesignColors.dll
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\MaterialDesignThemes.Wpf.dll
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\MaterialDesignThemes.MahApps.dll
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\Microsoft.Xaml.Behaviors.dll
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\de\MahApps.Metro.resources.dll
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\App.baml
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\MainWindow.baml
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\Vista\Dialogo\PantallaLogin.baml
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.g.resources
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.AssemblyInfoInputs.cache
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.AssemblyInfo.cs
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.csproj.CoreCompileInputs.cache
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.sourcelink.json
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyecto.6F3C354C.Up2Date
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.dll
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\refint\proyectoDefinitivo.dll
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.pdb
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.genruntimeconfig.cache
+C:\Users\crisaegar\Desktop\2DAM\Diseño de Interfaces\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\ref\proyectoDefinitivo.dll
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\proyectoDefinitivo.exe
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\proyectoDefinitivo.deps.json
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\proyectoDefinitivo.runtimeconfig.json
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\proyectoDefinitivo.dll
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\proyectoDefinitivo.pdb
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\ControlzEx.dll
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\MahApps.Metro.dll
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\MaterialDesignColors.dll
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\MaterialDesignThemes.Wpf.dll
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\MaterialDesignThemes.MahApps.dll
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\Microsoft.Xaml.Behaviors.dll
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\bin\Debug\net8.0-windows\de\MahApps.Metro.resources.dll
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.csproj.AssemblyReference.cache
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\Vista\Dialogo\PantallaLogin.g.cs
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo_MarkupCompile.cache
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo_MarkupCompile.lref
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\App.baml
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\MainWindow.baml
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\Vista\Dialogo\PantallaLogin.baml
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.g.resources
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.AssemblyInfoInputs.cache
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.AssemblyInfo.cs
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.csproj.CoreCompileInputs.cache
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyecto.6F3C354C.Up2Date
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.dll
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\refint\proyectoDefinitivo.dll
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.pdb
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\proyectoDefinitivo.genruntimeconfig.cache
+C:\Users\guiararam\Downloads\proyectoDefinitivo-20261106T085349Z-1-001\proyectoDefinitivo\proyectoDefinitivo\obj\Debug\net8.0-windows\ref\proyectoDefinitivo.dll
