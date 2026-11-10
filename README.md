@@ -1,3 +1,21 @@
+# 🎯 Repositorio de Diseño de Interfaces (WPF, XAML & C#)
+
+Repositorio organizado por bloques temáticos con todos los ejercicios prácticos, plantillas base, enunciados y chuletas de examen de **Diseño de Interfaces (DAM)**.
+
+## 🗂️ Estructura de Carpetas del Repositorio
+
+| Carpeta | Contenido | Acceso Directo |
+| :--- | :--- | :--- |
+| 🌐 **[`IndiceExamen.html`](./IndiceExamen.html)** | **Lanzador Web Interactivo** por tramos con buscador en vivo | [Abrir Lanzador](./IndiceExamen.html) |
+| 📁 **[`01_Teoria_y_Enunciados_PDF/`](./01_Teoria_y_Enunciados_PDF)** | Temas 1, 2 y 3 en PDF, dossieres de ejercicios y enunciado oficial de examen | [Ver carpeta](./01_Teoria_y_Enunciados_PDF) |
+| 📁 **[`02_Cheatsheets_y_Chuletas/`](./02_Cheatsheets_y_Chuletas)** | Chuletas Markdown listas para copiar (`Ctrl+F`) y 11 Cheatsheets en PDF/HTML | [⚡ CHULETA_EXAMEN.md](./02_Cheatsheets_y_Chuletas/CHULETA_EXAMEN.md) · [📘 CHULETA_EXAMEN_DI.md](./02_Cheatsheets_y_Chuletas/CHULETA_EXAMEN_DI.md) |
+| 📁 **[`03_Unidad2_Dashboards_y_Logins/`](./03_Unidad2_Dashboards_y_Logins)** | **Ejercicios 1 al 11 (Unidad 2)**: Dashboards, `MetroWindow`, degradados, `OpacityMask`, bordes redondeados | [Ver ejercicios 1–11](./03_Unidad2_Dashboards_y_Logins) |
+| 📁 **[`04_Unidad2_Formularios_MaterialDesign/`](./04_Unidad2_Formularios_MaterialDesign)** | **Ejercicios 12 al 15 (Unidad 2)**: Formularios con `ComboBox`, `DatePicker`, `FloatingHint` y `NumericUpDown` | [⭐ Plantilla Base (Ej. 14)](./04_Unidad2_Formularios_MaterialDesign/di.unidad2.ejercicio14) |
+| 📁 **[`05_Unidad3_Menus_Ribbon_y_Navegacion/`](./05_Unidad3_Menus_Ribbon_y_Navegacion)** | **Ejercicios 1 al 5 (Unidad 3)**: `Menu`, `ToolBar`, `Fluent.Ribbon`, `Expander` y `HamburgerMenu` | [Ver ejercicios U3](./05_Unidad3_Menus_Ribbon_y_Navegacion) |
+| 📁 **[`06_Proyecto_Definitivo_y_Examen/`](./06_Proyecto_Definitivo_y_Examen)** | **Proyecto Definitivo** (`PantallaLogin` con `Viewbox` y `Triggers`) y **Examen 19/11/2025** (SQLite + Modal) | [Ver proyectos](./06_Proyecto_Definitivo_y_Examen) |
+
+---
+
 # Guía rápida de Diseño de Interfaces
 
 Chuleta práctica de **WPF, XAML, C# y Jetpack Compose**, basada en los proyectos de este repositorio y en los ejemplos Android del workspace. Los fragmentos están pensados para copiar dentro de una `Window`, `Page`, clase o función Compose equivalente.

@@ -1,0 +1,100 @@
+<!-- ========================================================================== -->
+<!-- PROYECTO: di.unidad2.ejercicio6                                            -->
+<!-- EJERCICIO: Unidad 2 - Ejercicio 6 (Esquinas redondeadas y OpacityMask)     -->
+<!-- CARACTERISTICAS: Ventana con bordes redondeados (50px) usando Border,      -->
+<!--                  VisualBrush como OpacityMask para recortar la imagen      -->
+<!--                  y formulario con estilos de Material Design.              -->
+<!-- ========================================================================== -->
+
+<!-- <Window>: Ventana estandar de WPF.                                         -->
+<!-- WindowStyle="None": Oculta la barra de ventana para dar estilo curvado.    -->
+<!-- AllowsTransparency="True": Permite ver el fondo redondeado sin marco gris. -->
+<Window x:Class="di.unidad2.ejercicio6.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:di.unidad2.ejercicio6"
+        xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        ShowInTaskbar="False"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        Title="MainWindow" Height="700" Width="1100">
+
+    <!-- Cuadricula principal dividida en dos columnas de ancho igual (5* y 5*) -->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*" /> <!-- Columna 0: Imagen con curva -->
+            <ColumnDefinition Width="5*" /> <!-- Columna 1: Formulario blanco -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Fondo blanco redondeado para toda la ventana (Grid.ColumnSpan="2") -->
+        <!-- CornerRadius="50,50,50,50": Redondea las 4 esquinas de la ventana -->
+        <Border BorderThickness="1" CornerRadius="50,50,50,50" BorderBrush="White"
+                Background="White" Grid.ColumnSpan="2"/>
+
+        <!-- Columna 0: Imagen recortada con mascara de opacidad (OpacityMask) -->
+        <Grid>
+            <!-- OpacityMask: Recorta la imagen segun la forma del borde 'Mask' -->
+            <Grid.OpacityMask>
+                <VisualBrush Visual="{Binding ElementName=Mask}" />
+            </Grid.OpacityMask>
+
+            <!-- Borde de mascara con solo las 2 esquinas izquierdas redondeadas (50 0 0 50) -->
+            <Border Name="Mask" BorderBrush="White" Background="White"
+                    CornerRadius="50 0 0 50" />
+
+            <!-- Imagen que queda recortada automaticamente por la mascara -->
+            <Image Source="/Recursos/imagenes/office.jpg" Stretch="UniformToFill" />
+
+            <!-- Texto superpuesto sobre la imagen -->
+            <TextBlock VerticalAlignment="Center" Text="Inventario Matisse"
+                       TextWrapping="WrapWithOverflow" Width="350"
+                       Foreground="White" FontSize="64" HorizontalAlignment="Left"
+                       Margin="30,0,0,0" FontWeight="Bold"/>
+        </Grid>
+
+        <!-- Columna 1: Panel de formulario de acceso a la derecha -->
+        <Grid Grid.Column="1" Margin="60">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/> <!-- Fila 0: Titulo LOGIN -->
+                <RowDefinition Height="auto"/> <!-- Fila 1: Subtitulo -->
+                <RowDefinition Height="auto"/> <!-- Fila 2: Nombre de usuario -->
+                <RowDefinition Height="auto"/> <!-- Fila 3: Password -->
+                <RowDefinition Height="auto"/> <!-- Fila 4: Terminos y condiciones -->
+                <RowDefinition Height="auto"/> <!-- Fila 5: Boton Login -->
+                <RowDefinition Height="auto"/> <!-- Fila 6: Texto redes -->
+                <RowDefinition Height="auto"/> <!-- Fila 7: Botones sociales -->
+            </Grid.RowDefinitions>
+
+            <!-- Titulo LOGIN -->
+            <TextBlock Text="LOGIN" Foreground="Black" FontSize="25" FontWeight="Bold" />
+            <TextBlock Text="Inicia sesión en la aplicación" FontSize="10" Grid.Row="1" Margin="0,20,0,0" Foreground="Gray" />
+
+            <!-- TextBox de usuario con texto de ayuda (Hint) -->
+            <TextBox Grid.Row="2" mat:HintAssist.Hint="Nombre de usuario" BorderThickness="0,0,0,1" Margin="0,20,0,0" BorderBrush="Black" />
+
+            <!-- PasswordBox seguro con texto de ayuda -->
+            <PasswordBox Grid.Row="3" mat:HintAssist.Hint="Password" BorderThickness="0,0,0,1" Margin="0,20,0,0" BorderBrush="Black" />
+
+            <!-- Casilla de aceptacion de terminos -->
+            <CheckBox Grid.Row="4" Content="Acepto los términos de la Política de Privacidad" Foreground="Black" Margin="0,20,0,0" FontSize="10" />
+
+            <!-- Boton de LOGIN redondeado en rojo -->
+            <Button Grid.Row="5" Content="LOGIN" Background="#DE243A" Foreground="White" Width="100" HorizontalAlignment="Right" Margin="0,20,0,0" BorderBrush="#DE243A"/>
+
+            <!-- Texto de redes sociales -->
+            <TextBlock Grid.Row="6" Text="Login con redes sociales" Foreground="Gray" FontSize="10" Margin="0,30,0,0"/>
+
+            <!-- Botones de Facebook, Twitter y Google -->
+            <StackPanel Grid.Row="7" Orientation="Horizontal" Margin="0,10,0,0">
+                <Button Content="f Facebook" Background="#3b5998" Foreground="White" Margin="0,0,10,0" Width="100" Height="30"/>
+                <Button Content="Twitter" Background="#00acee" Foreground="White" Margin="0,0,10,0" Width="100" Height="30"/>
+                <Button Content="G+ Google +" Background="#db4437" Foreground="White" Width="100" Height="30"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
