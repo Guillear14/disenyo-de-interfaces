@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>CheatSheet #10 - Unidad 3 · Ejercicio 4 + Proyecto Definitivo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+  @page { size: A4 portrait; margin: 8mm 10mm 8mm 10mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    color: #0f172a;
+    background: #ffffff;
+    font-size: 8.5pt;
+    line-height: 1.38;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .sheet-page { page-break-after: always; height: 280mm; display: flex; flex-direction: column; justify-content: space-between; padding-bottom: 2mm; }
+  .sheet-page:last-child { page-break-after: avoid; }
+  .doc-header { border-bottom: 2px solid #7c3aed; padding-bottom: 4px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .badge-group { display: flex; gap: 5px; align-items: center; margin-bottom: 2px; flex-wrap: wrap; }
+  .badge { font-size: 7pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; padding: 1.5px 6px; border-radius: 3px; }
+  .badge-primary { background: #f5f3ff; color: #6d28d9; border: 1px solid #ddd6fe; }
+  .badge-dark { background: #111827; color: #f8fafc; }
+  .badge-unit { background: #f8fafc; color: #475569; font-weight: 600; border: 1px solid #cbd5e1; }
+  .doc-title { font-size: 14pt; font-weight: 800; line-height: 1.1; margin-top: 2px; }
+  .doc-subtitle { font-size: 8pt; color: #475569; font-weight: 500; }
+  .header-meta { text-align: right; font-size: 7.5pt; color: #64748b; }
+  .header-meta strong { display: block; font-size: 8.5pt; color: #0f172a; }
+  .section-banner {
+    background: linear-gradient(135deg, #312e81 0%, #4f46e5 100%);
+    color: #ffffff;
+    padding: 5px 10px; border-radius: 5px;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 6px;
+  }
+  .section-banner.alt { background: linear-gradient(135deg, #0f172a 0%, #1f2937 100%); }
+  .section-banner.alt2 { background: linear-gradient(135deg, #7c2d12 0%, #c2410c 100%); }
+  .section-num { font-size: 9.5pt; font-weight: 800; color: #c7d2fe; }
+  .section-name { font-size: 9pt; font-weight: 700; margin-left: 6px; }
+  .key-box {
+    padding: 5px 9px; border-left: 4px solid #8b5cf6; background: #f5f3ff; border-radius: 0 4px 4px 0;
+    font-size: 8pt; margin-bottom: 6px;
+  }
+  .key-box strong { color: #6d28d9; }
+  .study-strip {
+    background: linear-gradient(135deg, #ecfeff 0%, #f8fafc 100%);
+    border-left: 4px solid #0891b2; border: 1px solid #a5f3fc; border-left: 4px solid #0891b2; border-radius: 0 4px 4px 0;
+    padding: 5px 8px; margin-bottom: 6px; font-size: 7.5pt; color: #0f172a;
+  }
+  .study-strip strong { color: #0f766e; }
+  .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 6px; }
+  .info-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; padding: 4px 7px; font-size: 7.5pt; }
+  .info-card strong { display: block; color: #0f172a; margin-bottom: 1px; }
+  .code-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 6px; margin-bottom: 6px; }
+  .code-card { background: #ffffff; border: 1px solid #dbe2ea; border-radius: 5px; overflow: hidden; display: flex; flex-direction: column; }
+  .code-card-header { background: #f1f5f9; padding: 3px 7px; border-bottom: 1px solid #cbd5e1; display: flex; justify-content: space-between; align-items: center; }
+  .code-card-title { font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; color: #1e293b; }
+  .tag { font-size: 6.5pt; padding: 1px 4px; border-radius: 3px; font-weight: 700; background: #e2e8f0; color: #334155; }
+  pre {
+    background: #0b1220; color: #e2e8f0; font-family: 'Fira Code', 'Consolas', monospace; font-size: 6.7pt; line-height: 1.33; padding: 6px 8px; margin: 0; white-space: pre; overflow: hidden;
+  }
+  .kw { color: #f472b6; font-weight: 600; }
+  .tagx { color: #7dd3fc; }
+  .attr { color: #fbbf24; }
+  .str { color: #a3e635; }
+  .cm { color: #94a3b8; font-style: italic; }
+  .type { color: #4ade80; }
+  .hl { background: rgba(56, 189, 248, 0.20); }
+  .traps-card { background: #fff7ed; border: 1.5px solid #f59e0b; border-radius: 5px; padding: 6px 9px; }
+  .traps-header { display: flex; align-items: center; gap: 5px; margin-bottom: 4px; }
+  .traps-title { font-size: 8pt; font-weight: 800; color: #b45309; text-transform: uppercase; letter-spacing: 0.4px; }
+  .traps-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 10px; }
+  .traps-list li { font-size: 7.2pt; color: #78350f; line-height: 1.3; position: relative; padding-left: 12px; }
+  .traps-list li::before { content: "✦"; position: absolute; left: 0; top: 0; color: #dc2626; font-weight: 800; }
+  .sheet-footer { border-top: 1px solid #e2e8f0; padding-top: 3px; display: flex; justify-content: space-between; align-items: center; font-size: 7pt; color: #94a3b8; }
+  .sheet-footer strong { color: #64748b; }
+</style>
+</head>
+<body>
+  <div class="sheet-page">
+    <div>
+      <div class="doc-header">
+        <div>
+          <div class="badge-group">
+            <span class="badge badge-dark">DAM</span>
+            <span class="badge badge-primary">DISEÑO DE INTERFACES</span>
+            <span class="badge badge-unit">UNIDAD 3</span>
+          </div>
+          <h1 class="doc-title">CheatSheet #10: Unidad 3 · Ejercicio 4 + Proyecto Definitivo</h1>
+          <div class="doc-subtitle">WPF + MahApps + MaterialDesign + navegación entre ventanas + login modal</div>
+        </div>
+        <div class="header-meta">
+          <strong>IES Henri Matisse</strong>
+          <span>2º DAM · Examen práctico</span>
+        </div>
+      </div>
+
+      <div class="section-banner">
+        <div>
+          <span class="section-num">EJERCICIO 04</span>
+          <span class="section-name">Menú Hamburguesa con HamburgerMenu de MahApps</span>
+        </div>
+        <span class="badge badge-primary">mah:HamburgerMenu</span>
+      </div>
+
+      <div class="key-box">
+        <strong>Concepto clave:</strong> el ejercicio trata de crear una navegación lateral en estilo móvil/desktop con <code>HamburgerMenu</code>, usando <code>ItemsSource</code> para las opciones principales y <code>OptionsItemsSource</code> para las secundarias. La clave está en personalizar la plantilla del menú.
+      </div>
+
+      <div class="study-strip">
+        <strong>Resumen:</strong> no es un simple menú; es una composición de <code>HamburgerMenu</code> + <code>DataTemplate</code> + <code>Grid</code> + <code>Icons</code> + <code>ItemsSource</code>. Eso permite que el mismo patrón sirva para menús, inventarios o administración.
+      </div>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <strong>1. Estructura visual</strong>
+          El menú se monta en un <code>Grid</code> y el control principal es <code>mah:HamburgerMenu</code>.
+        </div>
+        <div class="info-card">
+          <strong>2. Plantilla reutilizable</strong>
+          <code>DataTemplate</code> define cómo dibujar cada ítem: icono + texto + altura uniforme.
+        </div>
+        <div class="info-card">
+          <strong>3. Qué hace la lógica</strong>
+          En este caso la lógica es casi nula; el comportamiento visual es por XAML. Eso es típico del ejercicio.
+        </div>
+      </div>
+
+      <div class="code-grid">
+        <div class="code-card">
+          <div class="code-card-header">
+            <span class="code-card-title">XAML clave</span>
+            <span class="tag">WPF</span>
+          </div>
+          <pre><span class="cm">&lt;!-- Plantilla del elemento del menú --&gt;</span>
+<span class="tagx">&lt;DataTemplate</span> <span class="attr">x:Key=</span><span class="str">"MenuItemTemplateIcon"</span> <span class="attr">DataType=</span><span class="str">"{x:Type mah:HamburgerMenuIconItem}"</span><span class="tagx">&gt;</span>
+    <span class="tagx">&lt;Grid</span> <span class="attr">Height=</span><span class="str">"48"</span><span class="tagx">&gt;</span>
+        <span class="tagx">&lt;Grid.ColumnDefinitions&gt;</span>
+            <span class="tagx">&lt;ColumnDefinition</span> <span class="attr">Width=</span><span class="str">"48"</span> <span class="tagx">/&gt;</span>
+            <span class="tagx">&lt;ColumnDefinition</span> <span class="tagx">/&gt;</span>
+        <span class="tagx">&lt;/Grid.ColumnDefinitions&gt;</span>
+        <span class="tagx">&lt;ContentControl</span> <span class="attr">Grid.Column=</span><span class="str">"0"</span> <span class="attr">Content=</span><span class="str">"{Binding Icon}"</span> <span class="tagx">/&gt;</span>
+        <span class="tagx">&lt;TextBlock</span> <span class="attr">Grid.Column=</span><span class="str">"1"</span> <span class="attr">Text=</span><span class="str">"{Binding Label}"</span> <span class="tagx">/&gt;</span>
+    <span class="tagx">&lt;/Grid&gt;</span>
+<span class="tagx">&lt;/DataTemplate&gt;</span>
+
+<span class="cm">&lt;!-- Menú principal --&gt;</span>
+<span class="tagx">&lt;mah:HamburgerMenu</span>
+    <span class="attr">PaneBackground=</span><span class="str">"#3B3B3B"</span>
+    <span class="attr">DisplayMode=</span><span class="str">"CompactInline"</span>
+    <span class="attr">ItemTemplate=</span><span class="str">"{StaticResource MenuItemTemplateIcon}"</span>
+    <span class="attr">OptionsItemTemplate=</span><span class="str">"{StaticResource MenuItemTemplateIcon}"</span><span class="tagx">&gt;</span>
+    <span class="tagx">&lt;mah:HamburgerMenu.ItemsSource&gt;</span>
+        <span class="tagx">&lt;mah:HamburgerMenuItemCollection&gt;</span>
+            <span class="tagx">&lt;mah:HamburgerMenuIconItem</span> <span class="attr">Label=</span><span class="str">"Préstamos"</span> <span class="attr">Icon=</span><span class="str">"{mat:PackIcon Kind=Sync}"</span> <span class="tagx">/&gt;</span>
+            <span class="tagx">&lt;mah:HamburgerMenuIconItem</span> <span class="attr">Label=</span><span class="str">"Administración"</span> <span class="attr">Icon=</span><span class="str">"{mat:PackIcon Kind=Help}"</span> <span class="tagx">/&gt;</span>
+        <span class="tagx">&lt;/mah:HamburgerMenuItemCollection&gt;</span>
+    <span class="tagx">&lt;/mah:HamburgerMenu.ItemsSource&gt;</span>
+<span class="tagx">&lt;/mah:HamburgerMenu&gt;</span></pre>
+        </div>
+        <div class="code-card">
+          <div class="code-card-header">
+            <span class="code-card-title">Lógica</span>
+            <span class="tag">C#</span>
+          </div>
+          <pre><span class="kw">public partial class</span> <span class="type">MainWindow</span> : <span class="type">MetroWindow</span>
+{
+    <span class="kw">public</span> <span class="type">MainWindow</span>()
+    {
+        <span class="hl">InitializeComponent();</span>
+    }
+}</pre>
+        </div>
+      </div>
+
+      <div class="traps-card">
+        <div class="traps-header">
+          <span>⚠️</span>
+          <span class="traps-title">Trampas del ejercicio 4</span>
+        </div>
+        <ul class="traps-list">
+          <li>Si no usas <code>mah:HamburgerMenu</code>, el menú no integra bien con MahApps.</li>
+          <li>El <code>DataTemplate</code> debe usar <code>{Binding Icon}</code> y <code>{Binding Label}</code>.</li>
+          <li>Los <code>HamburgerMenuIconItem</code> deben ir dentro de <code>HamburgerMenuItemCollection</code>.</li>
+          <li>Si cambias la altura del título del icono, se rompe la alineación visual.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sheet-footer">
+      <span>Unidad 3 · Navegación y estilo visual profesional</span>
+      <span>Página 1 de 2</span>
+    </div>
+  </div>
+
+  <div class="sheet-page">
+    <div>
+      <div class="doc-header">
+        <div>
+          <div class="badge-group">
+            <span class="badge badge-dark">DAM</span>
+            <span class="badge badge-primary">DISEÑO DE INTERFACES</span>
+            <span class="badge badge-unit">PROYECTO</span>
+          </div>
+          <h1 class="doc-title">Proyecto Definitivo</h1>
+          <div class="doc-subtitle">Login modal, inyección de dependencias y navegación entre ventanas</div>
+        </div>
+        <div class="header-meta">
+          <strong>IES Henri Matisse</strong>
+          <span>2º DAM · Proyecto final</span>
+        </div>
+      </div>
+
+      <div class="section-banner alt2">
+        <div>
+          <span class="section-num">PROYECTO</span>
+          <span class="section-name">Login + navegación + cierre de sesión</span>
+        </div>
+        <span class="badge badge-primary">PantallaLogin + MainWindow</span>
+      </div>
+
+      <div class="key-box">
+        <strong>Qué se está evaluando:</strong> la capacidad de combinar estilo visual, recursos globales y una navegación real entre ventanas. No se trata solo de “poner un formulario bonito”; hay que entender el flujo: login → abrir ventana principal → volver al login al cerrar sesión.
+      </div>
+
+      <div class="study-strip">
+        <strong>Regla de oro:</strong> el contenedor crea las ventanas; el login recibe <code>MainWindow</code> por constructor y la ventana principal recibe <code>Func&lt;PantallaLogin&gt;</code> para pedir un login nuevo al cerrar sesión. La fábrica diferida evita una dependencia circular inmediata.
+      </div>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <strong>1. App.xaml + App.xaml.cs</strong>
+          Los diccionarios visuales siguen en <code>App.xaml</code>; <code>App.xaml.cs</code> registra las ventanas y las resuelve al iniciar.
+        </div>
+        <div class="info-card">
+          <strong>2. PantallaLogin.xaml</strong>
+          Conserva el diseño y recibe <code>MainWindow</code> como dependencia para abrirla tras validar los campos.
+        </div>
+        <div class="info-card">
+          <strong>3. MainWindow.xaml</strong>
+          La pantalla de trabajo recibe una fábrica de login para cerrar sesión sin instanciar ventanas con <code>new</code>.
+        </div>
+      </div>
+
+      <div class="code-grid">
+        <div class="code-card">
+          <div class="code-card-header">
+            <span class="code-card-title">App.xaml.cs · Registro y arranque</span>
+            <span class="tag">DI</span>
+          </div>
+            <pre><span class="cm">// App.xaml conserva los diccionarios visuales.</span>
+      <span class="cm">// Se elimina StartupUri: el contenedor inicia la ventana.</span>
+      <span class="kw">private static void</span> <span class="type">ConfigureServices</span>(<span class="type">IServiceCollection</span> services)
+      {
+        services.AddTransient&lt;<span class="type">PantallaLogin</span>&gt;();
+        services.AddTransient&lt;<span class="type">MainWindow</span>&gt;();
+        services.AddTransient&lt;<span class="type">Func</span>&lt;<span class="type">PantallaLogin</span>&gt;&gt;(sp =&gt;
+          () =&gt; sp.GetRequiredService&lt;<span class="type">PantallaLogin</span>&gt;());
+      }
+
+      <span class="kw">protected override void</span> <span class="type">OnStartup</span>(<span class="type">StartupEventArgs</span> e)
+      {
+        <span class="kw">base</span>.OnStartup(e);
+        <span class="kw">var</span> login = _serviceProvider.GetRequiredService&lt;<span class="type">PantallaLogin</span>&gt;();
+        <span class="type">MainWindow</span> = login;
+        <span class="type">ShutdownMode</span> = <span class="type">ShutdownMode</span>.OnMainWindowClose;
+        login.Show();
+      }</pre>
+        </div>
+        <div class="code-card">
+          <div class="code-card-header">
+            <span class="code-card-title">Login C#</span>
+            <span class="tag">Evento</span>
+          </div>
+            <pre><span class="kw">private readonly</span> <span class="type">MainWindow</span> _mainWindow;
+
+      <span class="kw">public</span> <span class="type">PantallaLogin</span>(<span class="type">MainWindow</span> mainWindow)
+      {
+        InitializeComponent();
+        _mainWindow = mainWindow;
+      }
+
+      <span class="kw">private async void</span> <span class="type">btnLogin_Click</span>(<span class="type">object</span> sender, <span class="type">RoutedEventArgs</span> e)
+{
+    <span class="kw">if</span> (<span class="kw">string</span>.IsNullOrEmpty(txtcorreo.Text) ||
+        <span class="kw">string</span>.IsNullOrEmpty(passClaveAcceso.Password))
+    {
+        <span class="kw">await</span> <span class="hl">this.ShowMessageAsync</span>(<span class="str">"Error de inicio de sesión"</span>,
+            <span class="str">"Por favor, ingrese su correo y contraseña."</span>);
+    }
+    <span class="kw">else</span>
+    {
+      <span class="type">Application</span>.Current.MainWindow = _mainWindow;
+      _mainWindow.Show();
+      Close();
+    }
+}</pre>
+        </div>
+      </div>
+
+      <div class="code-card" style="margin-bottom:6px;">
+        <div class="code-card-header">
+            <span class="code-card-title">MainWindow · Fábrica de login y cierre de sesión</span>
+            <span class="tag">Constructor injection</span>
+        </div>
+          <pre><span class="kw">private readonly</span> <span class="type">Func</span>&lt;<span class="type">PantallaLogin</span>&gt; _loginFactory;
+
+      <span class="kw">public</span> <span class="type">MainWindow</span>(<span class="type">Func</span>&lt;<span class="type">PantallaLogin</span>&gt; loginFactory)
+      {
+        InitializeComponent();
+        _loginFactory = loginFactory;
+      }
+
+      <span class="kw">private void</span> <span class="type">btmcerrarsesion_Click</span>(<span class="type">object</span> sender, <span class="type">RoutedEventArgs</span> e)
+{
+        <span class="type">PantallaLogin</span> pantallaLogin = _loginFactory();
+        <span class="type">Application</span>.Current.MainWindow = pantallaLogin;
+    pantallaLogin.Show();
+        Close();
+}</pre>
+      </div>
+
+      <div class="traps-card">
+        <div class="traps-header">
+          <span>⚠️</span>
+          <span class="traps-title">Trampas del proyecto definitivo</span>
+        </div>
+        <ul class="traps-list">
+          <li>Si no validas correo y contraseña, el diálogo <code>ShowMessageAsync</code> debe lanzarse antes de abrir la siguiente ventana.</li>
+          <li>Elimina <code>StartupUri</code> si <code>OnStartup</code> resuelve el login; de otro modo podrías abrir dos ventanas iniciales.</li>
+          <li>Registra <code>Microsoft.Extensions.DependencyInjection</code> y las ventanas con <code>AddTransient</code>; no las crees con <code>new</code> fuera del contenedor.</li>
+          <li>Asigna <code>Application.Current.MainWindow</code> a la siguiente ventana antes de cerrar la actual para evitar que WPF cierre la aplicación.</li>
+          <li>El <code>Image</code> no es un fondo “mágico”; si el recurso no existe, la imagen no cargará y la pantalla se ve rota.</li>
+          <li>Esta práctica solo valida que los campos no estén vacíos; no comprueba credenciales reales.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sheet-footer">
+      <span>Proyecto definitivo: recursos + DI + flujo login/cierre de sesión</span>
+      <span>Página 2 de 2</span>
+    </div>
+  </div>
+</body>
+</html>

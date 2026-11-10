@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>CheatSheet #11 - Unidad 3 · Ejercicio 5</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+  @page { size: A4 portrait; margin: 8mm 10mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Inter, sans-serif; color: #172033; background: #fff; font-size: 8.5pt; line-height: 1.38; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { height: 280mm; page-break-after: always; display: flex; flex-direction: column; justify-content: space-between; padding-bottom: 2mm; }
+  .page:last-child { page-break-after: avoid; }
+  .header { border-bottom: 2px solid #0e7490; padding-bottom: 4px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .badges { display: flex; gap: 5px; align-items: center; margin-bottom: 3px; }
+  .badge { font-size: 7pt; font-weight: 700; text-transform: uppercase; padding: 1.5px 6px; border-radius: 3px; }
+  .dark { background: #172033; color: #fff; }
+  .blue { background: #ecfeff; color: #0e7490; border: 1px solid #a5f3fc; }
+  .unit { background: #f8fafc; color: #475569; border: 1px solid #cbd5e1; }
+  h1 { font-size: 14pt; line-height: 1.12; color: #101827; }
+  .subtitle { color: #64748b; font-size: 8pt; }
+  .meta { text-align: right; font-size: 7.5pt; color: #64748b; }
+  .meta strong { display: block; color: #172033; font-size: 8.5pt; }
+  .banner { background: linear-gradient(135deg,#164e63,#0e7490); color: #fff; padding: 5px 10px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .banner.alt { background: linear-gradient(135deg,#14532d,#15803d); }
+  .banner strong { color: #a5f3fc; font-size: 9.5pt; }
+  .banner span { font-size: 9pt; font-weight: 700; }
+  .callout { background: #ecfeff; border: 1px solid #a5f3fc; border-left: 4px solid #0891b2; border-radius: 0 4px 4px 0; padding: 5px 9px; margin-bottom: 6px; font-size: 8pt; }
+  .callout strong { color: #0e7490; }
+  .summary { background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 4px solid #16a34a; border-radius: 0 4px 4px 0; padding: 5px 9px; margin-bottom: 6px; font-size: 7.7pt; }
+  .summary strong { color: #15803d; }
+  .cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; margin-bottom: 6px; }
+  .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; padding: 5px 7px; font-size: 7.5pt; }
+  .card strong { display: block; margin-bottom: 2px; color: #0f172a; }
+  .grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 6px; margin-bottom: 6px; }
+  .codebox { border: 1px solid #cbd5e1; border-radius: 5px; overflow: hidden; }
+  .codehead { background: #f1f5f9; padding: 3px 7px; border-bottom: 1px solid #cbd5e1; display: flex; justify-content: space-between; font-size: 7.4pt; font-weight: 700; text-transform: uppercase; }
+  .codehead span:last-child { color: #0e7490; }
+  pre { background: #0b1220; color: #e2e8f0; font: 6.7pt/1.35 'Fira Code',Consolas,monospace; padding: 6px 8px; white-space: pre; overflow: hidden; }
+  .kw { color: #f472b6; font-weight: 600; }
+  .type { color: #4ade80; }
+  .tag { color: #7dd3fc; }
+  .attr { color: #fbbf24; }
+  .str { color: #a3e635; }
+  .cm { color: #94a3b8; font-style: italic; }
+  .hl { background: rgba(56,189,248,.2); }
+  .notes { background: #fff7ed; border: 1px solid #fdba74; border-radius: 5px; padding: 6px 9px; }
+  .notes h2 { font-size: 8pt; text-transform: uppercase; color: #9a3412; margin-bottom: 4px; }
+  .notes ul { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; list-style: none; }
+  .notes li { font-size: 7.3pt; color: #7c2d12; padding-left: 12px; position: relative; }
+  .notes li::before { content: "!"; position: absolute; left: 0; font-weight: 800; color: #ea580c; }
+  footer { border-top: 1px solid #e2e8f0; padding-top: 3px; display: flex; justify-content: space-between; font-size: 7pt; color: #94a3b8; }
+</style>
+</head>
+<body>
+  <section class="page">
+    <div>
+      <header class="header">
+        <div>
+          <div class="badges"><span class="badge dark">DAM</span><span class="badge blue">DISEÑO DE INTERFACES</span><span class="badge unit">UNIDAD 3</span></div>
+          <h1>CheatSheet #11: Ejercicio 5 · Gestión Empresarial</h1>
+          <div class="subtitle">WPF · Ventana personalizada · Panel principal · Alta de empleados con SQLite</div>
+        </div>
+        <div class="meta"><strong>IES Henri Matisse</strong><span>2º DAM · Repaso práctico</span></div>
+      </header>
+
+      <div class="banner"><div><strong>EJERCICIO 05</strong> <span>Aplicación de gestión empresarial</span></div><span>WPF + C#</span></div>
+      <div class="callout"><strong>Objetivo:</strong> construir una ventana de escritorio sin marco estándar, organizar una pantalla de gestión y permitir altas de empleados. El diálogo escribe los datos en una base SQLite local.</div>
+      <div class="summary"><strong>Flujo:</strong> se inicia <code>MainWindow</code> → su constructor crea/verifica <code>empresa.db</code> → el usuario abre “Nuevo empleado” → se validan los campos → un <code>INSERT</code> parametrizado guarda el empleado.</div>
+
+      <div class="cards">
+        <div class="card"><strong>1. Ventana sin marco</strong><code>WindowStyle="None"</code> elimina el marco nativo; <code>AllowsTransparency</code> permite el fondo transparente y el <code>Border</code> dibuja las esquinas.</div>
+        <div class="card"><strong>2. Distribución</strong>Un <code>Grid</code> divide encabezado y cuerpo; el cuerpo separa navegación lateral del panel mediante columnas.</div>
+        <div class="card"><strong>3. Acciones de ventana</strong>Los botones programan minimizar, alternar maximizado/restaurado y cerrar; el encabezado permite arrastrar.</div>
+      </div>
+
+      <div class="grid">
+        <div class="codebox">
+          <div class="codehead"><span>Ventana y disposición · XAML</span><span>MainWindow.xaml</span></div>
+          <pre><span class="tag">&lt;Window</span>
+    <span class="attr">WindowStyle=</span><span class="str">"None"</span>
+    <span class="attr">ResizeMode=</span><span class="str">"NoResize"</span>
+    <span class="attr">AllowsTransparency=</span><span class="str">"True"</span>
+    <span class="attr">Background=</span><span class="str">"Transparent"</span>
+    <span class="attr">MouseLeftButtonDown=</span><span class="str">"Window_MouseLeftButtonDown"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;Border</span> <span class="attr">CornerRadius=</span><span class="str">"20"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;Grid&gt;</span>
+      <span class="tag">&lt;Grid.RowDefinitions&gt;</span>
+        <span class="tag">&lt;RowDefinition</span> <span class="attr">Height=</span><span class="str">"70"</span><span class="tag">/&gt;</span> <span class="cm">&lt;!-- barra --&gt;</span>
+        <span class="tag">&lt;RowDefinition</span> <span class="attr">Height=</span><span class="str">"*"</span><span class="tag">/&gt;</span> <span class="cm">&lt;!-- contenido --&gt;</span>
+      <span class="tag">&lt;/Grid.RowDefinitions&gt;</span>
+      <span class="cm">&lt;!-- Fila 1: menu lateral + panel central --&gt;</span>
+      <span class="tag">&lt;Grid.ColumnDefinitions&gt;</span>
+        <span class="tag">&lt;ColumnDefinition</span> <span class="attr">Width=</span><span class="str">"220"</span><span class="tag">/&gt;</span>
+        <span class="tag">&lt;ColumnDefinition</span> <span class="attr">Width=</span><span class="str">"*"</span><span class="tag">/&gt;</span>
+      <span class="tag">&lt;/Grid.ColumnDefinitions&gt;</span>
+    <span class="tag">&lt;/Grid&gt;</span>
+  <span class="tag">&lt;/Border&gt;</span>
+<span class="tag">&lt;/Window&gt;</span></pre>
+        </div>
+        <div class="codebox">
+          <div class="codehead"><span>Acciones del encabezado</span><span>C#</span></div>
+          <pre><span class="kw">private void</span> <span class="type">Window_MouseLeftButtonDown</span>(
+    <span class="type">object</span> sender, <span class="type">MouseButtonEventArgs</span> e)
+{
+    <span class="kw">if</span> (e.LeftButton == <span class="type">MouseButtonState</span>.Pressed)
+        DragMove();
+}
+
+<span class="kw">private void</span> <span class="type">BtnMaximizar_Click</span>(
+    <span class="type">object</span> sender, <span class="type">RoutedEventArgs</span> e)
+{
+    WindowState = WindowState == <span class="type">WindowState</span>.Maximized
+        ? <span class="type">WindowState</span>.Normal
+        : <span class="type">WindowState</span>.Maximized;
+}
+
+<span class="cm">// Minimizar: WindowState.Minimized</span>
+<span class="cm">// Cerrar: Close()</span></pre>
+        </div>
+      </div>
+
+      <div class="notes">
+        <h2>Detalles que conviene recordar</h2>
+        <ul>
+          <li>Al quitar el marco nativo hay que proporcionar controles propios para cerrar y minimizar.</li>
+          <li><code>DragMove()</code> se llama mientras el botón izquierdo está pulsado.</li>
+          <li><code>ResizeMode="NoResize"</code> impide redimensionar arrastrando el borde.</li>
+          <li>Las tarjetas “Personal”, “Activos” y “Bajas” muestran valores escritos en XAML, no consultas a SQLite.</li>
+        </ul>
+      </div>
+    </div>
+    <footer><span>Unidad 3 · Gestión empresarial WPF</span><span>Página 1 de 2</span></footer>
+  </section>
+
+  <section class="page">
+    <div>
+      <header class="header">
+        <div>
+          <div class="badges"><span class="badge dark">DAM</span><span class="badge blue">DISEÑO DE INTERFACES</span><span class="badge unit">UNIDAD 3 · EJ. 5</span></div>
+          <h1>SQLite y alta de empleados</h1>
+          <div class="subtitle">Inicialización idempotente · Ventana modal propietaria · Validación · INSERT parametrizado</div>
+        </div>
+        <div class="meta"><strong>IES Henri Matisse</strong><span>Parte funcional del ejercicio</span></div>
+      </header>
+
+      <div class="banner alt"><div><strong>PERSISTENCIA</strong> <span>Crear la tabla y guardar empleados</span></div><span>Microsoft.Data.Sqlite</span></div>
+      <div class="callout"><strong>Esquema:</strong> <code>Empleados</code> guarda identificador, nombre, apellidos, departamento, puesto y fecha de alta. La ruta se calcula desde <code>AppDomain.CurrentDomain.BaseDirectory</code>, es decir, junto a la aplicación compilada.</div>
+
+      <div class="grid">
+        <div class="codebox">
+          <div class="codehead"><span>Inicialización de base y tabla</span><span>C# · SQLite</span></div>
+          <pre><span class="kw">private const string</span> DatabaseName = <span class="str">"empresa.db"</span>;
+
+<span class="kw">public static void</span> <span class="type">EnsureDatabaseExists</span>()
+{
+    <span class="kw">var</span> path = Path.Combine(
+        AppDomain.CurrentDomain.BaseDirectory, DatabaseName);
+    <span class="kw">using var</span> connection = <span class="kw">new</span> <span class="type">SqliteConnection</span>(
+        $<span class="str">"Data Source={path}"</span>);
+    connection.Open();
+
+    <span class="kw">using var</span> command = connection.CreateCommand();
+    command.CommandText = @<span class="str">"
+      CREATE TABLE IF NOT EXISTS Empleados (
+        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+        Nombre TEXT NOT NULL,
+        Apellidos TEXT NOT NULL,
+        Departamento TEXT NOT NULL,
+        Puesto TEXT NOT NULL,
+        FechaAlta TEXT NOT NULL DEFAULT (date('now'))
+      );"</span>;
+    command.ExecuteNonQuery();
+}</pre>
+        </div>
+        <div class="codebox">
+          <div class="codehead"><span>Construcción y apertura modal</span><span>C# · WPF</span></div>
+          <pre><span class="kw">public</span> <span class="type">MainWindow</span>()
+{
+    InitializeComponent();
+    <span class="hl">EnsureDatabaseExists();</span>
+}
+
+<span class="kw">private void</span> <span class="type">BtnNuevoEmpleado_Click</span>(
+    <span class="type">object</span> sender, <span class="type">RoutedEventArgs</span> e)
+{
+    <span class="kw">var</span> dialog = <span class="kw">new</span> <span class="type">AddEmpleadoDialog</span>();
+    dialog.Owner = <span class="kw">this</span>;
+    <span class="hl">dialog.ShowDialog();</span>
+}</pre>
+          <div style="padding:6px 8px;font-size:7.5pt;color:#334155;background:#f8fafc;">El diálogo se construye en C#; sus TextBox, ComboBox y botones se crean por código. <code>Owner</code> y <code>ShowDialog()</code> lo vinculan a la ventana principal y lo muestran de forma modal.</div>
+        </div>
+      </div>
+
+      <div class="codebox" style="margin-bottom:6px;">
+        <div class="codehead"><span>Validación y guardado seguro</span><span>C# · SQL parametrizado</span></div>
+        <pre><span class="kw">var</span> nombre = nombreTextBox.Text.Trim();
+<span class="kw">var</span> apellidos = apellidosTextBox.Text.Trim();
+<span class="kw">var</span> departamento = departamentoCombo.SelectedItem?.ToString();
+<span class="kw">var</span> puesto = puestoCombo.SelectedItem?.ToString();
+<span class="kw">if</span> (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellidos) ||
+    string.IsNullOrWhiteSpace(departamento) || string.IsNullOrWhiteSpace(puesto))
+{
+    MessageBox.Show(<span class="str">"Debes completar todos los campos..."</span>);
+    <span class="kw">return</span>;
+}
+command.CommandText = @<span class="str">"INSERT INTO Empleados (Nombre, Apellidos, Departamento, Puesto)
+    VALUES (@nombre, @apellidos, @departamento, @puesto);"</span>;
+command.Parameters.AddWithValue(<span class="str">"@nombre"</span>, nombre);
+command.Parameters.AddWithValue(<span class="str">"@apellidos"</span>, apellidos);
+command.Parameters.AddWithValue(<span class="str">"@departamento"</span>, departamento);
+command.Parameters.AddWithValue(<span class="str">"@puesto"</span>, puesto);
+command.ExecuteNonQuery();</pre>
+      </div>
+
+      <div class="notes">
+        <h2>Trampas y límites de la implementación</h2>
+        <ul>
+          <li><code>CREATE TABLE IF NOT EXISTS</code> permite iniciar la app varias veces sin recrear la tabla.</li>
+          <li>Los parámetros SQL separan los valores del comando y evitan concatenar entrada del usuario en la consulta.</li>
+          <li>El diálogo valida los cuatro datos obligatorios y muestra errores/excepciones con <code>MessageBox</code>.</li>
+          <li>El alta sí persiste en SQLite, pero la lista “Últimos empleados” todavía usa elementos estáticos y no se recarga desde la tabla.</li>
+        </ul>
+      </div>
+    </div>
+    <footer><span>Ejercicio 5 · Base local empresa.db · Inserción de empleados</span><span>Página 2 de 2</span></footer>
+  </section>
+</body>
+</html>

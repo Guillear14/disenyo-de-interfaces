@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Cheatsheet DI - Ejercicios 1 y 2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap');
+
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm 8mm 10mm;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #0f172a;
+    background: #ffffff;
+    font-size: 8.5pt;
+    line-height: 1.35;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .sheet-page {
+    page-break-after: always;
+    height: 280mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 2mm;
+  }
+
+  .sheet-page:last-child {
+    page-break-after: avoid;
+  }
+
+  /* Header principal */
+  .doc-header {
+    border-bottom: 2px solid #2563eb;
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .badge-group {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-bottom: 2px;
+  }
+
+  .badge {
+    font-size: 7pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 1.5px 6px;
+    border-radius: 3px;
+  }
+
+  .badge-primary { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+  .badge-dark { background: #0f172a; color: #f8fafc; }
+  .badge-unit { background: #f8fafc; color: #475569; font-weight: 600; border: 1px solid #cbd5e1; }
+
+  .doc-title {
+    font-size: 13.5pt;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.3px;
+    line-height: 1.1;
+  }
+
+  .doc-subtitle {
+    font-size: 8pt;
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  .header-meta {
+    text-align: right;
+    font-size: 7.5pt;
+    color: #64748b;
+  }
+
+  .header-meta strong {
+    color: #0f172a;
+    display: block;
+    font-size: 8.5pt;
+  }
+
+  /* Banner de Ejercicio */
+  .exercise-banner {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .exercise-banner.theme-alt {
+    background: linear-gradient(135deg, #022047 0%, #0c366e 100%);
+  }
+
+  .exercise-num {
+    font-size: 10pt;
+    font-weight: 800;
+    color: #38bdf8;
+  }
+
+  .exercise-name {
+    font-size: 9.5pt;
+    font-weight: 600;
+    margin-left: 6px;
+    color: #ffffff;
+  }
+
+  /* Concepto Clave */
+  .key-concept-box {
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    border-left: 4px solid #16a34a;
+    padding: 5px 9px;
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .key-concept-label {
+    font-size: 7.5pt;
+    font-weight: 800;
+    color: #15803d;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+
+  .key-concept-text {
+    font-size: 8.5pt;
+    color: #14532d;
+    font-weight: 600;
+  }
+
+  .study-strip {
+    background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
+    border: 1px solid #bfdbfe;
+    border-left: 4px solid #2563eb;
+    border-radius: 0 4px 4px 0;
+    padding: 5px 8px;
+    margin: 0 0 6px 0;
+    font-size: 7.5pt;
+    color: #1e3a8a;
+    font-weight: 600;
+  }
+
+  .study-strip strong {
+    color: #1d4ed8;
+  }
+
+  /* Puntos Clave de Maquetación */
+  .anatomy-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .anatomy-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 4px 7px;
+    font-size: 7.5pt;
+    color: #334155;
+  }
+
+  .anatomy-card strong {
+    color: #0f172a;
+    display: block;
+    font-size: 7.5pt;
+    margin-bottom: 1px;
+  }
+
+  /* Grid de Código */
+  .code-grid {
+    display: grid;
+    grid-template-columns: 1.12fr 0.88fr;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .code-card {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .code-card-header {
+    background: #f1f5f9;
+    padding: 3px 7px;
+    border-bottom: 1px solid #cbd5e1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .code-card-title {
+    font-size: 7.5pt;
+    font-weight: 700;
+    color: #1e293b;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .code-tag {
+    font-size: 6.5pt;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-weight: 700;
+    background: #e2e8f0;
+    color: #334155;
+  }
+
+  pre {
+    background: #090d16;
+    color: #f1f5f9;
+    font-family: 'Fira Code', 'Consolas', monospace;
+    font-size: 6.8pt;
+    line-height: 1.32;
+    padding: 6px 8px;
+    margin: 0;
+    white-space: pre;
+    overflow: hidden;
+  }
+
+  /* Resaltado de Sintaxis */
+  .kw { color: #f472b6; font-weight: 600; }    /* keywords */
+  .tag { color: #38bdf8; font-weight: 600; }   /* tags */
+  .attr { color: #fbbf24; }                   /* attributes */
+  .str { color: #a3e635; }                    /* strings */
+  .cm { color: #64748b; font-style: italic; } /* comments */
+  .type { color: #4ade80; font-weight: 600; } /* types */
+  .hl { background: rgba(56, 189, 248, 0.22); color: #ffffff; font-weight: 600; }
+
+  /* Trampas de Examen */
+  .traps-card {
+    background: #fffbeb;
+    border: 1.5px solid #f59e0b;
+    border-radius: 5px;
+    padding: 6px 9px;
+  }
+
+  .traps-header {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 4px;
+  }
+
+  .traps-title {
+    font-size: 8pt;
+    font-weight: 800;
+    color: #b45309;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+
+  .traps-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 10px;
+  }
+
+  .traps-list li {
+    font-size: 7.4pt;
+    color: #78350f;
+    line-height: 1.3;
+    position: relative;
+    padding-left: 13px;
+  }
+
+  .traps-list li::before {
+    content: "✖";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #dc2626;
+    font-weight: 800;
+    font-size: 7pt;
+  }
+
+  .traps-list li strong {
+    color: #92400e;
+  }
+
+  .traps-list li code {
+    background: rgba(245, 158, 11, 0.22);
+    padding: 0 2px;
+    border-radius: 2px;
+    font-family: 'Fira Code', monospace;
+    font-size: 7.2pt;
+    color: #78350f;
+  }
+
+  /* Footer */
+  .sheet-footer {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 7pt;
+    color: #94a3b8;
+  }
+
+  .sheet-footer strong {
+    color: #64748b;
+  }
+</style>
+</head>
+<body>
+
+  <!-- ==================== PÁGINA 1: EJERCICIO 1 ==================== -->
+  <div class="sheet-page">
+    <div>
+      <div class="doc-header">
+        <div>
+          <div class="badge-group">
+            <span class="badge badge-dark">DAM</span>
+            <span class="badge badge-primary">DISEÑO DE INTERFACES</span>
+            <span class="badge badge-unit">UNIDAD 2 &bull; PARTE 1/2</span>
+          </div>
+          <h1 class="doc-title">CheatSheet #01: Ejercicios 1 y 2 (WPF & XAML)</h1>
+          <div class="doc-subtitle">Repaso exprés de examen &bull; Layouts sin marco, DockPanel, MetroWindow y Recursos</div>
+        </div>
+        <div class="header-meta">
+          <strong>IES Henri Matisse</strong>
+          <span>2º DAM &bull; Evaluación Práctica</span>
+        </div>
+      </div>
+
+      <div class="exercise-banner">
+        <div>
+          <span class="exercise-num">EJERCICIO 01</span>
+          <span class="exercise-name">SafetyBoost Dashboard (Ventana Sin Marco & DockPanel)</span>
+        </div>
+        <span class="badge badge-dark">di.unidad2.ejercicio1</span>
+      </div>
+
+      <div class="key-concept-box">
+        <span class="key-concept-label">🎯 Concepto Clave:</span>
+        <span class="key-concept-text">Ventana moderna sin marco del SO (<code>WindowStyle="None"</code>) con layout híbrido <code>DockPanel</code> + <code>Grid</code> anidados y control manual de ventana en C# (<code>WindowState</code> y <code>Close()</code>).</span>
+      </div>
+
+      <div class="study-strip">
+        <strong>Resumen de estudio:</strong> repasa la estructura del layout, la necesidad de una barra de control propia y la diferencia entre <code>Grid.Column</code> y <code>Grid.ColumnSpan</code> para que la composición no se rompa en el examen.
+      </div>
+
+      <div class="anatomy-row">
+        <div class="anatomy-card">
+          <strong>1. Ventana Sin Bordes</strong>
+          <code>WindowStyle="None"</code> y <code>AllowsTransparency="True"</code> eliminan la barra nativa del SO.
+        </div>
+        <div class="anatomy-card">
+          <strong>2. Acoplamiento DockPanel</strong>
+          Ancla panel lateral a la izquierda (<code>Dock="Left"</code>) y barra roja arriba (<code>Dock="Top"</code>).
+        </div>
+        <div class="anatomy-card">
+          <strong>3. Rejilla Central Responsiva</strong>
+          <code>Grid</code> con columnas/filas proporcionales (<code>*</code>) y expansión con <code>ColumnSpan</code>.
+        </div>
+      </div>
+
+      <div class="code-grid">
+        <!-- Columna XAML -->
+        <div class="code-card">
+          <div class="code-card-header">
+            <span class="code-card-title">🎨 Snippet Interfaz Crucial (MainWindow.xaml)</span>
+            <span class="code-tag">XAML</span>
+          </div>
+          <pre><span class="cm">&lt;!-- Ventana sin marco nativo y maximizada --&gt;</span>
+<span class="tag">&lt;Window</span> <span class="attr">x:Class=</span><span class="str">"di.unidad2.ejercicio1.MainWindow"</span>
+        <span class="hl"><span class="attr">WindowStyle=</span><span class="str">"None"</span> <span class="attr">AllowsTransparency=</span><span class="str">"True"</span></span>
+        <span class="attr">WindowState=</span><span class="str">"Maximized"</span><span class="tag">&gt;</span>
+
+    <span class="tag">&lt;DockPanel&gt;</span>
+        <span class="cm">&lt;!-- Lateral izquierdo anclado: ancho fijo --&gt;</span>
+        <span class="tag">&lt;StackPanel</span> <span class="hl"><span class="attr">DockPanel.Dock=</span><span class="str">"Left"</span> <span class="attr">Width=</span><span class="str">"200"</span></span> <span class="attr">Background=</span><span class="str">"#333"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;Image</span> <span class="attr">Source=</span><span class="str">"/recursos/iconos/TV.png"</span> <span class="attr">Width=</span><span class="str">"64"</span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;Button</span> <span class="attr">Background=</span><span class="str">"Transparent"</span> <span class="attr">BorderBrush=</span><span class="str">"Black"</span><span class="tag">&gt;</span>
+                <span class="tag">&lt;StackPanel</span> <span class="attr">Orientation=</span><span class="str">"Horizontal"</span><span class="tag">&gt;</span>
+                    <span class="tag">&lt;Image</span> <span class="attr">Source=</span><span class="str">"/recursos/iconos/LineChart.png"</span> <span class="attr">Width=</span><span class="str">"24"</span><span class="tag">/&gt;</span>
+                    <span class="tag">&lt;TextBlock</span> <span class="attr">Text=</span><span class="str">"stats"</span> <span class="attr">Foreground=</span><span class="str">"White"</span> <span class="attr">Margin=</span><span class="str">"30,0,0,0"</span><span class="tag">/&gt;</span>
+                <span class="tag">&lt;/StackPanel&gt;</span>
+            <span class="tag">&lt;/Button&gt;</span>
+        <span class="tag">&lt;/StackPanel&gt;</span>
+
+        <span class="cm">&lt;!-- Barra superior: Rejilla con botones de ventana --&gt;</span>
+        <span class="tag">&lt;Grid</span> <span class="hl"><span class="attr">DockPanel.Dock=</span><span class="str">"Top"</span> <span class="attr">Height=</span><span class="str">"60"</span></span> <span class="attr">Background=</span><span class="str">"#e8464d"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;Grid.ColumnDefinitions&gt;</span>
+                <span class="tag">&lt;ColumnDefinition</span> <span class="attr">Width=</span><span class="str">"Auto"</span><span class="tag">/&gt;</span> <span class="cm">&lt;!-- Título --&gt;</span>
+                <span class="tag">&lt;ColumnDefinition</span> <span class="attr">Width=</span><span class="str">"Auto"</span><span class="tag">/&gt;</span> <span class="cm">&lt;!-- Subtítulo --&gt;</span>
+                <span class="tag">&lt;ColumnDefinition</span> <span class="attr">Width=</span><span class="str">"Auto"</span><span class="tag">/&gt;</span> <span class="cm">&lt;!-- Acción --&gt;</span>
+                <span class="tag">&lt;ColumnDefinition</span> <span class="attr">Width=</span><span class="str">"*"</span><span class="tag">/&gt;</span>    <span class="cm">&lt;!-- Espaciador + minimizar --&gt;</span>
+                <span class="tag">&lt;ColumnDefinition</span> <span class="attr">Width=</span><span class="str">"Auto"</span><span class="tag">/&gt;</span> <span class="cm">&lt;!-- Maximizar --&gt;</span>
+                <span class="tag">&lt;ColumnDefinition</span> <span class="attr">Width=</span><span class="str">"Auto"</span><span class="tag">/&gt;</span> <span class="cm">&lt;!-- Cerrar --&gt;</span>
+            <span class="tag">&lt;/Grid.ColumnDefinitions&gt;</span>
+            <span class="tag">&lt;Button</span> <span class="attr">Grid.Column=</span><span class="str">"3"</span> <span class="attr">Click=</span><span class="str">"btnminimice_click"</span><span class="tag">&gt;</span>
+                <span class="tag">&lt;Image</span> <span class="attr">Source=</span><span class="str">"/recursos/iconos/icons8-minimize-32.png"</span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;/Button&gt;</span>
+            <span class="tag">&lt;Button</span> <span class="attr">Grid.Column=</span><span class="str">"4"</span> <span class="attr">Click=</span><span class="str">"btnmaximice_click"</span><span class="tag">&gt;</span>
+              <span class="tag">&lt;Image</span> <span class="attr">Source=</span><span class="str">"/recursos/iconos/icons8-maximize-50.png"</span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;/Button&gt;</span>
+            <span class="tag">&lt;Button</span> <span class="attr">Grid.Column=</span><span class="str">"5"</span> <span class="attr">Click=</span><span class="str">"btnClose_click"</span><span class="tag">&gt;</span>
+                <span class="tag">&lt;Image</span> <span class="attr">Source=</span><span class="str">"/recursos/iconos/icons8-close-50.png"</span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;/Button&gt;</span>
+        <span class="tag">&lt;/Grid&gt;</span>
+
+        <span class="cm">&lt;!-- Área central: ocupa el espacio restante --&gt;</span>
+        <span class="tag">&lt;Grid&gt;</span>
+            <span class="tag">&lt;Image</span> <span class="attr">Grid.Column=</span><span class="str">"1"</span> <span class="hl"><span class="attr">Grid.ColumnSpan=</span><span class="str">"2"</span></span> <span class="attr">Source=</span><span class="str">"/Recursos/imagenes/circulos.gif"</span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;Image</span> <span class="attr">Grid.Row=</span><span class="str">"1"</span> <span class="hl"><span class="attr">Grid.ColumnSpan=</span><span class="str">"3"</span> <span class="attr">Stretch=</span><span class="str">"Fill"</span></span> <span class="attr">Source=</span><span class="str">"/Recursos/imagenes/linechart.jpg"</span><span class="tag">/&gt;</span>
+        <span class="tag">&lt;/Grid&gt;</span>
+    <span class="tag">&lt;/DockPanel&gt;</span>
+<span class="tag">&lt;/Window&gt;</span></pre>
+        </div>
+
+        <!-- Columna C# -->
+        <div class="code-card">
+          <div class="code-card-header">
+            <span class="code-card-title">⚡ Snippet Lógica Detrás (MainWindow.xaml.cs)</span>
+            <span class="code-tag">C#</span>
+          </div>
+          <pre><span class="kw">namespace</span> di.unidad2.ejercicio1
+{
+    <span class="cm">// Herencia estándar : Window</span>
+    <span class="kw">public partial class</span> <span class="type">MainWindow</span> : <span class="type">Window</span>
+    {
+        <span class="kw">public</span> <span class="type">MainWindow</span>()
+        {
+            <span class="cm">// ¡Imprescindible! Enlaza XAML con C#</span>
+            <span class="hl">InitializeComponent();</span>
+        }
+
+        <span class="cm">// 1. Cerrar aplicación</span>
+        <span class="kw">private void</span> btnClose_click(<span class="type">object</span> sender, <span class="type">RoutedEventArgs</span> e)
+        {
+            <span class="hl"><span class="kw">this</span>.Close();</span>
+        }
+
+        <span class="cm">// 2. Minimizar a la barra de tareas</span>
+        <span class="kw">private void</span> btnminimice_click(<span class="type">object</span> sender, <span class="type">RoutedEventArgs</span> e)
+        {
+            <span class="hl"><span class="kw">this</span>.WindowState = <span class="type">WindowState</span>.Minimized;</span>
+        }
+
+        <span class="cm">// 3. Alternar Maximizar &lt;-&gt; Normal</span>
+        <span class="kw">private void</span> btnmaximice_click(<span class="type">object</span> sender, <span class="type">RoutedEventArgs</span> e)
+        {
+            <span class="kw">if</span> (<span class="kw">this</span>.WindowState == <span class="type">WindowState</span>.Maximized)
+                <span class="kw">this</span>.WindowState = <span class="type">WindowState</span>.Normal;
+            <span class="kw">else</span>
+                <span class="kw">this</span>.WindowState = <span class="type">WindowState</span>.Maximized;
+        }
+    }
+}</pre>
+        </div>
+      </div>
+
+      <!-- Trampas de Examen Ejercicio 1 -->
+      <div class="traps-card">
+        <div class="traps-header">
+          <span>⚠️</span>
+          <span class="traps-title">Posibles Trampas de Examen (Ejercicio 1)</span>
+        </div>
+        <ul class="traps-list">
+          <li><strong>Ventana Bloqueada sin Salida:</strong> Al usar <code>WindowStyle="None"</code> desaparece el botón de cerrar del SO. Si no programas <code>this.Close()</code> en un botón, la ventana queda atrapada en pantalla completa.</li>
+          <li><strong>Olvidar <code>InitializeComponent()</code>:</strong> Si se omite o se interactúa con controles antes de llamarlo en el constructor, se produce un <code>NullReferenceException</code> inmediato al iniciar.</li>
+          <li><strong>Confusión <code>Column</code> vs <code>ColumnSpan</code>:</strong> <code>Grid.Column="1"</code> ubica el control en la 2ª columna. Para que ocupe varias columnas consecutivas es obligatorio usar <code>Grid.ColumnSpan="2"</code>.</li>
+          <li><strong>Orden de declaración en <code>DockPanel</code>:</strong> En WPF el último hijo del <code>DockPanel</code> rellena todo el espacio central por defecto (<code>LastChildFill="True"</code>). Colocar el área central antes que los laterales arruina el layout.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sheet-footer">
+      <span>Profesor Experto en DAM &bull; Módulo de Diseño de Interfaces (WPF/XAML)</span>
+      <span>Página 1 de 2</span>
+    </div>
+  </div>
+
+  <!-- ==================== PÁGINA 2: EJERCICIO 2 ==================== -->
+  <div class="sheet-page">
+    <div>
+      <div class="doc-header">
+        <div>
+          <div class="badge-group">
+            <span class="badge badge-dark">DAM</span>
+            <span class="badge badge-primary">DISEÑO DE INTERFACES</span>
+            <span class="badge badge-unit">UNIDAD 2 &bull; PARTE 2/2</span>
+          </div>
+          <h1 class="doc-title">CheatSheet #01: Ejercicios 1 y 2 (WPF & XAML)</h1>
+          <div class="doc-subtitle">Repaso exprés de examen &bull; MahApps.Metro, Material Design, PasswordBox y MergedDictionaries</div>
+        </div>
+        <div class="header-meta">
+          <strong>IES Henri Matisse</strong>
+          <span>2º DAM &bull; Evaluación Práctica</span>
+        </div>
+      </div>
+
+      <div class="exercise-banner theme-alt">
+        <div>
+          <span class="exercise-num">EJERCICIO 02</span>
+          <span class="exercise-name">Login "Welcome Folk" (MahApps.Metro & Material Design)</span>
+        </div>
+        <span class="badge badge-dark">di.unidad2.ejercicio2</span>
+      </div>
+
+      <div class="key-concept-box">
+        <span class="key-concept-label">🎯 Concepto Clave:</span>
+        <span class="key-concept-text">Integración de librerías visuales NuGet (<code>MahApps.Metro</code> y <code>MaterialDesign</code>), fusión global de recursos en <code>App.xaml</code> (<code>MergedDictionaries</code>) y herencia estricta de <code>MetroWindow</code> en C#.</span>
+      </div>
+
+      <div class="study-strip">
+        <strong>Resumen de estudio:</strong> el diagnóstico rápido es comprobar que el tema visual está cargado en <code>App.xaml</code>, que la ventana usa <code>MetroWindow</code> y que la contraseña se maneja con <code>PasswordBox</code>.
+      </div>
+
+      <div class="anatomy-row">
+        <div class="anatomy-card">
+          <strong>1. Diccionarios Globales</strong>
+          <code>App.xaml</code> fusiona estilos de controles, fuentes y paleta de color (<code>Dark.Cobalt.xaml</code>).
+        </div>
+        <div class="anatomy-card">
+          <strong>2. MetroWindow en XAML y C#</strong>
+          Ventana plana moderna; requiere coincidencia de herencia en XAML y en el code-behind C#.
+        </div>
+        <div class="anatomy-card">
+          <strong>3. Seguridad & Vectores</strong>
+          Campo seguro <code>PasswordBox</code> e iconos vectoriales de Material Design (<code>mat:PackIcon</code>).
+        </div>
+      </div>
+
+      <div class="code-grid">
+        <div class="code-card">
+          <div class="code-card-header">
+            <span class="code-card-title">🎨 Explicación visual del ejercicio 2</span>
+            <span class="code-tag">XAML</span>
+          </div>
+          <pre><span class="cm">&lt;!-- La clave está en la estructura del formulario: imagen + panel de login --&gt;</span>
+<span class="hl"><span class="tag">&lt;mah:MetroWindow</span> <span class="attr">Title=</span><span class="str">"LOGIN"</span> <span class="attr">WindowStartupLocation=</span><span class="str">"CenterScreen"</span></span>
+    <span class="attr">xmlns:mah=</span><span class="str">"http://metro.mahapps.com/winfx/xaml/controls"</span>
+    <span class="attr">xmlns:mat=</span><span class="str">"http://materialdesigninxaml.net/winfx/xaml/themes"</span><span class="tag">&gt;</span>
+
+    <span class="tag">&lt;Grid</span> <span class="attr">Background=</span><span class="str">"#04113e"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;Grid.ColumnDefinitions&gt;</span>
+            <span class="tag">&lt;ColumnDefinition</span> <span class="attr">Width=</span><span class="str">"5*"</span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;ColumnDefinition</span> <span class="attr">Width=</span><span class="str">"5*"</span><span class="tag">/&gt;</span>
+        <span class="tag">&lt;/Grid.ColumnDefinitions&gt;</span>
+
+        <span class="tag">&lt;Image</span> <span class="attr">Source=</span><span class="str">"/recursos/imagen/login.png"</span> <span class="hl"><span class="attr">Stretch=</span><span class="str">"UniformToFill"</span></span><span class="tag">/&gt;</span>
+
+        <span class="tag">&lt;StackPanel</span> <span class="attr">Grid.Column=</span><span class="str">"1"</span> <span class="attr">VerticalAlignment=</span><span class="str">"Center"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;mat:PackIcon</span> <span class="attr">Kind=</span><span class="str">"Google"</span> <span class="attr">Width=</span><span class="str">"42"</span> <span class="attr">Height=</span><span class="str">"42"</span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;TextBox</span> <span class="attr">x:Name=</span><span class="str">"txtEmail"</span> <span class="attr">Foreground=</span><span class="str">"White"</span><span class="tag">/&gt;</span>
+            <span class="hl"><span class="tag">&lt;PasswordBox</span> <span class="attr">x:Name=</span><span class="str">"txtPassword"</span> <span class="attr">Foreground=</span><span class="str">"White"</span><span class="tag">/&gt;</span></span>
+        <span class="tag">&lt;/StackPanel&gt;</span>
+    <span class="tag">&lt;/Grid&gt;</span>
+<span class="tag">&lt;/mah:MetroWindow&gt;</span></pre>
+        </div>
+
+        <div class="code-card">
+          <div class="code-card-header">
+            <span class="code-card-title">🧠 Qué debes entender bien</span>
+            <span class="code-tag">EXAMEN</span>
+          </div>
+          <pre><span class="cm">1. App.xaml debe cargar los estilos globales de MahApps y MaterialDesign.</span>
+<span class="cm">2. El control principal de la ventana es un MetroWindow, no un Window normal.</span>
+<span class="cm">3. La parte izquierda suele ser una imagen o ilustración; la derecha es el formulario.</span>
+<span class="cm">4. Los iconos material se usan con PackIcon, no con imágenes cargadas a mano.</span>
+<span class="cm">5. PasswordBox protege la contraseña y no debe tratarse como TextBox.</span>
+<span class="cm">6. El objetivo es estética + organización visual, no lógica de negocio artificial.</span>
+
+<span class="hl"><span class="cm">Este ejercicio no exige explicar el code-behind.</span></span></pre>
+        </div>
+      </div>
+
+      <div class="traps-card">
+        <div class="traps-header">
+          <span>⚠️</span>
+          <span class="traps-title">Posibles Trampas de Examen (Ejercicio 2)</span>
+        </div>
+        <ul class="traps-list">
+          <li><strong>Olvidar los diccionarios globales:</strong> Si no fusionas los estilos de <code>MahApps.Metro</code> y <code>MaterialDesign</code> en <code>App.xaml</code>, el programa se verá roto o fallará al arrancar.</li>
+          <li><strong>Usar <code>TextBox</code> para la contraseña:</strong> La contraseña se recoge en <code>PasswordBox</code> y su lectura se hace con <code>.Password</code>, no con <code>.Text</code>.</li>
+          <li><strong>Mezclar layout vertical y columnas:</strong> Si la imagen y el formulario se dejas sin una estructura clara en <code>Grid</code>, la vista se descuadra y pierdes la composición del login.</li>
+          <li><strong>Importar iconos a mano cuando hay PackIcon:</strong> Para este tipo de ejercicios suele ser más correcto usar <code>mat:PackIcon</code> porque es más limpio y visualmente consistente.</li>
+          <li><strong>Inventar lógica extra:</strong> No hace falta crear validaciones complejas ni autenticar usuarios si la práctica no lo pide; lo importante es el diseño y la composición.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sheet-footer">
+      <span>Profesor Experto en DAM &bull; Módulo de Diseño de Interfaces (WPF/XAML)</span>
+      <span>Página 2 de 2</span>
+    </div>
+  </div>
+
+</body>
+</html>
