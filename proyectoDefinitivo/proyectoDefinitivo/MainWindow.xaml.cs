@@ -18,14 +18,18 @@ namespace proyectoDefinitivo
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly Func<PantallaLogin> _loginFactory;
+
+        public MainWindow(Func<PantallaLogin> loginFactory)
         {
             InitializeComponent();
+            _loginFactory = loginFactory;
         }
 
         private void btmcerrarsesion_Click(object sender, RoutedEventArgs e)
         {
-            PantallaLogin pantallaLogin = new PantallaLogin();
+            PantallaLogin pantallaLogin = _loginFactory();
+            Application.Current.MainWindow = pantallaLogin;
             pantallaLogin.Show();
             this.Close();
         }

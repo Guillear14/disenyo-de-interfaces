@@ -21,9 +21,12 @@ namespace proyectoDefinitivo.Vista.Dialogo
     /// </summary>
     public partial class PantallaLogin : MetroWindow
     {
-        public PantallaLogin()
+        private readonly MainWindow _mainWindow;
+
+        public PantallaLogin(MainWindow mainWindow)
         {
             InitializeComponent();
+            _mainWindow = mainWindow;
         }
 
         private async void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -33,8 +36,8 @@ namespace proyectoDefinitivo.Vista.Dialogo
                 await this.ShowMessageAsync("Error de inicio de sesión", "Por favor, ingrese su correo y contraseña.");
             }
             else {
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
+                Application.Current.MainWindow = _mainWindow;
+                _mainWindow.Show();
                 this.Close();
             }
         }
