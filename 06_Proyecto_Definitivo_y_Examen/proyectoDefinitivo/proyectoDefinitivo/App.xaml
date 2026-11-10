@@ -1,4 +1,14 @@
-﻿<Application x:Class="proyectoDefinitivo.App"
+﻿<!-- =========================================================================
+     CONFIGURACIÓN GLOBAL APP.XAML (MATERIAL DESIGN + MAHAPPS.METRO)
+     =========================================================================
+     QUÉ HACE ESTE ARCHIVO:
+       Carga los diccionarios de recursos necesarios en toda la aplicación para
+       combinar Material Design In XAML Toolkit (v5) con MahApps.Metro:
+         1. BundledTheme: Define el tema base (Light/Dark) y los colores primario/secundario.
+         2. MaterialDesign2.Defaults.xaml: Carga los estilos por defecto de los controles Material.
+         3. Controls.xaml, Fonts.xaml y Light.Blue.xaml: Cargan la apariencia de MahApps.Metro.
+     ========================================================================= -->
+<Application x:Class="proyectoDefinitivo.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:proyectoDefinitivo"
@@ -6,20 +16,18 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!-- 1. Tema y paleta de colores de Material Design -->
                 <materialDesign:BundledTheme BaseTheme="Light" 
                                              PrimaryColor="LightBlue" 
                                              SecondaryColor="Indigo" />
 
+                <!-- 2. Estilos base de controles Material Design (obligatorio en v5) -->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
 
-
-                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <!-- 3. Diccionarios de MahApps.Metro (¡Respetar mayúsculas/minúsculas!) -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
-
-
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

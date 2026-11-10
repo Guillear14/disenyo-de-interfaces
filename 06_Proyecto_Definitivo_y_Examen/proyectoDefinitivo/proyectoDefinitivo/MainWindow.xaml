@@ -1,4 +1,12 @@
-﻿<Window x:Class="proyectoDefinitivo.MainWindow"
+﻿<!-- =========================================================================
+     PROYECTO DEFINITIVO - VENTANA PRINCIPAL (MENÚ + CERRAR SESIÓN)
+     =========================================================================
+     QUÉ HACE ESTE ARCHIVO:
+       Se abre maximizada (WindowState="Maximized") tras iniciar sesión en PantallaLogin.
+       Contiene una imagen de fondo y un menú superior (<Menu>) con la opción
+       "Cerrar Sesión" que devuelve al usuario a la ventana de Login.
+     ========================================================================= -->
+<Window x:Class="proyectoDefinitivo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -11,9 +19,11 @@
         WindowState="Maximized"
         Title="Pantalla Principal" Height="450" Width="800">
     <Grid>
+        <!-- Imagen de fondo adaptada al tamaño de la ventana -->
         <Image Source="/Recursos/Imagenes/LocoClaro.jpg"
                Stretch="Fill"/>
 
+        <!-- Menú superior con opción para cerrar sesión -->
         <Menu HorizontalAlignment="Left" Height="Auto"
               VerticalAlignment="Top" Width="550" IsMainMenu="True">
             <MenuItem Header="kktua"></MenuItem>

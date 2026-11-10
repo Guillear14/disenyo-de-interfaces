@@ -1,4 +1,15 @@
-﻿using System.IO;
+﻿// =========================================================================
+// LÓGICA C# DEL EXAMEN DI (19/11/2025) - SQLITE + VENTANA MODAL + CONTROLES
+// =========================================================================
+// QUÉ CONTIENE ESTE ARCHIVO:
+//   1. Creación automática de base de datos SQLite y tabla Empleados (EnsureDatabaseExists).
+//   2. Eventos de ventana sin bordes: arrastrar (DragMove), minimizar, maximizar y cerrar.
+//   3. Apertura de ventana secundaria modal con ShowDialog() (BtnNuevoEmpleado_Click).
+//   4. Clase AddEmpleadoDialog: formulario modal con validación de campos vacíos e
+//      inserción parametrizada en SQLite (INSERT INTO Empleados ... VALUES (@nombre...)).
+// =========================================================================
+
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -9,14 +20,19 @@ namespace Examen_DI_19_11_2025;
 
 public partial class MainWindow : Window
 {
+    // Nombre del archivo SQLite que se guarda junto al ejecutable (.exe)
     private const string DatabaseName = "empresa.db";
 
     public MainWindow()
     {
         InitializeComponent();
+        // Al arrancar la ventana principal, nos aseguramos de que la BD y la tabla existan
         EnsureDatabaseExists();
     }
 
+    // =====================================================================
+    // 1. CREAR BASE DE DATOS Y TABLA SQLITE SI NO EXISTEN
+    // =====================================================================
     public static void EnsureDatabaseExists()
     {
         var databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DatabaseName);
@@ -38,8 +54,12 @@ public partial class MainWindow : Window
         command.ExecuteNonQuery();
     }
 
+    // =====================================================================
+    // 2. ARRASTRAR VENTANA SIN BORDES Y BOTONES DE VENTANA
+    // =====================================================================
     private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
+        // Si el botón izquierdo está pulsado, permite mover la ventana por la pantalla
         if (e.LeftButton == MouseButtonState.Pressed)
         {
             DragMove();
@@ -53,6 +73,7 @@ public partial class MainWindow : Window
 
     private void BtnMaximizar_Click(object sender, RoutedEventArgs e)
     {
+        // Alterna entre pantalla maximizada y tamaño normal
         WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
     }
 
@@ -61,20 +82,27 @@ public partial class MainWindow : Window
         Close();
     }
 
+    // =====================================================================
+    // 3. ABRIR DIÁLOGO MODAL (BLOQUEA LA VENTANA PADRE HASTA CERRARSE)
+    // =====================================================================
     private void BtnNuevoEmpleado_Click(object sender, RoutedEventArgs e)
     {
         var dialog = new AddEmpleadoDialog();
-        dialog.Owner = this;
-        dialog.ShowDialog();
+        dialog.Owner = this; // Centra el diálogo respecto a esta ventana principal
+        dialog.ShowDialog(); // ShowDialog() lo abre en modo MODAL
     }
 }
 
+// =========================================================================
+// 4. VENTANA MODAL SECUNDARIA: FORMULARIO DE ALTA + GUARDADO EN SQLITE
+// =========================================================================
 public class AddEmpleadoDialog : Window
 {
     private readonly string _databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "empresa.db");
 
     public AddEmpleadoDialog()
     {
+        // Configuración de ventana modal sin bordes y centrada sobre su Owner
         Width = 520;
         Height = 470;
         WindowStyle = WindowStyle.None;
@@ -104,11 +132,13 @@ public class AddEmpleadoDialog : Window
             Margin = new Thickness(0, 12, 0, 24)
         };
 
+        // Campos del formulario: 2 TextBox y 2 ComboBox desplegables
         var nombreTextBox = CreateTextBox("Nombre");
         var apellidosTextBox = CreateTextBox("Apellidos");
         var departamentoCombo = CreateComboBox(new[] { "Recursos Humanos", "Ventas", "Administración", "Producción", "Logística" });
         var puestoCombo = CreateComboBox(new[] { "Analista", "Técnico", "Supervisor", "Jefe de equipo", "Administrativo" });
 
+        // Botón Guardar: dispara la validación y el INSERT en SQLite
         var guardarButton = new Button
         {
             Content = "Guardar",
@@ -125,6 +155,7 @@ public class AddEmpleadoDialog : Window
 
         guardarButton.Click += (_, _) => GuardarEmpleado(nombreTextBox, apellidosTextBox, departamentoCombo, puestoCombo);
 
+        // Botón Cancelar: cierra el modal sin guardar
         var cancelarButton = new Button
         {
             Content = "Cancelar",
@@ -160,6 +191,7 @@ public class AddEmpleadoDialog : Window
 
         outerBorder.Child = stack;
 
+        // Botón "✕" en la esquina superior derecha del modal
         var closeButton = new Button
         {
             Content = "✕",
@@ -220,6 +252,9 @@ public class AddEmpleadoDialog : Window
         return comboBox;
     }
 
+    // =====================================================================
+    // 5. VALIDAR CAMPOS E INSERTAR REGISTRO EN SQLITE CON PARÁMETROS
+    // =====================================================================
     private void GuardarEmpleado(TextBox nombreTextBox, TextBox apellidosTextBox, ComboBox departamentoCombo, ComboBox puestoCombo)
     {
         var nombre = nombreTextBox.Text.Trim();
@@ -227,6 +262,7 @@ public class AddEmpleadoDialog : Window
         var departamento = departamentoCombo.SelectedItem?.ToString();
         var puesto = puestoCombo.SelectedItem?.ToString();
 
+        // Validación obligatoria: ningún campo puede estar en blanco
         if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellidos) || string.IsNullOrWhiteSpace(departamento) || string.IsNullOrWhiteSpace(puesto))
         {
             MessageBox.Show("Debes completar todos los campos del empleado antes de guardar.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -245,6 +281,7 @@ public class AddEmpleadoDialog : Window
                 INSERT INTO Empleados (Nombre, Apellidos, Departamento, Puesto)
                 VALUES (@nombre, @apellidos, @departamento, @puesto);";
 
+            // Uso de parámetros @ para evitar inyección SQL y errores con comillas
             command.Parameters.AddWithValue("@nombre", nombre);
             command.Parameters.AddWithValue("@apellidos", apellidos);
             command.Parameters.AddWithValue("@departamento", departamento);

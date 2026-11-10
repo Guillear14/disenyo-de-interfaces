@@ -1,4 +1,8 @@
-﻿using System.IO;
+﻿// =========================================================================
+// UNIDAD 3 - EJERCICIO 5: LÓGICA C# (SQLITE + DIÁLOGO MODAL + CONTROLES)
+// =========================================================================
+
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -17,6 +21,7 @@ public partial class MainWindow : Window
         EnsureDatabaseExists();
     }
 
+    // 1. Crea el archivo SQLite y la tabla Empleados si no existen
     public static void EnsureDatabaseExists()
     {
         var databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DatabaseName);
@@ -38,6 +43,7 @@ public partial class MainWindow : Window
         command.ExecuteNonQuery();
     }
 
+    // 2. Permite arrastrar la ventana sin bordes manteniendo pulsado el clic izquierdo
     private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
         if (e.LeftButton == MouseButtonState.Pressed)
@@ -46,6 +52,7 @@ public partial class MainWindow : Window
         }
     }
 
+    // 3. Botones de minimizar, maximizar/restaurar y cerrar ventana
     private void BtnMinimizar_Click(object sender, RoutedEventArgs e)
     {
         WindowState = WindowState.Minimized;
@@ -61,6 +68,7 @@ public partial class MainWindow : Window
         Close();
     }
 
+    // 4. Abre el diálogo secundario en modo MODAL (ShowDialog)
     private void BtnNuevoEmpleado_Click(object sender, RoutedEventArgs e)
     {
         var dialog = new AddEmpleadoDialog();
@@ -69,6 +77,9 @@ public partial class MainWindow : Window
     }
 }
 
+// =========================================================================
+// CLASE DEL DIÁLOGO MODAL PARA CREAR EMPLEADO Y GUARDAR EN SQLITE
+// =========================================================================
 public class AddEmpleadoDialog : Window
 {
     private readonly string _databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "empresa.db");
@@ -220,6 +231,7 @@ public class AddEmpleadoDialog : Window
         return comboBox;
     }
 
+    // Valida los datos e inserta el empleado en SQLite
     private void GuardarEmpleado(TextBox nombreTextBox, TextBox apellidosTextBox, ComboBox departamentoCombo, ComboBox puestoCombo)
     {
         var nombre = nombreTextBox.Text.Trim();
