@@ -1,10 +1,5 @@
 ﻿<!-- =========================================================================
-     PROYECTO DEFINITIVO - VENTANA PRINCIPAL (MENÚ + CERRAR SESIÓN)
-     =========================================================================
-     QUÉ HACE ESTE ARCHIVO:
-       Se abre maximizada (WindowState="Maximized") tras iniciar sesión en PantallaLogin.
-       Contiene una imagen de fondo y un menú superior (<Menu>) con la opción
-       "Cerrar Sesión" que devuelve al usuario a la ventana de Login.
+     PROYECTO DEFINITIVO - VENTANA PRINCIPAL (MENÚ + CERRAR SESIÓN + MVVM)
      ========================================================================= -->
 <Window x:Class="proyectoDefinitivo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -23,12 +18,12 @@
         <Image Source="/Recursos/Imagenes/LocoClaro.jpg"
                Stretch="Fill"/>
 
-        <!-- Menú superior con opción para cerrar sesión -->
+        <!-- Menú superior enlazado a MainViewModel con opción para cerrar sesión -->
         <Menu HorizontalAlignment="Left" Height="Auto"
               VerticalAlignment="Top" Width="550" IsMainMenu="True">
-            <MenuItem Header="kktua"></MenuItem>
-            <MenuItem Header="usuario">
-                <MenuItem Header="Cerrar Sesion" x:Name="btmcerrarsesion" Click="btmcerrarsesion_Click" />
+            <MenuItem Header="DegradApp"/>
+            <MenuItem Header="{Binding CorreoUsuarioActual}">
+                <MenuItem Header="Cerrar Sesión" x:Name="BtnCerrarSesion" Click="BtnCerrarSesion_Click" />
             </MenuItem>
         </Menu>
     </Grid>

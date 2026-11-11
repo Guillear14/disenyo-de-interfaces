@@ -1,16 +1,10 @@
-﻿// =========================================================================
-// ARRANQUE DE LA APLICACIÓN CON INYECCIÓN DE DEPENDENCIAS (APP.XAML.CS)
-// =========================================================================
-// QUÉ HACE ESTE ARCHIVO:
-//   1. Configura el contenedor de servicios (ServiceCollection) registrando
-//      PantallaLogin y MainWindow como Transient.
-//   2. En OnStartup, obtiene PantallaLogin del contenedor y la abre como
-//      primera ventana de la aplicación (sin usar StartupUri en App.xaml).
-// =========================================================================
-
-using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
+using proyectoDefinitivo.Datos.Repositorios;
+using proyectoDefinitivo.Servicios;
+using proyectoDefinitivo.Servicios.Interfaces;
+using proyectoDefinitivo.ViewModel;
 using proyectoDefinitivo.Vista.Dialogo;
 
 namespace proyectoDefinitivo
@@ -26,29 +20,31 @@ namespace proyectoDefinitivo
             _serviceProvider = services.BuildServiceProvider();
         }
 
-        // Registro de ventanas y factorías para Inyección de Dependencias
         private static void ConfigureServices(IServiceCollection services)
         {
-            // Registros base de las ventanas
+            // 1. Capa de Datos y Servicios (Singleton para compartir estado y persistencia)
+            services.AddSingleton<IUsuarioRepositorio, UsuarioRepositorio>();
+            services.AddSingleton<IAutenticacionServicio, AutenticacionServicio>();
+
+            // 2. Capa de ViewModels (MVVM)
+            services.AddTransient<LoginViewModel>();
+            services.AddTransient<RegistroViewModel>();
+            services.AddTransient<RecuperarClaveViewModel>();
+            services.AddTransient<MainViewModel>();
+
+            // 3. Vistas (Ventanas con nombres PascalCase limpios)
             services.AddTransient<PantallaLogin>();
+            services.AddTransient<PantallaRegistro>();
+            services.AddTransient<PantallaRecuperarClave>();
             services.AddTransient<MainWindow>();
-            services.AddTransient<registro>();
-            services.AddTransient<olvidarContraseña>();
 
-            // Factoría original para el Login
-            services.AddTransient<Func<PantallaLogin>>(serviceProvider =>
-                () => serviceProvider.GetRequiredService<PantallaLogin>());
-
-            // AÑADE ESTO: Enseña al sistema cómo resolver Func<olvidarContraseña>
-            services.AddTransient<Func<olvidarContraseña>>(serviceProvider =>
-                () => serviceProvider.GetRequiredService<olvidarContraseña>());
-
-            // AÑADE ESTO TAMBIÉN: Para evitar el mismo error al abrir el Registro
-            services.AddTransient<Func<registro>>(serviceProvider =>
-                () => serviceProvider.GetRequiredService<registro>());
+            // 4. Factorías para navegación desacoplada entre ventanas
+            services.AddTransient<Func<PantallaLogin>>(sp => () => sp.GetRequiredService<PantallaLogin>());
+            services.AddTransient<Func<PantallaRegistro>>(sp => () => sp.GetRequiredService<PantallaRegistro>());
+            services.AddTransient<Func<PantallaRecuperarClave>>(sp => () => sp.GetRequiredService<PantallaRecuperarClave>());
+            services.AddTransient<Func<MainWindow>>(sp => () => sp.GetRequiredService<MainWindow>());
         }
 
-        // Sobrescribe el inicio de la aplicación para lanzar primero PantallaLogin
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);

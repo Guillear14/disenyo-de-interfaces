@@ -1,77 +1,63 @@
-﻿// =========================================================================
-// LÓGICA C# DE PANTALLA LOGIN (VALIDACIÓN + DIÁLOGO MAHAPPS + NAVEGACIÓN)
-// =========================================================================
-// QUÉ HACE ESTE ARCHIVO:
-//   1. Hereda de MetroWindow (MahApps.Metro) en lugar de Window normal.
-//   2. Recibe la ventana principal (MainWindow) por Inyección de Dependencias en el constructor.
-//   3. En btnLogin_Click:
-//      - Si el correo o la contraseña están vacíos, muestra un diálogo modal moderno
-//        integrado en la ventana usando await this.ShowMessageAsync(...).
-//      - Si están rellenos, asigna MainWindow como ventana principal de la app,
-//        la muestra (_mainWindow.Show()) y cierra el login (this.Close()).
-// =========================================================================
-
-using System;
+﻿using System;
 using System.Windows;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using proyectoDefinitivo.Servicios.Interfaces;
+using proyectoDefinitivo.ViewModel;
 
 namespace proyectoDefinitivo.Vista.Dialogo
 {
     public partial class PantallaLogin : MetroWindow
     {
-        private readonly MainWindow _mainWindow;
-        private readonly Func<olvidarContraseña> _olvidarContraseñaFactory;
-        private readonly Func<registro> _registroFactory;
+        private readonly LoginViewModel _viewModel;
+        private readonly Func<MainWindow> _mainWindowFactory;
+        private readonly Func<PantallaRecuperarClave> _recuperarClaveFactory;
+        private readonly Func<PantallaRegistro> _registroFactory;
 
-        // Constructor con Inyección de Dependencias (recibe MainWindow desde App.xaml.cs)
-        // Asegúrate de añadir los dos "Func<...>" dentro de estos paréntesis
         public PantallaLogin(
-            MainWindow mainWindow,
-            Func<olvidarContraseña> olvidarContraseñaFactory,
-            Func<registro> registroFactory)
+            LoginViewModel viewModel,
+            Func<MainWindow> mainWindowFactory,
+            Func<PantallaRecuperarClave> recuperarClaveFactory,
+            Func<PantallaRegistro> registroFactory)
         {
             InitializeComponent();
-            _mainWindow = mainWindow;
-            _olvidarContraseñaFactory = olvidarContraseñaFactory;
+            _viewModel = viewModel;
+            _mainWindowFactory = mainWindowFactory;
+            _recuperarClaveFactory = recuperarClaveFactory;
             _registroFactory = registroFactory;
+            DataContext = _viewModel;
         }
 
-        // Evento Click asíncrono del botón "Iniciar Sesión"
         private async void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            // 1. Validar que el TextBox de correo y el PasswordBox no estén vacíos
-            if (string.IsNullOrEmpty(txtcorreo.Text) || string.IsNullOrEmpty(passClaveAcceso.Password))
-            {
-                // Muestra diálogo modal embebido de MahApps.Metro
-                await this.ShowMessageAsync("Error de inicio de sesión", "Por favor, ingrese su correo y contraseña.");
-            }
-            else
-            {
-                // 2. Cambiar la ventana principal de la aplicación y abrirla
-                Application.Current.MainWindow = _mainWindow;
-                _mainWindow.Show();
+            ResultadoOperacion resultado = _viewModel.IniciarSesion(passClaveAcceso.Password);
 
-                // 3. Cerrar la ventana de Login actual
-                this.Close();
+            if (!resultado.Exito)
+            {
+                await this.ShowMessageAsync(resultado.Titulo, resultado.Mensaje);
+                return;
             }
+
+            MainWindow mainWindow = _mainWindowFactory();
+            Application.Current.MainWindow = mainWindow;
+            mainWindow.Show();
+            Close();
         }
-
 
         private void btnOlvidarContraseña_Click(object sender, RoutedEventArgs e)
         {
-            olvidarContraseña pantallaolvidarContraseña = _olvidarContraseñaFactory();
-            Application.Current.MainWindow = pantallaolvidarContraseña;
-            pantallaolvidarContraseña.Show();
-            this.Close();
+            PantallaRecuperarClave pantallaRecuperar = _recuperarClaveFactory();
+            Application.Current.MainWindow = pantallaRecuperar;
+            pantallaRecuperar.Show();
+            Close();
         }
 
         private void Registrobtn_Click(object sender, RoutedEventArgs e)
         {
-            registro pantallaregistro = _registroFactory();
-            Application.Current.MainWindow = pantallaregistro;
-            pantallaregistro.Show();
-            this.Close();
+            PantallaRegistro pantallaRegistro = _registroFactory();
+            Application.Current.MainWindow = pantallaRegistro;
+            pantallaRegistro.Show();
+            Close();
         }
     }
 }

@@ -71,6 +71,7 @@
                          ===================================================== -->
                     <TextBox Grid.Row="1" 
                              x:Name="txtcorreo"
+                             Text="{Binding Correo, UpdateSourceTrigger=PropertyChanged}"
                              Margin="60,15,60,15"
                              HorizontalAlignment="Stretch" 
                              VerticalAlignment="Center"
