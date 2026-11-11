@@ -1,3 +1,4 @@
+using System.Windows.Input;
 using proyectoDefinitivo.Servicios.Interfaces;
 
 namespace proyectoDefinitivo.ViewModel
@@ -13,9 +14,12 @@ namespace proyectoDefinitivo.ViewModel
             set => SetProperty(ref _correo, value);
         }
 
+        public ICommand RecuperarClaveCommand { get; }
+
         public RecuperarClaveViewModel(IAutenticacionServicio autenticacionServicio)
         {
             _autenticacionServicio = autenticacionServicio;
+            RecuperarClaveCommand = new RelayCommand(_ => SolicitarRecuperacion());
         }
 
         public ResultadoOperacion SolicitarRecuperacion()

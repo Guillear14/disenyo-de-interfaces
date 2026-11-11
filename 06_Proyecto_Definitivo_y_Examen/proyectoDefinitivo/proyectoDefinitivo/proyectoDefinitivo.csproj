@@ -8,18 +8,19 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <!-- Empaquetado automático de imágenes, iconos y fuentes en Recursos/ (excluyendo diccionarios .xaml) -->
   <ItemGroup>
-    <None Remove="Recursos\GreatVibes-Regular.ttf" />
-    <None Remove="Recursos\Imagenes\LocoClaro.jpg" />
-    <None Remove="Recursos\Imagenes\LogoOscur-removebg-preview.png" />
-    <None Remove="Recursos\Imagenes\LogoOscur.jpg" />
-    <None Remove="Recursos\Imagenes\Onades de seda blava i daurada.png" />
-    <None Remove="Recursos\LogoOscur-removebg-preview.png" />
-    <None Remove="Recursos\Onades de seda blava i daurada.png" />
+    <None Remove="Recursos\**\*.png" />
+    <None Remove="Recursos\**\*.jpg" />
+    <None Remove="Recursos\**\*.ttf" />
+    <Resource Include="Recursos\**\*.png" />
+    <Resource Include="Recursos\**\*.jpg" />
+    <Resource Include="Recursos\**\*.ttf" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Datos\Repositorios\" />
+    <Folder Include="Helpers\" />
     <Folder Include="Modelos\" />
     <Folder Include="Recursos\Estilos\" />
     <Folder Include="Recursos\Iconos\" />
@@ -32,16 +33,6 @@
     <PackageReference Include="MahApps.Metro" Version="2.4.11" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="5.4.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Recursos\GreatVibes-Regular.ttf" />
-    <Resource Include="Recursos\Imagenes\LocoClaro.jpg" />
-    <Resource Include="Recursos\Imagenes\LogoOscur-removebg-preview.png" />
-    <Resource Include="Recursos\Imagenes\LogoOscur.jpg" />
-    <Resource Include="Recursos\Imagenes\Onades de seda blava i daurada.png" />
-    <Resource Include="Recursos\LogoOscur-removebg-preview.png" />
-    <Resource Include="Recursos\Onades de seda blava i daurada.png" />
   </ItemGroup>
 
 </Project>

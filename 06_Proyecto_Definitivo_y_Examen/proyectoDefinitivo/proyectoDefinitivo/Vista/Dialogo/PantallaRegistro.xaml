@@ -6,35 +6,23 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:proyectoDefinitivo.Vista.Dialogo"
+        xmlns:helpers="clr-namespace:proyectoDefinitivo.Helpers"
         mc:Ignorable="d"
         WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
-        Title="Registro de Usuario" Height="450" Width="800">
-
-    <mah:MetroWindow.Resources>
-        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#C79F86" />
-        <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="White" />
-        <SolidColorBrush x:Key="MaterialDesignBody" Color="#C79F86" />
-    </mah:MetroWindow.Resources>
+        Title="Registro de Usuario — DegradApp" Height="450" Width="800">
 
     <Grid>
         <!-- Fondo base adaptativo -->
         <Image Source="/Recursos/Imagenes/Onades de seda blava i daurada.png" Stretch="UniformToFill"/>
 
-        <!-- EL VIEWBOX: StretchDirection="DownOnly" evita que se vuelva gigante en 1080p -->
+        <!-- Viewbox adaptativo para pantallas 720p/1080p -->
         <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Margin="20">
 
-            <!-- PANEL EFECTO CRISTAL -->
-            <Border Width="750" Height="580" 
-                    BorderBrush="#C79F86" 
-                    BorderThickness="1" 
-                    CornerRadius="25" 
-                    Background="#B3101826"
+            <!-- Panel Efecto Cristal centralizado -->
+            <Border Style="{StaticResource GlassCardBorderStyle}"
+                    Width="750" Height="580"
                     Padding="60,40,60,25">
-
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="40" ShadowDepth="10" Direction="270" Color="Black" Opacity="0.5" />
-                </Border.Effect>
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -51,121 +39,54 @@
                            Stretch="Uniform" HorizontalAlignment="Center" 
                            Height="130" Margin="0,0,0,25" />
 
-                    <!-- Input: Correo Electrónico (Enlazado por MVVM a RegistroViewModel.Correo) -->
+                    <!-- Input: Correo Electrónico -->
                     <TextBox Grid.Row="1" Margin="0,0,0,22"
                              x:Name="txtCorreo"
-                             Text="{Binding Correo, UpdateSourceTrigger=PropertyChanged}"
-                             HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                             CaretBrush="White"
-                             materialDesign:HintAssist.Foreground="#99C79F86"
-                             materialDesign:HintAssist.Background="Transparent"
-                             materialDesign:TextFieldAssist.UnderlineBrush="#000C38"
-                             materialDesign:TextFieldAssist.HasClearButton="False"
-                             materialDesign:TextFieldAssist.TextFieldCornerRadius="15">
-                        <TextBox.Style>
-                            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
-                                <Setter Property="Background" Value="#40000000" />
-                                <Setter Property="Foreground" Value="White" />
-                                <Setter Property="BorderBrush" Value="#C79F86" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsKeyboardFocused" Value="True">
-                                        <Setter Property="Background" Value="#80000000" />
-                                        <Setter Property="BorderBrush" Value="#000C38" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
-
+                             Style="{StaticResource GlassOutlinedTextBoxStyle}"
+                             Text="{Binding Correo, UpdateSourceTrigger=PropertyChanged}">
                         <materialDesign:HintAssist.Hint>
                             <StackPanel Orientation="Horizontal" Margin="-2,0,0,0">
-                                <materialDesign:PackIcon Kind="EmailOutline" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="#C79F86" />
-                                <TextBlock Text="Correo electrónico" VerticalAlignment="Center" Foreground="#C79F86" />
+                                <materialDesign:PackIcon Kind="EmailOutline" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{StaticResource GoldAccentBrush}" />
+                                <TextBlock Text="Correo electrónico" VerticalAlignment="Center" Foreground="{StaticResource GoldAccentBrush}" />
                             </StackPanel>
                         </materialDesign:HintAssist.Hint>
                     </TextBox>
 
                     <!-- Input: Contraseña -->
                     <PasswordBox Grid.Row="2" Margin="0,0,0,20"
-                                 HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                                 CaretBrush="White"
                                  x:Name="passClaveAcceso"
-                                 materialDesign:HintAssist.Foreground="#99C79F86"
-                                 materialDesign:TextFieldAssist.HasClearButton="False"
-                                 materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
-                                 materialDesign:PasswordBoxAssist.IsPasswordRevealed="False">
-                        <PasswordBox.Style>
-                            <Style TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignOutlinedPasswordBox}">
-                                <Setter Property="Background" Value="#40000000" />
-                                <Setter Property="Foreground" Value="White" />
-                                <Setter Property="BorderBrush" Value="#C79F86" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsKeyboardFocused" Value="True">
-                                        <Setter Property="Background" Value="#80000000" />
-                                        <Setter Property="BorderBrush" Value="#000C38" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </PasswordBox.Style>
+                                 Style="{StaticResource GlassOutlinedPasswordBoxStyle}"
+                                 helpers:PasswordBoxHelper.BindPassword="True"
+                                 helpers:PasswordBoxHelper.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <materialDesign:HintAssist.Hint>
                             <StackPanel Orientation="Horizontal" Margin="-2,0,0,0">
-                                <materialDesign:PackIcon Kind="LockOutline" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="#C79F86" />
-                                <TextBlock Text="Contraseña" VerticalAlignment="Center" Foreground="#C79F86" />
+                                <materialDesign:PackIcon Kind="LockOutline" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{StaticResource GoldAccentBrush}" />
+                                <TextBlock Text="Contraseña" VerticalAlignment="Center" Foreground="{StaticResource GoldAccentBrush}" />
                             </StackPanel>
                         </materialDesign:HintAssist.Hint>
                     </PasswordBox>
 
                     <!-- Input: Repetir Contraseña -->
                     <PasswordBox Grid.Row="3" Margin="0,0,0,20"
-                                 HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                                 CaretBrush="White"
                                  x:Name="passClaveAccesoRepetir"
-                                 materialDesign:HintAssist.Foreground="#99C79F86"
-                                 materialDesign:TextFieldAssist.HasClearButton="False"
-                                 materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
-                                 materialDesign:PasswordBoxAssist.IsPasswordRevealed="False">
-                        <PasswordBox.Style>
-                            <Style TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignOutlinedPasswordBox}">
-                                <Setter Property="Background" Value="#40000000" />
-                                <Setter Property="Foreground" Value="White" />
-                                <Setter Property="BorderBrush" Value="#C79F86" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsKeyboardFocused" Value="True">
-                                        <Setter Property="Background" Value="#80000000" />
-                                        <Setter Property="BorderBrush" Value="#000C38" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </PasswordBox.Style>
+                                 Style="{StaticResource GlassOutlinedPasswordBoxStyle}"
+                                 helpers:PasswordBoxHelper.BindPassword="True"
+                                 helpers:PasswordBoxHelper.BoundPassword="{Binding ConfirmarPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <materialDesign:HintAssist.Hint>
                             <StackPanel Orientation="Horizontal" Margin="-2,0,0,0">
-                                <materialDesign:PackIcon Kind="RepeatVariant" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="#C79F86" />
-                                <TextBlock Text="Repetir Contraseña" VerticalAlignment="Center" Foreground="#C79F86" />
+                                <materialDesign:PackIcon Kind="RepeatVariant" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{StaticResource GoldAccentBrush}" />
+                                <TextBlock Text="Repetir Contraseña" VerticalAlignment="Center" Foreground="{StaticResource GoldAccentBrush}" />
                             </StackPanel>
                         </materialDesign:HintAssist.Hint>
                     </PasswordBox>
 
                     <!-- Botón Registrarse -->
                     <Button Grid.Row="4" Content="Registrarse" 
-                            FontSize="20" Height="48"
+                            Style="{StaticResource PrimaryGradientButtonStyle}"
                             x:Name="BtnRegistrarse"
                             Click="BtnRegistrarse_Click"
                             Margin="80,0,80,0"
-                            materialDesign:ButtonAssist.CornerRadius="35" 
-                            HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                            Foreground="#101826" FontWeight="Bold">
-                        <Button.BorderBrush>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="#8B5D50" Offset="0.0"/>
-                                <GradientStop Color="#E7B8A0" Offset="1.0"/>
-                            </LinearGradientBrush>
-                        </Button.BorderBrush>
-                        <Button.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="#8B5D50" Offset="0.0"/>
-                                <GradientStop Color="#E7B8A0" Offset="1.0"/>
-                            </LinearGradientBrush>
-                        </Button.Background>
-                    </Button>
+                            HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
 
                     <!-- Enlace Volver al Login -->
                     <TextBlock Grid.Row="5"
@@ -173,7 +94,7 @@
                                MouseLeftButtonDown="BtnVolverLogin_Click"
                                Cursor="Hand"
                                HorizontalAlignment="Center"
-                               Foreground="#C79F86"
+                               Foreground="{StaticResource GoldAccentBrush}"
                                Margin="0,8,0,0"/>
                 </Grid>
             </Border>

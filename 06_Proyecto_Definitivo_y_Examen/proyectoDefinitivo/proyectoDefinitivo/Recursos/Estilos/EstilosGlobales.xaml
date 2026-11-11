@@ -1,0 +1,99 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+
+    <!-- =====================================================================
+         1. PALETA DE COLORES Y DEGRADADOS CORPORATIVOS (DEGRADAPP)
+         ===================================================================== -->
+    <Color x:Key="GoldAccentColor">#C79F86</Color>
+    <Color x:Key="DarkNavyColor">#101826</Color>
+    <Color x:Key="DeepBlueFocusColor">#000C38</Color>
+
+    <SolidColorBrush x:Key="GoldAccentBrush" Color="#C79F86"/>
+    <SolidColorBrush x:Key="GoldMutedBrush" Color="#99C79F86"/>
+    <SolidColorBrush x:Key="DarkNavyBrush" Color="#101826"/>
+    <SolidColorBrush x:Key="DeepBlueFocusBrush" Color="#000C38"/>
+    <SolidColorBrush x:Key="GlassSurfaceBrush" Color="#B3101826"/>
+    <SolidColorBrush x:Key="InputGlassBrush" Color="#40000000"/>
+    <SolidColorBrush x:Key="InputFocusGlassBrush" Color="#80000000"/>
+
+    <!-- Sobrescritura de pinceles primarios de Material Design -->
+    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#C79F86"/>
+    <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="White"/>
+    <SolidColorBrush x:Key="MaterialDesignBody" Color="#C79F86"/>
+
+    <!-- Degradado cobrizo-dorado para botones principales y enlaces -->
+    <LinearGradientBrush x:Key="PrimaryCopperGradientBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#8B5D50" Offset="0.0"/>
+        <GradientStop Color="#E7B8A0" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <!-- =====================================================================
+         2. ESTILO REUTILIZABLE DE TARJETA CRISTAL (GLASSMORPHISM)
+         ===================================================================== -->
+    <Style x:Key="GlassCardBorderStyle" TargetType="Border">
+        <Setter Property="BorderBrush" Value="{StaticResource GoldAccentBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="CornerRadius" Value="25"/>
+        <Setter Property="Background" Value="{StaticResource GlassSurfaceBrush}"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="40" ShadowDepth="10" Direction="270" Color="Black" Opacity="0.5"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- =====================================================================
+         3. ESTILOS CENTRALIZADOS DE CAMPOS DE ENTRADA (TEXTBOX Y PASSWORDBOX)
+         ===================================================================== -->
+    <Style x:Key="GlassOutlinedTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+        <Setter Property="Background" Value="{StaticResource InputGlassBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="CaretBrush" Value="White"/>
+        <Setter Property="BorderBrush" Value="{StaticResource GoldAccentBrush}"/>
+        <Setter Property="materialDesign:HintAssist.Foreground" Value="{StaticResource GoldMutedBrush}"/>
+        <Setter Property="materialDesign:HintAssist.Background" Value="Transparent"/>
+        <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="{StaticResource DeepBlueFocusBrush}"/>
+        <Setter Property="materialDesign:TextFieldAssist.HasClearButton" Value="False"/>
+        <Setter Property="materialDesign:TextFieldAssist.TextFieldCornerRadius" Value="15"/>
+        <Style.Triggers>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="Background" Value="{StaticResource InputFocusGlassBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource DeepBlueFocusBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="GlassOutlinedPasswordBoxStyle" TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignOutlinedPasswordBox}">
+        <Setter Property="Background" Value="{StaticResource InputGlassBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="CaretBrush" Value="White"/>
+        <Setter Property="BorderBrush" Value="{StaticResource GoldAccentBrush}"/>
+        <Setter Property="materialDesign:HintAssist.Foreground" Value="{StaticResource GoldMutedBrush}"/>
+        <Setter Property="materialDesign:HintAssist.Background" Value="Transparent"/>
+        <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="{StaticResource DeepBlueFocusBrush}"/>
+        <Setter Property="materialDesign:TextFieldAssist.HasClearButton" Value="False"/>
+        <Setter Property="materialDesign:TextFieldAssist.TextFieldCornerRadius" Value="15"/>
+        <Setter Property="materialDesign:PasswordBoxAssist.IsPasswordRevealed" Value="False"/>
+        <Style.Triggers>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="Background" Value="{StaticResource InputFocusGlassBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource DeepBlueFocusBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- =====================================================================
+         4. ESTILO DE BOTÓN PRINCIPAL CON DEGRADADO Y BORDES REDONDEADOS
+         ===================================================================== -->
+    <Style x:Key="PrimaryGradientButtonStyle" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+        <Setter Property="Height" Value="48"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkNavyBrush}"/>
+        <Setter Property="Background" Value="{StaticResource PrimaryCopperGradientBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource PrimaryCopperGradientBrush}"/>
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="35"/>
+    </Style>
+
+</ResourceDictionary>

@@ -1,12 +1,5 @@
 ﻿<!-- =========================================================================
-     CONFIGURACIÓN GLOBAL APP.XAML (MATERIAL DESIGN + MAHAPPS.METRO)
-     =========================================================================
-     QUÉ HACE ESTE ARCHIVO:
-       Carga los diccionarios de recursos necesarios en toda la aplicación para
-       combinar Material Design In XAML Toolkit (v5) con MahApps.Metro:
-         1. BundledTheme: Define el tema base (Light/Dark) y los colores primario/secundario.
-         2. MaterialDesign2.Defaults.xaml: Carga los estilos por defecto de los controles Material.
-         3. Controls.xaml, Fonts.xaml y Light.Blue.xaml: Cargan la apariencia de MahApps.Metro.
+     CONFIGURACIÓN GLOBAL APP.XAML (MATERIAL DESIGN + MAHAPPS.METRO + ESTILOS)
      ========================================================================= -->
 <Application x:Class="proyectoDefinitivo.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -28,6 +21,9 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+
+                <!-- 4. Diccionario Centralizado de Estilos, Colores y Plantillas del Proyecto -->
+                <ResourceDictionary Source="/Recursos/Estilos/EstilosGlobales.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

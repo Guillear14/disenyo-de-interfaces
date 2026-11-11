@@ -10,25 +10,18 @@
         xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
         WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
-        Title="Recuperar Contraseña" Height="450" Width="800">
+        Title="Recuperar Contraseña — DegradApp" Height="450" Width="800">
     <Grid>
         <!-- Fondo base adaptativo -->
         <Image Source="/Recursos/Imagenes/Onades de seda blava i daurada.png" Stretch="UniformToFill"/>
 
-        <!-- EL VIEWBOX: StretchDirection="DownOnly" evita que se vuelva gigante en 1080p -->
+        <!-- Viewbox adaptativo 720p/1080p -->
         <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Margin="20">
 
-            <!-- PANEL EFECTO CRISTAL -->
-            <Border Width="750" Height="580" 
-                    BorderBrush="#C79F86" 
-                    BorderThickness="2" 
-                    CornerRadius="25" 
-                    Background="#B3101826"
+            <!-- Panel Efecto Cristal centralizado -->
+            <Border Style="{StaticResource GlassCardBorderStyle}"
+                    Width="750" Height="580"
                     Padding="120,20,120,20">
-
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="40" ShadowDepth="10" Direction="270" Color="Black" Opacity="0.5" />
-                </Border.Effect>
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -45,45 +38,26 @@
                            Stretch="Uniform" HorizontalAlignment="Center" 
                            Height="135" Margin="0,0,0,0" />
 
-                    <!-- Texto Olvidar Contraseña Inicial -->
+                    <!-- Texto Superior -->
                     <TextBlock Grid.Row="1" Text="¿Olvidaste la clave? Tranquilo, duele menos que un mal degradado, te lo prometemos."
                            TextWrapping="WrapWithOverflow"
                            TextAlignment="Center"
                            FontSize="20"
-                           Foreground="#C79F86"
+                           Foreground="{StaticResource GoldAccentBrush}"
                            HorizontalAlignment="Center" 
                            VerticalAlignment="Center" />
 
-                    <!-- Input: Correo Electrónico (Enlazado por MVVM a RecuperarClaveViewModel.Correo) -->
+                    <!-- Input: Correo Electrónico -->
                     <TextBox Grid.Row="2"
                              x:Name="txtCorreo"
+                             Style="{StaticResource GlassOutlinedTextBoxStyle}"
                              Text="{Binding Correo, UpdateSourceTrigger=PropertyChanged}"
                              HorizontalAlignment="Stretch" 
-                             VerticalAlignment="Center"
-                             CaretBrush="White"
-                             materialDesign:HintAssist.Foreground="#99C79F86"
-                             materialDesign:HintAssist.Background="Transparent"
-                             materialDesign:TextFieldAssist.UnderlineBrush="#000C38"
-                             materialDesign:TextFieldAssist.HasClearButton="False"
-                             materialDesign:TextFieldAssist.TextFieldCornerRadius="15">
-                        <TextBox.Style>
-                            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
-                                <Setter Property="Background" Value="#40000000" />
-                                <Setter Property="Foreground" Value="White" />
-                                <Setter Property="BorderBrush" Value="#C79F86" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsKeyboardFocused" Value="True">
-                                        <Setter Property="Background" Value="#80000000" />
-                                        <Setter Property="BorderBrush" Value="#000C38" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
-
+                             VerticalAlignment="Center">
                         <materialDesign:HintAssist.Hint>
                             <StackPanel Orientation="Horizontal" Margin="-2,0,0,0">
-                                <mat:PackIcon Kind="EmailOutline" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="#C79F86" />
-                                <TextBlock Text="Correo electrónico" VerticalAlignment="Center" Foreground="#C79F86" />
+                                <mat:PackIcon Kind="EmailOutline" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{StaticResource GoldAccentBrush}" />
+                                <TextBlock Text="Correo electrónico" VerticalAlignment="Center" Foreground="{StaticResource GoldAccentBrush}" />
                             </StackPanel>
                         </materialDesign:HintAssist.Hint>
                     </TextBox>
@@ -93,35 +67,20 @@
                            TextWrapping="WrapWithOverflow"
                            TextAlignment="Center"
                            FontSize="15"
-                           Foreground="#C79F86" 
+                           Foreground="{StaticResource GoldAccentBrush}" 
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"/>
 
                     <!-- Botón Recuperar Clave -->
                     <Button Grid.Row="4" Content="Recuperar Clave"
-                                x:Name="BtnRecuperarClave"
-                                Click="BtnRecuperarClave_Click"
-                                FontSize="20" 
-                                Height="42"
-                                Width="350"
-                                Margin="20,0,20,10"
-                                mat:ButtonAssist.CornerRadius="35" 
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Foreground="#101826" FontWeight="Bold">
-                        <Button.BorderBrush>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="#8B5D50" Offset="0.0"/>
-                                <GradientStop Color="#E7B8A0" Offset="1.0"/>
-                            </LinearGradientBrush>
-                        </Button.BorderBrush>
-                        <Button.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="#8B5D50" Offset="0.0"/>
-                                <GradientStop Color="#E7B8A0" Offset="1.0"/>
-                            </LinearGradientBrush>
-                        </Button.Background>
-                    </Button>
+                            Style="{StaticResource PrimaryGradientButtonStyle}"
+                            x:Name="BtnRecuperarClave"
+                            Click="BtnRecuperarClave_Click"
+                            Height="42"
+                            Width="350"
+                            Margin="20,0,20,10"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"/>
 
                     <!-- Enlace Volver al Login y Pie -->
                     <StackPanel Grid.Row="5" HorizontalAlignment="Center" Margin="0,0,0,6">
@@ -130,11 +89,11 @@
                                    Cursor="Hand"
                                    HorizontalAlignment="Center"
                                    FontSize="14"
-                                   Foreground="#E7B8A0"
+                                   Foreground="{StaticResource PrimaryCopperGradientBrush}"
                                    Margin="0,0,0,4"/>
                         <TextBlock HorizontalAlignment="Center"
                                    FontSize="13"
-                                   Foreground="#C79F86" 
+                                   Foreground="{StaticResource GoldAccentBrush}" 
                                    Text="© 2026 - DegradApp" />
                     </StackPanel>
                 </Grid>

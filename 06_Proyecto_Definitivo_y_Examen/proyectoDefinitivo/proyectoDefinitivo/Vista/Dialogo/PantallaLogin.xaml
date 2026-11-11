@@ -1,14 +1,5 @@
-﻿<!-- =========================================================================
-     PROYECTO DEFINITIVO - PANTALLA DE LOGIN (MAHAPPS + MATERIAL DESIGN)
-     =========================================================================
-     QUÉ HACE ESTE ARCHIVO:
-       1. Usa <mah:MetroWindow> de MahApps.Metro como ventana base.
-       2. Fondo con imagen a pantalla completa (<Image Stretch="Fill"/>).
-       3. <Viewbox Stretch="Uniform" StretchDirection="DownOnly"> para escalar en pantallas pequeñas.
-       4. Tarjeta central semitransparente (efecto cristal / Glassmorphism #B3101826) con sombra DropShadowEffect.
-       5. TextBox de Correo y PasswordBox con estilo Outlined, esquinas redondeadas,
-          icono PackIcon en el Hint y Trigger IsKeyboardFocused que cambia fondo/borde al hacer clic.
-       6. Botón "Iniciar Sesión" con degradado LinearGradientBrush y evento Click="btnLogin_Click".
+<!-- =========================================================================
+     PROYECTO DEFINITIVO - PANTALLA DE LOGIN (MAHAPPS + MATERIAL DESIGN + MVVM)
      ========================================================================= -->
 <mah:MetroWindow x:Class="proyectoDefinitivo.Vista.Dialogo.PantallaLogin"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -16,40 +7,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:proyectoDefinitivo.Vista.Dialogo"
+        xmlns:helpers="clr-namespace:proyectoDefinitivo.Helpers"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
-        Title="PantallaLogin" Height="450" Width="800"
+        Title="Iniciar Sesión — DegradApp" Height="450" Width="800"
         ResizeMode="CanResize"
         WindowState="Maximized"
         WindowStartupLocation="CenterScreen">
 
-    <!-- RECURSOS LOCALES: Sobrescriben los colores primarios de Material Design en esta ventana -->
-    <mah:MetroWindow.Resources>
-        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#C79F86" />
-        <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="White" />
-        <SolidColorBrush x:Key="MaterialDesignBody" Color="#C79F86" />
-    </mah:MetroWindow.Resources>
-
     <Grid>
         <!-- 1. FONDO BASE ADAPTATIVO -->
-        <Image Source="/Recursos/Imagenes/Onades de seda blava i daurada.png" Stretch="Fill"/>
+        <Image Source="/Recursos/Imagenes/Onades de seda blava i daurada.png" Stretch="UniformToFill"/>
 
-        <!-- 2. VIEWBOX: Escala proporcionalmente el panel central sin deformarlo -->
+        <!-- 2. VIEWBOX: Escala proporcionalmente el panel central en pantallas 720p/1080p -->
         <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Margin="20">
 
-            <!-- 3. PANEL EFECTO CRISTAL (GLASSMORPHISM) CON SOMBRA -->
-            <Border Width="750" Height="580" 
-                BorderBrush="#C79F86" 
-                BorderThickness="2" 
-                CornerRadius="25" 
-                Background="#B3101826"
-                Padding="60,40,60,10">
-
-                <!-- Sombra exterior difuminada -->
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="40" ShadowDepth="10" Direction="270" Color="Black" Opacity="0.5" />
-                </Border.Effect>
+            <!-- 3. PANEL EFECTO CRISTAL CENTRALIZADO EN Recursos/Estilos/EstilosGlobales.xaml -->
+            <Border Style="{StaticResource GlassCardBorderStyle}"
+                    Width="750" Height="580"
+                    Padding="60,40,60,10">
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -58,7 +35,7 @@
                         <RowDefinition Height="Auto"/> <!-- Fila 2: Password -->
                         <RowDefinition Height="Auto"/> <!-- Fila 3: CheckBox Recordarme -->
                         <RowDefinition Height="Auto"/> <!-- Fila 4: Botón Iniciar Sesión -->
-                        <RowDefinition Height="*"/>    <!-- Fila 5: Texto Olvidaste contraseña -->
+                        <RowDefinition Height="*"/>    <!-- Fila 5: Enlaces inferiores -->
                     </Grid.RowDefinitions>
 
                     <!-- FILA 0: Logotipo superior -->
@@ -66,164 +43,78 @@
                            Stretch="Uniform" HorizontalAlignment="Center" 
                            Height="100" Margin="0,0,0,30" />
 
-                    <!-- =====================================================
-                         FILA 1: CAMPO CORREO ELECTRÓNICO (OUTLINED + TRIGGER)
-                         ===================================================== -->
+                    <!-- FILA 1: CAMPO CORREO ELECTRÓNICO (ESTILO CENTRALIZADO + BINDING MVVM) -->
                     <TextBox Grid.Row="1" 
                              x:Name="txtcorreo"
+                             Style="{StaticResource GlassOutlinedTextBoxStyle}"
                              Text="{Binding Correo, UpdateSourceTrigger=PropertyChanged}"
                              Margin="60,15,60,15"
-                             HorizontalAlignment="Stretch" 
-                             VerticalAlignment="Center"
                              FontSize="18"
-                             Padding="8"
-                             Foreground="White"
-                             TextElement.Foreground="White"
-                             CaretBrush="White"
-                             materialDesign:HintAssist.Foreground="#99C79F86"
-                             materialDesign:HintAssist.Background="Transparent"
-                             materialDesign:TextFieldAssist.UnderlineBrush="#000C38"
-                             materialDesign:TextFieldAssist.HasClearButton="False"
-                             materialDesign:TextFieldAssist.TextFieldCornerRadius="15">
-                        <!-- Estilo con Trigger: cambia el color de fondo y borde cuando tiene el foco del teclado -->
-                        <TextBox.Style>
-                            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
-                                <Setter Property="Background" Value="#40000000" />
-                                <Setter Property="BorderBrush" Value="#C79F86" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsKeyboardFocused" Value="True">
-                                        <Setter Property="Background" Value="#80000000" />
-                                        <Setter Property="BorderBrush" Value="#000C38" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
-
-                        <!-- Hint compuesto: Icono de usuario + Texto "Correo electrónico" -->
+                             Padding="8">
                         <materialDesign:HintAssist.Hint>
                             <StackPanel Orientation="Horizontal" Margin="-2,0,0,0">
-                                <materialDesign:PackIcon Kind="User" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="#C79F86" />
-                                <TextBlock Text="Correo electrónico" VerticalAlignment="Center" Foreground="#C79F86" />
+                                <materialDesign:PackIcon Kind="User" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{StaticResource GoldAccentBrush}" />
+                                <TextBlock Text="Correo electrónico" VerticalAlignment="Center" Foreground="{StaticResource GoldAccentBrush}" />
                             </StackPanel>
                         </materialDesign:HintAssist.Hint>
                     </TextBox>
 
-                    <!-- =====================================================
-                         FILA 2: CAMPO CONTRASEÑA (PASSWORD BOX + TRIGGER)
-                         ===================================================== -->
+                    <!-- FILA 2: CAMPO CONTRASEÑA (ESTILO CENTRALIZADO + ATTACHED PROPERTY MVVM) -->
                     <PasswordBox Grid.Row="2" 
                                  x:Name="passClaveAcceso"
+                                 Style="{StaticResource GlassOutlinedPasswordBoxStyle}"
+                                 helpers:PasswordBoxHelper.BindPassword="True"
+                                 helpers:PasswordBoxHelper.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  Margin="60,15,60,30"
-                                 HorizontalAlignment="Stretch" 
-                                 VerticalAlignment="Center"
                                  FontSize="18"
-                                 Padding="8"
-                                 Foreground="White"
-                                 TextElement.Foreground="White"
-                                 CaretBrush="White"
-                                 materialDesign:HintAssist.Foreground="#99C79F86"
-                                 materialDesign:TextFieldAssist.HasClearButton="False"
-                                 materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
-                                 materialDesign:PasswordBoxAssist.IsPasswordRevealed="False">
-                        <PasswordBox.Style>
-                            <Style TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignOutlinedPasswordBox}">
-                                <Setter Property="Background" Value="#40000000" />
-                                <Setter Property="BorderBrush" Value="#C79F86" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsKeyboardFocused" Value="True">
-                                        <Setter Property="Background" Value="#80000000" />
-                                        <Setter Property="BorderBrush" Value="#000C38" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </PasswordBox.Style>
-
-                        <!-- Hint compuesto: Icono de candado + Texto "Contraseña" -->
+                                 Padding="8">
                         <materialDesign:HintAssist.Hint>
                             <StackPanel Orientation="Horizontal" Margin="-2,0,0,0">
-                                <materialDesign:PackIcon Kind="LockOutline" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="#C79F86" />
-                                <TextBlock Text="Contraseña" VerticalAlignment="Center" Foreground="#C79F86" />
+                                <materialDesign:PackIcon Kind="LockOutline" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{StaticResource GoldAccentBrush}" />
+                                <TextBlock Text="Contraseña" VerticalAlignment="Center" Foreground="{StaticResource GoldAccentBrush}" />
                             </StackPanel>
                         </materialDesign:HintAssist.Hint>
                     </PasswordBox>
 
-                    <!-- =====================================================
-                         FILA 3: CHECKBOX "¿RECORDARME?"
-                         ===================================================== -->
+                    <!-- FILA 3: CHECKBOX "¿RECORDARME?" -->
                     <CheckBox Grid.Row="3"
+                              IsChecked="{Binding Recordarme}"
                               VerticalAlignment="Center"
                               HorizontalAlignment="Center"
                               FocusVisualStyle="{x:Null}"
                               Margin="0,0,0,25"
-                              BorderBrush="#C79F86">
-                        <TextBlock Text="¿Recordarme?"
-                                   Foreground="#C79F86"
-                                   TextElement.Foreground="#C79F86"/>
-                        <CheckBox.Resources>
-                            <SolidColorBrush x:Key="MaterialDesign.Brush.Primary" Color="#C79F86"/>
-                            <SolidColorBrush x:Key="MaterialDesign.Brush.Secondary" Color="#C79F86"/>
-                            <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="AliceBlue"/>
-                        </CheckBox.Resources>
+                              BorderBrush="{StaticResource GoldAccentBrush}">
+                        <TextBlock Text="¿Recordarme?" Foreground="{StaticResource GoldAccentBrush}"/>
                     </CheckBox>
 
-                    <!-- =====================================================
-                         FILA 4: BOTÓN INICIAR SESIÓN CON DEGRADADO LINEAL
-                         ===================================================== -->
+                    <!-- FILA 4: BOTÓN INICIAR SESIÓN CON ESTILO CENTRALIZADO -->
                     <Button Grid.Row="4" Content="Iniciar Sesión" 
-                            FontSize="20" Height="48"
+                            Style="{StaticResource PrimaryGradientButtonStyle}"
                             Margin="80,0,80,0"
                             HorizontalAlignment="Stretch" 
                             VerticalAlignment="Center"
-                            materialDesign:ButtonAssist.CornerRadius="35"
-                            Foreground="Black"
-                            FontWeight="Bold"
                             x:Name="btnLogin"
-                            Click="btnLogin_Click">
-                        <Button.BorderBrush>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="#8B5D50" Offset="0.0"/>
-                                <GradientStop Color="#E7B8A0" Offset="1.0"/>
-                            </LinearGradientBrush>
-                        </Button.BorderBrush>
-                        <Button.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="#8B5D50" Offset="0.0"/>
-                                <GradientStop Color="#E7B8A0" Offset="1.0"/>
-                            </LinearGradientBrush>
-                        </Button.Background>
-                    </Button>
+                            Click="btnLogin_Click"/>
 
-                    <!-- FILA 5: ENLACE INFERIOR "¿OLVIDASTE TU CONTRASEÑA?" -->
+                    <!-- FILA 5: ENLACES INFERIORES -->
                     <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Center">
                         <TextBlock Text="¿Olvidaste tu contraseña?"
-               x:Name="btnOlvidarContraseña"
-               MouseLeftButtonDown="btnOlvidarContraseña_Click"
-               Cursor="Hand"
-               Margin="0,0,20,15"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Bottom">
-                            <TextBlock.Foreground>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Color="#8B5D50" Offset="0.0"/>
-                                    <GradientStop Color="#E7B8A0" Offset="1.0"/>
-                                </LinearGradientBrush>
-                            </TextBlock.Foreground>
-                        </TextBlock>
+                                   x:Name="btnOlvidarContraseña"
+                                   MouseLeftButtonDown="btnOlvidarContraseña_Click"
+                                   Cursor="Hand"
+                                   Margin="0,0,20,15"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Bottom"
+                                   Foreground="{StaticResource PrimaryCopperGradientBrush}"/>
 
-                        <TextBlock Text="Registrate"
-               x:Name="Registrobtn"
-               MouseLeftButtonDown="Registrobtn_Click"
-               Cursor="Hand"
-               Margin="0,0,0,15"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Bottom">
-                            <TextBlock.Foreground>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Color="#8B5D50" Offset="0.0"/>
-                                    <GradientStop Color="#E7B8A0" Offset="1.0"/>
-                                </LinearGradientBrush>
-                            </TextBlock.Foreground>
-                        </TextBlock>
+                        <TextBlock Text="Regístrate"
+                                   x:Name="Registrobtn"
+                                   MouseLeftButtonDown="Registrobtn_Click"
+                                   Cursor="Hand"
+                                   Margin="0,0,0,15"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Bottom"
+                                   Foreground="{StaticResource PrimaryCopperGradientBrush}"/>
                     </StackPanel>
                 </Grid>
             </Border>
