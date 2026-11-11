@@ -10,11 +10,11 @@
         WindowState="Maximized"
         Title="registro" Height="450" Width="800">
     
-        <Window.Resources>
-            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#C79F86" />
-            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="White" />
-            <SolidColorBrush x:Key="MaterialDesignBody" Color="#C79F86" />
-        </Window.Resources>
+    <mah:MetroWindow.Resources>
+        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#C79F86" />
+        <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="White" />
+        <SolidColorBrush x:Key="MaterialDesignBody" Color="#C79F86" />
+    </mah:MetroWindow.Resources>
 
     <Grid>
         <!-- Fondo base adaptativo -->
@@ -82,7 +82,7 @@
 
                         <materialDesign:HintAssist.Hint>
                             <StackPanel Orientation="Horizontal" Margin="-2,0,0,0">
-                                <materialDesign:PackIcon Margin="0,0,8,0" VerticalAlignment="Center" Foreground="#C79F86" />
+                                <materialDesign:PackIcon Kind="EmailOutline" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="#C79F86" />
                                 <TextBlock Text="Correo electrónico" VerticalAlignment="Center" Foreground="#C79F86" />
                             </StackPanel>
                         </materialDesign:HintAssist.Hint>

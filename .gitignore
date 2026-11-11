@@ -6,5 +6,7 @@
 *.suo
 *.userosscache
 *.sln.docstates
+*.db-shm
+*.db-wal
 GenerarIndice720p.ps1
 

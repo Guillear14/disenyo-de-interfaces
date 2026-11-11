@@ -47,7 +47,7 @@
                               Style="{StaticResource MaterialDesignExpander}" 
                               Header="Settings" Background="{x:Null}" Foreground="White">
                         <!-- Lista interior con las sub-opciones -->
-                        <ListView x:Name="ListViewMenu" ItemsSource="{Binding Path=SubItems}" 
+                        <ListView x:Name="ListViewMenu" 
                                   Foreground="White" Style="{StaticResource MaterialDesignListView}" 
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                             <ListViewItem Content="Users" Padding="20 5" />
@@ -63,8 +63,7 @@
                     <Expander IsExpanded="False" Width="210" HorizontalAlignment="Right" 
                               Header="Personal" Style="{StaticResource MaterialDesignExpander}" 
                               Background="{x:Null}" Foreground="White">
-                        <ListView ItemsSource="{Binding Path=SubItems}" 
-                                  Foreground="White" Style="{StaticResource MaterialDesignListView}" 
+                        <ListView Foreground="White" Style="{StaticResource MaterialDesignListView}" 
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                             <ListViewItem Content="Profile" Padding="20 5" />
                             <ListViewItem Content="Password" Padding="20 5" />

@@ -12,7 +12,7 @@
         Title="olvidarContraseña" Height="450" Width="800">
     <Grid>
         <!-- Fondo base adaptativo -->
-        <Image Source="/recursos/Onades de seda blava i daurada.png" Stretch="UniformToFill"/>
+        <Image Source="/Recursos/Imagenes/Onades de seda blava i daurada.png" Stretch="UniformToFill"/>
 
         <!-- EL VIEWBOX: StretchDirection="DownOnly" evita que se vuelva gigante en 1080p -->
         <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Margin="20">
@@ -47,7 +47,7 @@
                     </Grid.RowDefinitions>
 
                     <!-- Logo -->
-                    <Image Grid.Row="0" Source="/recursos/LogoOscur-removebg-preview.png" 
+                    <Image Grid.Row="0" Source="/Recursos/Imagenes/LogoOscur-removebg-preview.png" 
                            Stretch="Uniform" HorizontalAlignment="Center" 
                            Height="140" Margin="0,0,0,0" />
 
