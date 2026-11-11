@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -41,7 +41,12 @@
         }
 
         body {
-            background-color: var(--bg);
+            max-width: 1500px;
+            margin: 0 auto;
+            background:
+                radial-gradient(circle at top left, rgba(88, 166, 255, 0.12), transparent 28%),
+                radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.10), transparent 24%),
+                var(--bg);
             color: var(--text);
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             font-size: 13px;
@@ -57,6 +62,12 @@
             outline-offset: 1px;
         }
 
+        .sticky-bar,
+        .tab-panel,
+        .card-link {
+            -webkit-tap-highlight-color: transparent;
+        }
+
         /* =====================================================================
            CABECERA STICKY LIMPIA Y LIGERA (MÍNIMO ESPACIO VERTICAL EN 720P)
            ===================================================================== */
@@ -64,14 +75,16 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: var(--bg-sticky);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border);
-            padding: 6px 0;
-            margin-bottom: 10px;
+            background: rgba(13, 17, 23, 0.92);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(38, 44, 54, 0.9);
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+            padding: 8px 12px 10px;
+            margin: 0 -12px 12px;
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 6px;
         }
 
         .top-row {
@@ -259,7 +272,8 @@
         .tab-panel {
             display: none;
             grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
-            gap: 8px;
+            gap: 10px;
+            padding-top: 4px;
         }
 
         .tab-panel.active {
@@ -270,18 +284,24 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background: var(--card-bg);
+            background: linear-gradient(180deg, rgba(21, 27, 35, 0.98), rgba(17, 22, 29, 0.98));
             border: 1px solid var(--border);
             border-left: 3px solid var(--border);
             border-radius: var(--radius);
-            padding: 7px 10px;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.02), 0 10px 18px rgba(0, 0, 0, 0.08);
+            padding: 9px 10px;
             text-decoration: none;
             color: var(--text);
-            gap: 4px;
+            gap: 5px;
             cursor: pointer;
-            transition: background 0.12s ease, border-color 0.12s ease;
-            min-height: 50px;
+            transition: transform 0.12s ease, background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+            min-height: 58px;
             overflow: hidden;
+        }
+
+        .card-link:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
         }
 
         .card-link:hover {
