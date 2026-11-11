@@ -21,12 +21,20 @@ namespace proyectoDefinitivo.Vista.Dialogo
     public partial class PantallaLogin : MetroWindow
     {
         private readonly MainWindow _mainWindow;
+        private readonly Func<olvidarContraseña> _olvidarContraseñaFactory;
+        private readonly Func<registro> _registroFactory;
 
         // Constructor con Inyección de Dependencias (recibe MainWindow desde App.xaml.cs)
-        public PantallaLogin(MainWindow mainWindow)
+        // Asegúrate de añadir los dos "Func<...>" dentro de estos paréntesis
+        public PantallaLogin(
+            MainWindow mainWindow,
+            Func<olvidarContraseña> olvidarContraseñaFactory,
+            Func<registro> registroFactory)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
+            _olvidarContraseñaFactory = olvidarContraseñaFactory;
+            _registroFactory = registroFactory;
         }
 
         // Evento Click asíncrono del botón "Iniciar Sesión"
@@ -47,6 +55,23 @@ namespace proyectoDefinitivo.Vista.Dialogo
                 // 3. Cerrar la ventana de Login actual
                 this.Close();
             }
+        }
+
+
+        private void btnOlvidarContraseña_Click(object sender, RoutedEventArgs e)
+        {
+            olvidarContraseña pantallaolvidarContraseña = _olvidarContraseñaFactory();
+            Application.Current.MainWindow = pantallaolvidarContraseña;
+            pantallaolvidarContraseña.Show();
+            this.Close();
+        }
+
+        private void Registrobtn_Click(object sender, RoutedEventArgs e)
+        {
+            registro pantallaregistro = _registroFactory();
+            Application.Current.MainWindow = pantallaregistro;
+            pantallaregistro.Show();
+            this.Close();
         }
     }
 }

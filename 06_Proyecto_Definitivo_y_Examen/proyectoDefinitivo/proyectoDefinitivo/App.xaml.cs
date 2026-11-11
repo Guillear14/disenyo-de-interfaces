@@ -29,18 +29,29 @@ namespace proyectoDefinitivo
         // Registro de ventanas y factorías para Inyección de Dependencias
         private static void ConfigureServices(IServiceCollection services)
         {
+            // Registros base de las ventanas
             services.AddTransient<PantallaLogin>();
             services.AddTransient<MainWindow>();
-            // Factoría Func<PantallaLogin> para poder volver al Login al cerrar sesión
+            services.AddTransient<registro>();
+            services.AddTransient<olvidarContraseña>();
+
+            // Factoría original para el Login
             services.AddTransient<Func<PantallaLogin>>(serviceProvider =>
                 () => serviceProvider.GetRequiredService<PantallaLogin>());
+
+            // AÑADE ESTO: Enseña al sistema cómo resolver Func<olvidarContraseña>
+            services.AddTransient<Func<olvidarContraseña>>(serviceProvider =>
+                () => serviceProvider.GetRequiredService<olvidarContraseña>());
+
+            // AÑADE ESTO TAMBIÉN: Para evitar el mismo error al abrir el Registro
+            services.AddTransient<Func<registro>>(serviceProvider =>
+                () => serviceProvider.GetRequiredService<registro>());
         }
 
         // Sobrescribe el inicio de la aplicación para lanzar primero PantallaLogin
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
             PantallaLogin login = _serviceProvider.GetRequiredService<PantallaLogin>();
             MainWindow = login;
             ShutdownMode = ShutdownMode.OnMainWindowClose;

@@ -21,6 +21,7 @@
         mc:Ignorable="d"
         Title="PantallaLogin" Height="450" Width="800"
         ResizeMode="CanResize"
+        WindowState="Maximized"
         WindowStartupLocation="CenterScreen">
 
     <!-- RECURSOS LOCALES: Sobrescriben los colores primarios de Material Design en esta ventana -->
@@ -63,7 +64,7 @@
                     <!-- FILA 0: Logotipo superior -->
                     <Image Grid.Row="0" Source="/Recursos/Imagenes/LogoOscur.jpg" 
                            Stretch="Uniform" HorizontalAlignment="Center" 
-                           Height="140" Margin="0,0,0,30" />
+                           Height="100" Margin="0,0,0,30" />
 
                     <!-- =====================================================
                          FILA 1: CAMPO CORREO ELECTRÓNICO (OUTLINED + TRIGGER)
@@ -74,7 +75,7 @@
                              HorizontalAlignment="Stretch" 
                              VerticalAlignment="Center"
                              FontSize="18"
-                             Padding="16"
+                             Padding="8"
                              Foreground="White"
                              TextElement.Foreground="White"
                              CaretBrush="White"
@@ -115,7 +116,7 @@
                                  HorizontalAlignment="Stretch" 
                                  VerticalAlignment="Center"
                                  FontSize="18"
-                                 Padding="16"
+                                 Padding="8"
                                  Foreground="White"
                                  TextElement.Foreground="White"
                                  CaretBrush="White"
@@ -192,13 +193,37 @@
                     </Button>
 
                     <!-- FILA 5: ENLACE INFERIOR "¿OLVIDASTE TU CONTRASEÑA?" -->
-                    <TextBlock Grid.Row="5"
-                               Text="¿Olvidaste tu contraseña?" 
-                               Foreground="#C79F86" 
-                               Cursor="Hand"
-                               Margin="0,0,0,15"
-                               HorizontalAlignment="Center" 
-                               VerticalAlignment="Bottom" />
+                    <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Center">
+                        <TextBlock Text="¿Olvidaste tu contraseña?"
+               x:Name="btnOlvidarContraseña"
+               MouseLeftButtonDown="btnOlvidarContraseña_Click"
+               Cursor="Hand"
+               Margin="0,0,20,15"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Bottom">
+                            <TextBlock.Foreground>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#8B5D50" Offset="0.0"/>
+                                    <GradientStop Color="#E7B8A0" Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+
+                        <TextBlock Text="Registrate"
+               x:Name="Registrobtn"
+               MouseLeftButtonDown="Registrobtn_Click"
+               Cursor="Hand"
+               Margin="0,0,0,15"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Bottom">
+                            <TextBlock.Foreground>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#8B5D50" Offset="0.0"/>
+                                    <GradientStop Color="#E7B8A0" Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                    </StackPanel>
                 </Grid>
             </Border>
         </Viewbox>

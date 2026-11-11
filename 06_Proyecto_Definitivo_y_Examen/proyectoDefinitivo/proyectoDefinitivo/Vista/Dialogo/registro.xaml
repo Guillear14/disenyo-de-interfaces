@@ -1,0 +1,193 @@
+﻿<mah:MetroWindow x:Class="proyectoDefinitivo.Vista.Dialogo.registro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:proyectoDefinitivo.Vista.Dialogo"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        Title="registro" Height="450" Width="800">
+    
+        <Window.Resources>
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#C79F86" />
+            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="White" />
+            <SolidColorBrush x:Key="MaterialDesignBody" Color="#C79F86" />
+        </Window.Resources>
+
+    <Grid>
+        <!-- Fondo base adaptativo -->
+        <Image Source="/Recursos/Imagenes/Onades de seda blava i daurada.png" Stretch="UniformToFill"/>
+
+        <!-- EL VIEWBOX: StretchDirection="DownOnly" evita que se vuelva gigante en 1080p -->
+        <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Margin="20">
+
+            <!-- PANEL EFECTO CRISTAL -->
+            <!-- Medidas ajustadas a las proporciones exactas de tu captura en 720p -->
+            <Border Width="750" Height="580" 
+                    BorderBrush="#C79F86" 
+                    BorderThickness="1" 
+                    CornerRadius="25" 
+                    Background="#B3101826"
+                    Padding="60,40,60,30">
+
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="40" ShadowDepth="10" Direction="270" Color="Black" Opacity="0.5" />
+                </Border.Effect>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <!-- Logo -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Correo -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Email -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Confirmacion -->
+                        <RowDefinition Height="*"/>
+                        <!-- Botón -->
+                    </Grid.RowDefinitions>
+
+                    <!-- Logo -->
+                    <Image Grid.Row="0" Source="/Recursos/Imagenes/LogoOscur-removebg-preview.png"
+                           Stretch="Uniform" HorizontalAlignment="Center" 
+                           Height="140" Margin="0,0,0,30" />
+
+
+                    <!-- Input: Correo Electrónico -->
+                    <TextBox Grid.Row="1" Margin="0,0,0,25"
+                             x:Name="txtcorreo"
+                             HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                             CaretBrush="White"
+                             materialDesign:HintAssist.Foreground="#99C79F86"
+                             materialDesign:HintAssist.Background="Transparent"
+                             materialDesign:TextFieldAssist.UnderlineBrush="#000C38"
+                             materialDesign:TextFieldAssist.HasClearButton="False"
+                             materialDesign:TextFieldAssist.TextFieldCornerRadius="15">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+                                <Setter Property="Background" Value="#40000000" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="BorderBrush" Value="#C79F86" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="#80000000" />
+                                        <Setter Property="BorderBrush" Value="#000C38" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+
+                        <materialDesign:HintAssist.Hint>
+                            <StackPanel Orientation="Horizontal" Margin="-2,0,0,0">
+                                <materialDesign:PackIcon Margin="0,0,8,0" VerticalAlignment="Center" Foreground="#C79F86" />
+                                <TextBlock Text="Correo electrónico" VerticalAlignment="Center" Foreground="#C79F86" />
+                            </StackPanel>
+                        </materialDesign:HintAssist.Hint>
+
+                        <TextBox.Resources>
+                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#000C38"/>
+                            <SolidColorBrush x:Key="MaterialDesign.Brush.Primary.Mid" Color="#000C38"/>
+                            <SolidColorBrush x:Key="MaterialDesign.Brush.Primary.Main" Color="#000C38"/>
+                        </TextBox.Resources>
+                    </TextBox>
+
+                    <!-- Input: Contraseña -->
+                    <PasswordBox Grid.Row="2" Margin="0,0,0,20"
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                 CaretBrush="White"
+                                 x:Name="passClaveAcceso"
+                                 materialDesign:HintAssist.Foreground="#99C79F86"
+                                 materialDesign:TextFieldAssist.HasClearButton="False"
+                                 materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                                 materialDesign:PasswordBoxAssist.IsPasswordRevealed="False">
+                        <PasswordBox.Style>
+                            <Style TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignOutlinedPasswordBox}">
+                                <Setter Property="Background" Value="#40000000" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="BorderBrush" Value="#C79F86" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="#80000000" />
+                                        <Setter Property="BorderBrush" Value="#000C38" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </PasswordBox.Style>
+                        <materialDesign:HintAssist.Hint>
+                            <StackPanel Orientation="Horizontal" Margin="-2,0,0,0">
+                                <materialDesign:PackIcon Kind="LockOutline" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="#C79F86" />
+                                <TextBlock Text="Contraseña" VerticalAlignment="Center" Foreground="#C79F86" />
+                            </StackPanel>
+                        </materialDesign:HintAssist.Hint>
+
+                        <PasswordBox.Resources>
+                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#000C38"/>
+                        </PasswordBox.Resources>
+                    </PasswordBox>
+
+                    <!-- Input: Repetir Contraseña -->
+                    <PasswordBox Grid.Row="3" Margin="0,0,0,20"
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                 CaretBrush="White"
+                                 materialDesign:HintAssist.Foreground="#99C79F86"
+                                 materialDesign:TextFieldAssist.HasClearButton="False"
+                                 materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                                 materialDesign:PasswordBoxAssist.IsPasswordRevealed="False" x:Name="passClaveAccesoRepetir">
+                        <PasswordBox.Style>
+                            <Style TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignOutlinedPasswordBox}">
+                                <Setter Property="Background" Value="#40000000" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="BorderBrush" Value="#C79F86" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="#80000000" />
+                                        <Setter Property="BorderBrush" Value="#000C38" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </PasswordBox.Style>
+                        <materialDesign:HintAssist.Hint>
+                            <StackPanel Orientation="Horizontal" Margin="-2,0,0,0">
+                                <materialDesign:PackIcon Kind="RepeatVariant" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="#C79F86" />
+                                <TextBlock Text="Repetir Contraseña" VerticalAlignment="Center" Foreground="#C79F86" />
+                            </StackPanel>
+                        </materialDesign:HintAssist.Hint>
+
+                        <PasswordBox.Resources>
+                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#000C38"/>
+                        </PasswordBox.Resources>
+                    </PasswordBox>
+
+
+
+                    <!-- Botón Iniciar Sesión -->
+                    <Button Grid.Row="4" Content="Registrarse" 
+                            FontSize="20" Height="48"
+                            x:Name="btnRegistrarse"
+                            Click="btnRegistrarse_Click"
+                            Margin="80,0,80,0"
+                            materialDesign:ButtonAssist.CornerRadius="35" 
+                            HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                            Foreground="#101826" FontWeight="Bold">
+                        <Button.BorderBrush>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#8B5D50" Offset="0.0"/>
+                                <GradientStop Color="#E7B8A0" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#8B5D50" Offset="0.0"/>
+                                <GradientStop Color="#E7B8A0" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+
+                </Grid>
+            </Border>
+        </Viewbox>
+    </Grid>
+</mah:MetroWindow>
