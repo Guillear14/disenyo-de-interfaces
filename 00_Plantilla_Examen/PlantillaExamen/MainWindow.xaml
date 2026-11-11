@@ -1,0 +1,226 @@
+<Window x:Class="PlantillaExamen.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Panel de Gestión - Plantilla Examen DI"
+        Height="700" Width="1150"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        MouseLeftButtonDown="Window_MouseDown">
+
+    <!-- Contenedor Principal Redondeado -->
+    <Border Background="{StaticResource BackgroundLight}"
+            CornerRadius="12"
+            BorderBrush="{StaticResource BorderSubtle}"
+            BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- ================= 1. BARRA SUPERIOR (ARRASTRABLE + CONTROLES VENTANA) ================= -->
+            <Border Grid.Row="0" Grid.ColumnSpan="2"
+                    Background="{StaticResource PrimaryColor}"
+                    CornerRadius="12,12,0,0"
+                    Padding="20,0">
+                <Grid>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <mat:PackIcon Kind="ViewDashboardOutline" Foreground="{StaticResource AccentColor}" Width="24" Height="24" VerticalAlignment="Center"/>
+                        <TextBlock Text="PLANTILLA EXAMEN WPF" Foreground="White" FontSize="16" FontWeight="Bold" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button Content="—" Width="34" Height="28" Margin="2"
+                                Background="Transparent" BorderThickness="0" Foreground="White"
+                                Click="Minimize_Click" ToolTip="Minimizar"/>
+                        <Button Content="▢" Width="34" Height="28" Margin="2"
+                                Background="Transparent" BorderThickness="0" Foreground="White"
+                                Click="Maximize_Click" ToolTip="Maximizar / Restaurar"/>
+                        <Button Content="✕" Width="34" Height="28" Margin="2"
+                                Background="#E11D48" BorderThickness="0" Foreground="White"
+                                Click="Close_Click" ToolTip="Cerrar"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- ================= 2. MENÚ LATERAL IZQUIERDO ================= -->
+            <Border Grid.Row="1" Grid.Column="0"
+                    Background="{StaticResource SecondaryColor}"
+                    CornerRadius="0,0,0,12"
+                    Padding="14">
+                <DockPanel LastChildFill="False">
+                    <TextBlock DockPanel.Dock="Top" Text="NAVEGACIÓN"
+                               Foreground="#94A3B8" FontSize="11" FontWeight="Bold"
+                               Margin="6,8,0,12"/>
+
+                    <Button DockPanel.Dock="Top" HorizontalContentAlignment="Left"
+                            Background="{StaticResource AccentColor}" BorderThickness="0"
+                            Foreground="White" Height="40" Margin="0,0,0,8">
+                        <StackPanel Orientation="Horizontal">
+                            <mat:PackIcon Kind="HomeOutline" Width="20" Height="20" Margin="0,0,10,0"/>
+                            <TextBlock Text="Dashboard Principal" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button DockPanel.Dock="Top" HorizontalContentAlignment="Left"
+                            Background="Transparent" BorderThickness="0"
+                            Foreground="White" Height="40" Margin="0,0,0,8"
+                            Click="BtnAbrirModal_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <mat:PackIcon Kind="PlusCircleOutline" Width="20" Height="20" Margin="0,0,10,0"/>
+                            <TextBlock Text="Abrir Diálogo Modal" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Botón Inferior de Salida -->
+                    <Button DockPanel.Dock="Bottom" Content="Salir de la Aplicación"
+                            Background="#334155" BorderThickness="0" Foreground="White"
+                            Height="38" Click="Close_Click"/>
+                </DockPanel>
+            </Border>
+
+            <!-- ================= 3. ÁREA CENTRAL DE CONTENIDO ================= -->
+            <Grid Grid.Row="1" Grid.Column="1" Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- 3.1 Tarjetas KPI Superiores (3 Columnas) -->
+                <UniformGrid Grid.Row="0" Columns="3" Margin="0,0,0,18">
+                    <Border Background="White" CornerRadius="10" Padding="16" Margin="0,0,8,0"
+                            BorderBrush="{StaticResource BorderSubtle}" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="TOTAL REGISTROS" Foreground="{StaticResource TextMuted}" FontSize="11" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="lblTotalRegistros" Text="3" Foreground="{StaticResource PrimaryColor}" FontSize="26" FontWeight="Bold" Margin="0,4,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="White" CornerRadius="10" Padding="16" Margin="4,0,4,0"
+                            BorderBrush="{StaticResource BorderSubtle}" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="IMPORTE ACUMULADO" Foreground="{StaticResource TextMuted}" FontSize="11" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="lblTotalImporte" Text="450,00 €" Foreground="#16A34A" FontSize="26" FontWeight="Bold" Margin="0,4,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="White" CornerRadius="10" Padding="16" Margin="8,0,0,0"
+                            BorderBrush="{StaticResource BorderSubtle}" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="BASE DE DATOS" Foreground="{StaticResource TextMuted}" FontSize="11" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="lblEstadoDb" Text="SQLite Lista" Foreground="{StaticResource AccentColor}" FontSize="22" FontWeight="Bold" Margin="0,6,0,0"/>
+                        </StackPanel>
+                    </Border>
+                </UniformGrid>
+
+                <!-- 3.2 Cuerpo Dividido: Formulario Izquierda + Tabla/Listado Derecha -->
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="310"/>
+                        <ColumnDefinition Width="18"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Formulario de Entrada -->
+                    <Border Grid.Column="0" Background="White" CornerRadius="10" Padding="18"
+                            BorderBrush="{StaticResource BorderSubtle}" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="Nuevo Elemento" FontSize="16" FontWeight="Bold"
+                                       Foreground="{StaticResource PrimaryColor}" Margin="0,0,0,14"/>
+
+                            <TextBox x:Name="txtNombre"
+                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     mat:HintAssist.Hint="Nombre o Descripción *"
+                                     Margin="0,0,0,12"/>
+
+                            <ComboBox x:Name="cmbCategoria"
+                                      Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                      mat:HintAssist.Hint="Categoría *"
+                                      SelectedIndex="0"
+                                      Margin="0,0,0,12">
+                                <ComboBoxItem Content="General"/>
+                                <ComboBoxItem Content="Prioritario"/>
+                                <ComboBoxItem Content="Soporte"/>
+                            </ComboBox>
+
+                            <DatePicker x:Name="dpFecha"
+                                        Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                                        mat:HintAssist.Hint="Fecha"
+                                        Margin="0,0,0,12"/>
+
+                            <mah:NumericUpDown x:Name="numImporte"
+                                               Minimum="0" Maximum="99999" Interval="5"
+                                               Value="50" StringFormat="C2"
+                                               Margin="0,0,0,12"/>
+
+                            <CheckBox x:Name="chkActivo" Content="Registro Activo" IsChecked="True" Margin="0,0,0,16"/>
+
+                            <Button Content="Guardar en Lista y SQLite"
+                                    Background="{StaticResource PrimaryColor}"
+                                    BorderBrush="{StaticResource PrimaryColor}"
+                                    Foreground="White" Height="38"
+                                    Click="BtnGuardar_Click" Margin="0,0,0,8"/>
+
+                            <Button Content="Limpiar Formulario"
+                                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                                    Height="34" Click="BtnLimpiar_Click"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Tabla DataGrid con Buscador y Botón Eliminar -->
+                    <Border Grid.Column="2" Background="White" CornerRadius="10" Padding="18"
+                            BorderBrush="{StaticResource BorderSubtle}" BorderThickness="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <DockPanel Grid.Row="0" Margin="0,0,0,12">
+                                <TextBlock Text="Listado de Registros" FontSize="16" FontWeight="Bold"
+                                           Foreground="{StaticResource PrimaryColor}" VerticalAlignment="Center"/>
+                                <Button DockPanel.Dock="Right" Content="+ Ventana Modal"
+                                        Background="{StaticResource AccentColor}" BorderBrush="{StaticResource AccentColor}"
+                                        Foreground="White" Height="32" Padding="12,0"
+                                        Click="BtnAbrirModal_Click"/>
+                            </DockPanel>
+
+                            <DataGrid x:Name="dgRegistros" Grid.Row="1"
+                                      AutoGenerateColumns="False"
+                                      IsReadOnly="True"
+                                      CanUserAddRows="False"
+                                      SelectionMode="Single"
+                                      SelectionChanged="DgRegistros_SelectionChanged">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="55"/>
+                                    <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/>
+                                    <DataGridTextColumn Header="Categoría" Binding="{Binding Categoria}" Width="110"/>
+                                    <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha}" Width="100"/>
+                                    <DataGridTextColumn Header="Importe" Binding="{Binding Importe, StringFormat={}{0:C2}}" Width="95"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+                                <Button Content="Eliminar Seleccionado"
+                                        Background="#E11D48" BorderBrush="#E11D48" Foreground="White"
+                                        Height="32" Click="BtnEliminar_Click"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuleta Examen WPF & C# — Diseño de Interfaces</title>
+    <style>
+        :root {
+            --bg-main: #0b0f17;
+            --bg-header: #111827;
+            --bg-card: #161f30;
+            --bg-code: #090d14;
+            --border: #26334d;
+            --border-hover: #3b82f6;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --accent-soft: rgba(59, 130, 246, 0.15);
+            --xaml-badge: #f59e0b;
+            --cs-badge: #10b981;
+            --origin-badge: #8b5cf6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-size: 13px;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.4;
+        }
+
+        /* CABECERA STICKY COMPACTA PARA 720P / PANTALLA DIVIDIDA */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(17, 24, 39, 0.96);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            padding: 8px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            color: #fff;
+            white-space: nowrap;
+        }
+
+        .brand span.tag {
+            background: var(--accent-soft);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.35);
+            font-size: 11px;
+            padding: 1px 7px;
+            border-radius: 99px;
+        }
+
+        .search-wrap {
+            flex: 1;
+            min-width: 220px;
+            max-width: 480px;
+            position: relative;
+        }
+
+        #searchInput {
+            width: 100%;
+            background: #0b0f17;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 5px 28px 5px 10px;
+            border-radius: 6px;
+            font-size: 12.5px;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        #searchInput:focus {
+            border-color: var(--accent);
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 7px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 13px;
+            display: none;
+        }
+
+        /* BARRA DE FILTROS DE CATEGORÍA */
+        .filters {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            overflow-x: auto;
+            padding-bottom: 2px;
+        }
+
+        .filter-btn {
+            background: #1e293b;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.12s;
+        }
+
+        .filter-btn:hover {
+            color: var(--text-main);
+            border-color: #475569;
+        }
+
+        .filter-btn.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        .filter-btn .count {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0 5px;
+            border-radius: 8px;
+            font-size: 10.5px;
+        }
+
+        /* GRID DE TARJETAS */
+        main {
+            padding: 10px 14px 24px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(490px, 1fr));
+            gap: 10px;
+        }
+
+        @media (max-width: 560px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: border-color 0.15s;
+        }
+
+        .card:hover {
+            border-color: #3b4f73;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .card-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .card-desc {
+            font-size: 11.8px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .badges {
+            display: flex;
+            gap: 4px;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .badge {
+            font-size: 10.5px;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge-cat {
+            background: rgba(59, 130, 246, 0.16);
+            color: #93c5fd;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .badge-origin {
+            background: rgba(139, 92, 246, 0.16);
+            color: #c4b5fd;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        /* BLOQUES DE CÓDIGO XAML + C# */
+        .code-section {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .code-box {
+            background: var(--bg-code);
+            border: 1px solid #1e293b;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .code-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 3px 8px;
+            background: #111827;
+            border-bottom: 1px solid #1e293b;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .lang-xaml { color: var(--xaml-badge); }
+        .lang-cs { color: var(--cs-badge); }
+
+        .copy-btn {
+            background: #1e293b;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.12s;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .copy-btn.copied {
+            background: #059669;
+            border-color: #059669;
+            color: #fff;
+        }
+
+        pre {
+            margin: 0;
+            padding: 7px 9px;
+            overflow-x: auto;
+            max-height: 210px;
+            font-family: 'Cascadia Code', Consolas, 'Courier New', monospace;
+            font-size: 11.5px;
+            line-height: 1.38;
+            color: #e2e8f0;
+            tab-size: 4;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 36px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="top-row">
+        <div class="brand">
+            <span>⚡ CHULETA EXAMEN WPF (.NET)</span>
+            <span class="tag">100% Tus Proyectos + Plantilla Base</span>
+        </div>
+        <div class="search-wrap">
+            <input type="text" id="searchInput" placeholder="Buscar control, evento, SQLite, PackIcon, RotateTransform, ShowDialog... (Ctrl+K)" autocomplete="off">
+            <button class="clear-btn" id="clearBtn" title="Limpiar búsqueda">✕</button>
+        </div>
+    </div>
+    <div class="filters" id="filterBar">
+        <button class="filter-btn active" data-cat="todos">📁 Todos <span class="count" id="cnt-todos">0</span></button>
+        <button class="filter-btn" data-cat="Estilos/Temas">🎨 Estilos/Temas <span class="count" id="cnt-Estilos/Temas">0</span></button>
+        <button class="filter-btn" data-cat="Controles XAML">🧩 Controles XAML <span class="count" id="cnt-Controles XAML">0</span></button>
+        <button class="filter-btn" data-cat="Tablas/Bindings">📊 Tablas/Bindings <span class="count" id="cnt-Tablas/Bindings">0</span></button>
+        <button class="filter-btn" data-cat="Ventanas/Diálogos">🪟 Ventanas/Diálogos <span class="count" id="cnt-Ventanas/Diálogos">0</span></button>
+        <button class="filter-btn" data-cat="Lógica C#">⚙️ Lógica C# <span class="count" id="cnt-Lógica C#">0</span></button>
+    </div>
+</header>
+
+<main id="cardsGrid"></main>
+
+<script>
+const SNIPPETS = [
+    // =========================================================================
+    // 1. ESTILOS / TEMAS
+    // =========================================================================
+    {
+        title: "App.xaml Completo: MaterialDesign + MahApps + Paleta de Colores",
+        category: "Estilos/Temas",
+        origin: "Examen_DI_19_11_2025 + proyectoDefinitivo",
+        desc: "Configuración base en App.xaml con diccionarios combinados y pinceles globales reutilizables con {StaticResource}.",
+        keywords: "app.xaml resource dictionary bundledtheme materialdesign mahapps colores paleta staticresource",
+        xaml: `<Application.Resources>
+    <ResourceDictionary>
+        <ResourceDictionary.MergedDictionaries>
+            <!-- Tema MaterialDesign (Light o Dark) -->
+            <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Indigo" SecondaryColor="Amber" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
+
+            <!-- Diccionarios MahApps.Metro -->
+            <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+        </ResourceDictionary.MergedDictionaries>
+
+        <!-- Paleta de Colores Globales -->
+        <SolidColorBrush x:Key="PrimaryColor" Color="#0F2C59"/>
+        <SolidColorBrush x:Key="SecondaryColor" Color="#1E3E62"/>
+        <SolidColorBrush x:Key="AccentColor" Color="#FF6500"/>
+        <SolidColorBrush x:Key="BackgroundLight" Color="#F5F7FA"/>
+        <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextDark" Color="#1E293B"/>
+        <SolidColorBrush x:Key="TextMuted" Color="#64748B"/>
+    </ResourceDictionary>
+</Application.Resources>`,
+        cs: `// En cualquier control XAML de tu ventana:
+// Background="{StaticResource PrimaryColor}"
+// Foreground="{StaticResource AccentColor}"`
+    },
+    {
+        title: "Cabeceras XAML (Namespaces) + Paquetes NuGet (.csproj)",
+        category: "Estilos/Temas",
+        origin: "00_Plantilla_Examen + di.unidad3.ejercicio4",
+        desc: "Atributos xmlns para pegar en la etiqueta raíz <Window> o <mah:MetroWindow> y referencias NuGet limpias.",
+        keywords: "xmlns mah materialdesign mat fluent nuget csproj recursos resource",
+        xaml: `<!-- Pegar dentro de la etiqueta <Window ...> o <mah:MetroWindow ...> -->
+xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+xmlns:Fluent="urn:fluent-ribbon"`,
+        cs: `<!-- En el archivo .csproj: incluye todas las imágenes de Recursos/ automáticamente -->
+<ItemGroup>
+  <None Remove="Recursos\\**\\*" />
+  <Resource Include="Recursos\\**\\*" />
+</ItemGroup>
+<ItemGroup>
+  <PackageReference Include="MahApps.Metro" Version="2.4.11" />
+  <PackageReference Include="MaterialDesignThemes.MahApps" Version="5.3.2" />
+  <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
+  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+</ItemGroup>`
+    },
+    {
+        title: "Ventana Sin Bordes con Esquinas Redondeadas (Borderless Window)",
+        category: "Estilos/Temas",
+        origin: "Examen_DI_19_11_2025 / MainWindow.xaml",
+        desc: "Ventana moderna transparente sin barra de Windows, esquinas redondeadas CornerRadius y arrastre con el ratón.",
+        keywords: "windowstylenone allowstransparency cornerradius ventana sin bordes redondeada dragmove",
+        xaml: `<Window x:Class="Examen_DI_19_11_2025.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Panel de Gestión" Height="650" Width="1100"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        MouseLeftButtonDown="Window_MouseDown">
+
+    <Border Background="#F5F7FA" CornerRadius="12" BorderBrush="#E0E0E0" BorderThickness="1">
+        <Grid>
+            <!-- Contenido de la ventana aquí -->
+        </Grid>
+    </Border>
+</Window>`,
+        cs: `private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+{
+    if (e.ChangedButton == MouseButton.Left)
+        this.DragMove();
+}`
+    },
+    {
+        title: "Tarjeta Efecto Cristal (Glassmorphism) + Sombra + Viewbox 720p",
+        category: "Estilos/Temas",
+        origin: "proyectoDefinitivo / PantallaLogin.xaml",
+        desc: "Panel semitransparente (#B3101826) con DropShadowEffect y Viewbox DownOnly para adaptarse a pantallas 720p sin cortarse.",
+        keywords: "glassmorphism cristal border dropshadoweffect sombra viewbox 720p fondo imagen",
+        xaml: `<Grid>
+    <!-- Imagen de fondo adaptativa -->
+    <Image Source="/Recursos/Onades de seda blava i daurada.png" Stretch="UniformToFill"/>
+
+    <!-- Viewbox evita que se corte en monitores pequeños 720p -->
+    <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Margin="20">
+        <Border Width="750" Height="620"
+                BorderBrush="#C79F86" BorderThickness="2"
+                CornerRadius="25" Background="#B3101826"
+                Padding="120,25,120,25">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="40" ShadowDepth="10" Direction="270" Color="Black" Opacity="0.5" />
+            </Border.Effect>
+            <Grid>
+                <!-- Controles del formulario -->
+            </Grid>
+        </Border>
+    </Viewbox>
+</Grid>`,
+        cs: `// No requiere código C# adicional.
+// Asegúrate de que la imagen tenga Build Action = Resource en el .csproj.`
+    },
+    {
+        title: "Rectángulo Girado (RotateTransform), Semicírculo y Máscara Circular",
+        category: "Estilos/Temas",
+        origin: "di.unidad2.ejercicio8 + di.unidad2.ejercicio10",
+        desc: "Degradado LinearGradientBrush, rectángulo rotado -30 grados, Ellipse desplazada e imagen recortada en círculo con OpacityMask.",
+        keywords: "rectangulo girado rotatetransform lineargradientbrush degradado ellipse semicirculo opacitymask visualbrush",
+        xaml: `<!-- 1. Rectángulo con degradado girado -30° (di.unidad2.ejercicio8) -->
+<Rectangle Width="440" Height="110" VerticalAlignment="Bottom" Margin="50,0,0,-70">
+    <Rectangle.Fill>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FF224268" Offset="0"/>
+            <GradientStop Color="#FF142135" Offset="0.8"/>
+        </LinearGradientBrush>
+    </Rectangle.Fill>
+    <Rectangle.RenderTransform>
+        <RotateTransform Angle="-30"/>
+    </Rectangle.RenderTransform>
+</Rectangle>
+
+<!-- 2. Imagen recortada en círculo con borde (di.unidad2.ejercicio10) -->
+<Grid Width="130" Height="130">
+    <Ellipse Name="Mask" Fill="White"/>
+    <Image Source="/Recursos/Imagenes/foto.jpg" Stretch="UniformToFill">
+        <Image.OpacityMask>
+            <VisualBrush Visual="{Binding ElementName=Mask}"/>
+        </Image.OpacityMask>
+    </Image>
+    <Ellipse Stroke="White" StrokeThickness="3"/>
+</Grid>`,
+        cs: `// Puramente declarativo en XAML.`
+    },
+
+    // =========================================================================
+    // 2. CONTROLES XAML
+    // =========================================================================
+    {
+        title: "TextBox Outlined con Icono PackIcon y Trigger al Enfocar",
+        category: "Controles XAML",
+        origin: "proyectoDefinitivo / PantallaLogin.xaml",
+        desc: "Campo de texto MaterialDesignOutlinedTextBox con icono + texto en el Hint y cambio de color cuando tiene el foco.",
+        keywords: "textbox outlined packicon hintassist trigger iskeyboardfocused correo usuario input",
+        xaml: `<TextBox x:Name="txtCorreo"
+         CaretBrush="White"
+         materialDesign:HintAssist.Foreground="#99C79F86"
+         materialDesign:HintAssist.Background="Transparent"
+         materialDesign:TextFieldAssist.UnderlineBrush="#000C38"
+         materialDesign:TextFieldAssist.HasClearButton="True">
+    <TextBox.Style>
+        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+            <Setter Property="Background" Value="#40000000" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#C79F86" />
+            <Style.Triggers>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter Property="Background" Value="#80000000" />
+                    <Setter Property="BorderBrush" Value="#000C38" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </TextBox.Style>
+    <materialDesign:HintAssist.Hint>
+        <StackPanel Orientation="Horizontal" Margin="-2,0,0,0">
+            <mat:PackIcon Kind="User" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="#C79F86" />
+            <TextBlock Text="Correo electrónico" VerticalAlignment="Center" Foreground="#C79F86" />
+        </StackPanel>
+    </materialDesign:HintAssist.Hint>
+</TextBox>`,
+        cs: `// Leer el valor en C#:
+string correo = txtCorreo.Text.Trim();`
+    },
+    {
+        title: "PasswordBox Outlined con Icono Candado y Trigger de Foco",
+        category: "Controles XAML",
+        origin: "proyectoDefinitivo / PantallaLogin.xaml",
+        desc: "Campo de contraseña seguro con MaterialDesignOutlinedPasswordBox, icono Lock y lectura mediante .Password en C#.",
+        keywords: "passwordbox contraseña clave lock packicon outlined",
+        xaml: `<PasswordBox x:Name="txtPass"
+             CaretBrush="White"
+             materialDesign:HintAssist.Foreground="#99C79F86"
+             materialDesign:HintAssist.Background="Transparent"
+             materialDesign:TextFieldAssist.UnderlineBrush="#000C38">
+    <PasswordBox.Style>
+        <Style TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignOutlinedPasswordBox}">
+            <Setter Property="Background" Value="#40000000" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#C79F86" />
+            <Style.Triggers>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter Property="Background" Value="#80000000" />
+                    <Setter Property="BorderBrush" Value="#000C38" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </PasswordBox.Style>
+    <materialDesign:HintAssist.Hint>
+        <StackPanel Orientation="Horizontal" Margin="-2,0,0,0">
+            <mat:PackIcon Kind="Lock" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="#C79F86" />
+            <TextBlock Text="Contraseña" VerticalAlignment="Center" Foreground="#C79F86" />
+        </StackPanel>
+    </materialDesign:HintAssist.Hint>
+</PasswordBox>`,
+        cs: `// IMPORTANTE: En PasswordBox se usa .Password (no .Text)
+string password = txtPass.Password;
+if (string.IsNullOrWhiteSpace(password))
+{
+    MessageBox.Show("Introduce la contraseña.");
+}`
+    },
+    {
+        title: "Campos Redondeados Tipo Píldora (TextFieldCornerRadius)",
+        category: "Controles XAML",
+        origin: "di.unidad2.ejercicio11 + olvidarContraseña.xaml",
+        desc: "Cómo redondear cualquier TextBox o PasswordBox en MaterialDesign usando TextFieldAssist.TextFieldCornerRadius.",
+        keywords: "pildora redondeado textfieldcornerradius clearbutton",
+        xaml: `<TextBox x:Name="txtUsuario"
+         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+         mat:HintAssist.Hint="Nombre de usuario"
+         mat:TextFieldAssist.HasClearButton="True"
+         mat:TextFieldAssist.TextFieldCornerRadius="15"
+         Padding="12,8"
+         Margin="0,0,0,12"/>`,
+        cs: `string usuario = txtUsuario.Text;`
+    },
+    {
+        title: "ComboBox y DatePicker con FloatingHint y HelperText",
+        category: "Controles XAML",
+        origin: "di.unidad2.ejercicio12 + di.unidad2.ejercicio14",
+        desc: "Desplegable de categorías/roles y selector de fecha con etiqueta flotante y texto de ayuda inferior.",
+        keywords: "combobox datepicker floatinghint helpertext seleccion fecha desplegable",
+        xaml: `<!-- Desplegable ComboBox -->
+<ComboBox x:Name="cmbDepartamento"
+          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+          mat:HintAssist.Hint="Selecciona un departamento *"
+          mat:HintAssist.HelperText="Campo obligatorio"
+          SelectedIndex="0"
+          Margin="0,0,0,18">
+    <ComboBoxItem Content="Administración"/>
+    <ComboBoxItem Content="Desarrollo"/>
+    <ComboBoxItem Content="Diseño UI/UX"/>
+</ComboBox>
+
+<!-- Selector de Fecha DatePicker -->
+<DatePicker x:Name="dpFechaAlta"
+            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+            mat:HintAssist.Hint="Fecha de incorporación"
+            Margin="0,0,0,18"/>`,
+        cs: `// Obtener texto del ComboBox y fecha del DatePicker:
+string depto = (cmbDepartamento.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "";
+string fecha = dpFechaAlta.SelectedDate?.ToString("dd/MM/yyyy") ?? DateTime.Today.ToString("dd/MM/yyyy");`
+    },
+    {
+        title: "TextBox con Contador de Caracteres (0 / 45) y Multilínea",
+        category: "Controles XAML",
+        origin: "di.unidad2.ejercicio13 + di.unidad2.ejercicio15",
+        desc: "Campo con límite MaxLength, contador automático visible y versión multilínea para descripciones o comentarios.",
+        keywords: "maxlength contador caracteres charactercountervisibility multilinea textwrapping acceptsreturn",
+        xaml: `<!-- Con límite de 45 caracteres y contador visible -->
+<TextBox x:Name="txtCodigo"
+         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+         mat:HintAssist.Hint="Nombre del Producto *"
+         mat:HintAssist.HelperText="Máximo 45 caracteres"
+         MaxLength="45"
+         mat:TextFieldAssist.CharacterCounterVisibility="Visible"
+         Margin="0,0,0,20"/>
+
+<!-- Multilínea para Observaciones / Descripción -->
+<TextBox x:Name="txtDescripcion"
+         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+         mat:HintAssist.Hint="Descripción detallada"
+         AcceptsReturn="True"
+         TextWrapping="Wrap"
+         Height="80"
+         VerticalScrollBarVisibility="Auto"/>`,
+        cs: `string codigo = txtCodigo.Text;
+string descripcion = txtDescripcion.Text;`
+    },
+    {
+        title: "NumericUpDown (Precios/Stock) y Botones con Degradado / FAB",
+        category: "Controles XAML",
+        origin: "di.unidad2.ejercicio15 + proyectoDefinitivo",
+        desc: "Control numérico de MahApps para moneda/enteros, botón principal redondeado con degradado y botón flotante circular.",
+        keywords: "numericupdown mahapps precio moneda stock buttonassist cornerradius fab boton degradado",
+        xaml: `<!-- Control Numérico de Precio (€) y Stock (di.unidad2.ejercicio15) -->
+<mah:NumericUpDown x:Name="numPrecio"
+                   Minimum="0" Maximum="99999" Interval="0.50"
+                   Value="19.99" StringFormat="C2"
+                   mat:HintAssist.Hint="Precio (€)" Margin="0,0,0,12"/>
+
+<!-- Botón Redondeado con Degradado (proyectoDefinitivo) -->
+<Button Content="Iniciar Sesión" x:Name="LoginBtn" Click="LoginBtn_Click"
+        Height="42" mat:ButtonAssist.CornerRadius="35"
+        Foreground="#101826" FontWeight="Bold">
+    <Button.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#8B5D50" Offset="0.0"/>
+            <GradientStop Color="#E7B8A0" Offset="1.0"/>
+        </LinearGradientBrush>
+    </Button.Background>
+</Button>
+
+<!-- Botón Flotante Circular FAB (di.unidad2.ejercicio10) -->
+<Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+        Background="White" Foreground="#FF224268" Width="36" Height="36">
+    <mat:PackIcon Kind="Plus" Width="20" Height="20"/>
+</Button>`,
+        cs: `// Obtener el valor numérico (double? -> double):
+double precio = numPrecio.Value ?? 0.0;`
+    },
+
+    // =========================================================================
+    // 3. TABLAS / BINDINGS
+    // =========================================================================
+    {
+        title: "DataGrid Completo Enlazado a ObservableCollection (Alta, Selección y Baja)",
+        category: "Tablas/Bindings",
+        origin: "00_Plantilla_Examen / MainWindow.xaml",
+        desc: "Tabla con columnas personalizadas, formato de moneda y sincronización automática con la interfaz al añadir o borrar.",
+        keywords: "datagrid observablecollection binding tabla columnas selectionchanged eliminar añadir",
+        xaml: `<DataGrid x:Name="dgRegistros"
+          AutoGenerateColumns="False"
+          IsReadOnly="True"
+          CanUserAddRows="False"
+          SelectionMode="Single"
+          SelectionChanged="DgRegistros_SelectionChanged">
+    <DataGrid.Columns>
+        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="55"/>
+        <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/>
+        <DataGridTextColumn Header="Categoría" Binding="{Binding Categoria}" Width="120"/>
+        <DataGridTextColumn Header="Importe" Binding="{Binding Importe, StringFormat={}{0:C2}}" Width="100"/>
+    </DataGrid.Columns>
+</DataGrid>`,
+        cs: `public ObservableCollection<RegistroItem> ListaRegistros { get; set; } = new();
+
+// En el constructor MainWindow():
+dgRegistros.ItemsSource = ListaRegistros;
+
+// Añadir fila (actualiza la tabla sola):
+ListaRegistros.Add(new RegistroItem { Id = 1, Nombre = "Monitor 27", Categoria = "Hardware", Importe = 249.90 });
+
+// Eliminar fila seleccionada:
+if (dgRegistros.SelectedItem is RegistroItem sel)
+    ListaRegistros.Remove(sel);`
+    },
+    {
+        title: "Tarjetas KPI de Resumen (3 Columnas) + ListBox de Empleados",
+        category: "Tablas/Bindings",
+        origin: "Examen_DI_19_11_2025 / MainWindow.xaml",
+        desc: "Cuadrícula de 3 tarjetas superiores de indicadores (KPIs) y ListBox inferior alimentado desde código o SQLite.",
+        keywords: "kpi tarjetas resumen listbox empleados items add",
+        xaml: `<Grid>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <Border Grid.Column="0" Background="White" CornerRadius="8" Padding="15" Margin="5">
+        <StackPanel>
+            <TextBlock Text="Usuarios Activos" Foreground="#7F8C8D" FontSize="12"/>
+            <TextBlock x:Name="lblUsuarios" Text="1,245" Foreground="#0F2C59" FontSize="24" FontWeight="Bold"/>
+        </StackPanel>
+    </Border>
+    <!-- Repetir en Grid.Column="1" y "2" -->
+</Grid>
+
+<ListBox x:Name="EmployeesList" BorderThickness="0" Background="Transparent" Height="220"/>`,
+        cs: `// Añadir elementos al ListBox y actualizar el contador KPI:
+EmployeesList.Items.Add($"👤 {nombre} - {puesto} ({fecha})");
+lblUsuarios.Text = EmployeesList.Items.Count.ToString();`
+    },
+    {
+        title: "ListView con ItemsSource y Binding a SubItems",
+        category: "Tablas/Bindings",
+        origin: "di.unidad3.ejercicio5 / MainWindow.xaml",
+        desc: "Lista enlazada a una colección de objetos mostrando la propiedad Name mediante DisplayMemberPath.",
+        keywords: "listview itemssource displaymemberpath subitems binding",
+        xaml: `<ListView ItemsSource="{Binding SubItems}"
+          DisplayMemberPath="Name"
+          BorderThickness="0"
+          Background="Transparent"
+          Foreground="White"/>`,
+        cs: `public class SubItem
+{
+    public string Name { get; set; } = string.Empty;
+}
+
+public class ItemMenu
+{
+    public string Header { get; set; } = string.Empty;
+    public List<SubItem> SubItems { get; set; } = new();
+}`
+    },
+    {
+        title: "DataTemplate Personalizado con Icono y Texto Enlazados",
+        category: "Tablas/Bindings",
+        origin: "di.unidad3.ejercicio3 + di.unidad3.ejercicio5",
+        desc: "Plantilla reutilizable en Window.Resources para pintar cada elemento de una lista o menú con PackIcon + TextBlock.",
+        keywords: "datatemplate itemtemplate contentcontrol packicon binding label icon",
+        xaml: `<Window.Resources>
+    <DataTemplate x:Key="MenuItemTemplate">
+        <StackPanel Orientation="Horizontal" Margin="10,6">
+            <ContentControl Content="{Binding Icon}" Width="22" Height="22" Foreground="White"/>
+            <TextBlock Text="{Binding Label}" Foreground="White" Margin="12,0,0,0" VerticalAlignment="Center"/>
+        </StackPanel>
+    </DataTemplate>
+</Window.Resources>
+
+<!-- Uso en un ListBox o HamburgerMenu -->
+<ListBox ItemsSource="{Binding MenuItems}" ItemTemplate="{StaticResource MenuItemTemplate}"/>`,
+        cs: `public class MenuOption
+{
+    public string Label { get; set; } = "";
+    public object? Icon { get; set; } // Ej: new PackIcon { Kind = PackIconKind.Home }
+}`
+    },
+
+    // =========================================================================
+    // 4. VENTANAS / DIÁLOGOS
+    // =========================================================================
+    {
+        title: "Abrir Ventana Secundaria Modal (ShowDialog) y Recibir Datos",
+        category: "Ventanas/Diálogos",
+        origin: "00_Plantilla_Examen + Examen_DI_19_11_2025",
+        desc: "Patrón completo para abrir una segunda ventana bloqueando la primera y recuperar el objeto creado si pulsa Guardar.",
+        keywords: "showdialog ventana secundaria modal dialogresult owner",
+        xaml: `<!-- En MainWindow.xaml -->
+<Button Content="Nuevo Registro" Click="BtnAbrirModal_Click" Background="#FF6500" Foreground="White"/>`,
+        cs: `// 1. En MainWindow.xaml.cs (al pulsar el botón):
+private void BtnAbrirModal_Click(object sender, RoutedEventArgs e)
+{
+    var modal = new VentanaSecundaria { Owner = this };
+    if (modal.ShowDialog() == true && modal.NuevoRegistro != null)
+    {
+        ListaRegistros.Add(modal.NuevoRegistro);
+    }
+}
+
+// 2. En VentanaSecundaria.xaml.cs (al pulsar Guardar):
+public RegistroItem? NuevoRegistro { get; private set; }
+
+private void BtnAceptar_Click(object sender, RoutedEventArgs e)
+{
+    NuevoRegistro = new RegistroItem { Nombre = txtModalNombre.Text };
+    DialogResult = true;
+    Close();
+}`
+    },
+    {
+        title: "Diálogos Modales Integrados de MahApps (ShowMessageAsync)",
+        category: "Ventanas/Diálogos",
+        origin: "proyectoDefinitivo / registro.xaml.cs",
+        desc: "Mensajes emergentes modernos integrados dentro de una MetroWindow sin usar el MessageBox gris clásico de Windows.",
+        keywords: "showmessageasync mahapps metrowindow dialogo alerta confirmacion async await",
+        xaml: `<mah:MetroWindow x:Class="proyectoDefinitivo.Vista.Dialogo.registro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        Title="Registro" Height="450" Width="800">
+    <!-- Contenido -->
+</mah:MetroWindow>`,
+        cs: `using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+
+// El método del evento debe llevar 'async':
+private async void RegistrarseBtn_Click(object sender, RoutedEventArgs e)
+{
+    if (string.IsNullOrWhiteSpace(txtNombre.Text))
+    {
+        await this.ShowMessageAsync("Campos incompletos", "Por favor, rellena todos los campos.");
+        return;
+    }
+
+    await this.ShowMessageAsync("¡Éxito!", "Tu cuenta ha sido creada correctamente.");
+}`
+    },
+    {
+        title: "Menú Superior (<Menu>) + Barra de Herramientas (<ToolBar>)",
+        category: "Ventanas/Diálogos",
+        origin: "di.unidad3.ejercicio1 / MainWindow.xaml",
+        desc: "Estructura DockPanel con menú desplegable clásico (Archivo, Editar...) y barra de iconos rápidos con ToolTip.",
+        keywords: "menu menuitem toolbar separator tooltip dockpanel barra herramientas",
+        xaml: `<DockPanel>
+    <!-- 1. Menú Superior -->
+    <Menu DockPanel.Dock="Top" Background="White">
+        <MenuItem Header="_Archivo">
+            <MenuItem Header="Nuevo" Click="BtnGuardar_Click">
+                <MenuItem.Icon><mat:PackIcon Kind="FilePlusOutline"/></MenuItem.Icon>
+            </MenuItem>
+            <Separator/>
+            <MenuItem Header="Salir" Click="Close_Click">
+                <MenuItem.Icon><mat:PackIcon Kind="ExitToApp"/></MenuItem.Icon>
+            </MenuItem>
+        </MenuItem>
+    </Menu>
+
+    <!-- 2. Barra de Herramientas -->
+    <ToolBarTray DockPanel.Dock="Top" Background="#F1F5F9">
+        <ToolBar>
+            <Button ToolTip="Guardar cambios" Click="BtnGuardar_Click">
+                <mat:PackIcon Kind="ContentSaveOutline"/>
+            </Button>
+            <Separator/>
+            <Button ToolTip="Eliminar seleccionado" Click="BtnEliminar_Click">
+                <mat:PackIcon Kind="DeleteOutline" Foreground="#E11D48"/>
+            </Button>
+        </ToolBar>
+    </ToolBarTray>
+
+    <!-- 3. Contenido Central -->
+    <Grid/>
+</DockPanel>`,
+        cs: `// Los eventos Click de MenuItem y Button llaman al mismo método en C#:
+private void BtnGuardar_Click(object sender, RoutedEventArgs e)
+{
+    MessageBox.Show("Guardado correctamente.");
+}`
+    },
+    {
+        title: "Cinta de Opciones <Fluent:Ribbon> con <Fluent:Backstage>",
+        category: "Ventanas/Diálogos",
+        origin: "di.unidad3.ejercicio2 + di.unidad3.ejercicio4",
+        desc: "Cinta estilo Office con pestañas (RibbonTabItem), grupos (RibbonGroupBox) y menú Archivo (Backstage).",
+        keywords: "fluent ribbon ribbontabitem ribbongroupBox backstage office",
+        xaml: `<Fluent:Ribbon Grid.Row="0">
+    <!-- Menú Backstage (pestaña Archivo) -->
+    <Fluent:Ribbon.Menu>
+        <Fluent:Backstage Header="Archivo">
+            <Fluent:BackstageTabControl>
+                <Fluent:BackstageTabItem Header="Nuevo"/>
+                <Fluent:Button Header="Salir" Click="Close_Click"/>
+            </Fluent:BackstageTabControl>
+        </Fluent:Backstage>
+    </Fluent:Ribbon.Menu>
+
+    <!-- Pestañas de la cinta -->
+    <Fluent:RibbonTabItem Header="Inicio">
+        <Fluent:RibbonGroupBox Header="Portapapeles">
+            <Fluent:Button Header="Pegar" LargeIcon="/Recursos/Iconos/paste.png"/>
+        </Fluent:RibbonGroupBox>
+        <Fluent:RibbonGroupBox Header="Acciones">
+            <Fluent:Button Header="Guardar" Click="BtnGuardar_Click"/>
+        </Fluent:RibbonGroupBox>
+    </Fluent:RibbonTabItem>
+</Fluent:Ribbon>`,
+        cs: `// En el .csproj requiere:
+// <PackageReference Include="Fluent.Ribbon" Version="11.0.1" />`
+    },
+    {
+        title: "Menú Lateral Acordeón (<Expander>) y Menú Hamburguesa",
+        category: "Ventanas/Diálogos",
+        origin: "di.unidad3.ejercicio3 + di.unidad3.ejercicio5",
+        desc: "Menú lateral desplegable por bloques con Expander y HamburgerMenu de MahApps con RightWindowCommands.",
+        keywords: "expander acordeon hamburgermenu mahapps menu lateral",
+        xaml: `<!-- Opción A: Menú Lateral con Acordeón Expander (di.unidad3.ejercicio5) -->
+<StackPanel Width="220" Background="#1E3E62">
+    <Expander Header="CLIENTES" Foreground="White" IsExpanded="True">
+        <StackPanel Margin="20,4,0,4">
+            <Button Content="Listado de Clientes" Style="{StaticResource MaterialDesignFlatButton}" Foreground="White"/>
+            <Button Content="Nuevo Cliente" Style="{StaticResource MaterialDesignFlatButton}" Foreground="White"/>
+        </StackPanel>
+    </Expander>
+    <Expander Header="FACTURACIÓN" Foreground="White">
+        <StackPanel Margin="20,4,0,4">
+            <Button Content="Emitir Factura" Style="{StaticResource MaterialDesignFlatButton}" Foreground="White"/>
+        </StackPanel>
+    </Expander>
+</StackPanel>`,
+        cs: `// Permite agrupar opciones en un panel izquierdo sin ocupar espacio vertical.`
+    },
+
+    // =========================================================================
+    // 5. LÓGICA C#
+    // =========================================================================
+    {
+        title: "Mover Ventana + Botones Minimizar, Maximizar/Restaurar y Cerrar",
+        category: "Lógica C#",
+        origin: "Examen_DI_19_11_2025 / MainWindow.xaml.cs",
+        desc: "Los 4 métodos imprescindibles para controlar cualquier ventana personalizada sin bordes.",
+        keywords: "dragmove minimize maximize close windowstate botones ventana",
+        xaml: `<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+    <Button Content="—" Width="32" Height="28" Click="Minimize_Click"/>
+    <Button Content="▢" Width="32" Height="28" Click="Maximize_Click"/>
+    <Button Content="✕" Width="32" Height="28" Background="#E11D48" Foreground="White" Click="Close_Click"/>
+</StackPanel>`,
+        cs: `private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+{
+    if (e.ChangedButton == MouseButton.Left)
+        this.DragMove();
+}
+
+private void Minimize_Click(object sender, RoutedEventArgs e)
+{
+    this.WindowState = WindowState.Minimized;
+}
+
+private void Maximize_Click(object sender, RoutedEventArgs e)
+{
+    this.WindowState = this.WindowState == WindowState.Maximized
+        ? WindowState.Normal
+        : WindowState.Maximized;
+}
+
+private void Close_Click(object sender, RoutedEventArgs e)
+{
+    this.Close();
+}`
+    },
+    {
+        title: "Base de Datos SQLite Completa (Crear Tabla, INSERT, SELECT y DELETE)",
+        category: "Lógica C#",
+        origin: "Examen_DI_19_11_2025 + 00_Plantilla_Examen",
+        desc: "Persistencia local sin servidor con Microsoft.Data.Sqlite: crea el archivo .db automáticamente y usa parámetros seguros.",
+        keywords: "sqlite database crear tabla insert select delete sqlconnection sqlcommand parametros",
+        xaml: `<!-- Paquete en .csproj: <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" /> -->`,
+        cs: `using Microsoft.Data.Sqlite;
+
+private const string DbFile = "empresa.db";
+
+private void EnsureDatabaseExists()
+{
+    using var conn = new SqliteConnection($"Data Source={DbFile}");
+    conn.Open();
+    string sql = @"CREATE TABLE IF NOT EXISTS Employees (
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    Name TEXT NOT NULL,
+                    Position TEXT NOT NULL,
+                    HireDate TEXT NOT NULL);";
+    using var cmd = new SqliteCommand(sql, conn);
+    cmd.ExecuteNonQuery();
+}
+
+private void GuardarEmpleado(string nombre, string puesto, string fecha)
+{
+    using var conn = new SqliteConnection($"Data Source={DbFile}");
+    conn.Open();
+    string sql = "INSERT INTO Employees (Name, Position, HireDate) VALUES (@n, @p, @f)";
+    using var cmd = new SqliteCommand(sql, conn);
+    cmd.Parameters.AddWithValue("@n", nombre);
+    cmd.Parameters.AddWithValue("@p", puesto);
+    cmd.Parameters.AddWithValue("@f", fecha);
+    cmd.ExecuteNonQuery();
+}`
+    },
+    {
+        title: "Validación Completa de Formulario (Vacíos, Contraseñas y CheckBox)",
+        category: "Lógica C#",
+        origin: "proyectoDefinitivo / registro.xaml.cs",
+        desc: "Comprobaciones paso a paso antes de guardar: textos vacíos, coincidencia de contraseñas, longitud mínima y términos.",
+        keywords: "validacion formulario isnullorwhitespace password terminos checkbox messagebox",
+        xaml: `<CheckBox x:Name="chkTerminos" Content="Acepto los términos y condiciones"/>
+<Button Content="Registrar" Click="BtnRegistrar_Click"/>`,
+        cs: `private void BtnRegistrar_Click(object sender, RoutedEventArgs e)
+{
+    string nombre = txtNombre.Text.Trim();
+    string correo = txtCorreo.Text.Trim();
+    string pass1 = txtPass.Password;
+    string pass2 = txtConfirmPass.Password;
+
+    if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(correo) || string.IsNullOrWhiteSpace(pass1))
+    {
+        MessageBox.Show("Por favor, rellena todos los campos obligatorios.", "Campos incompletos", MessageBoxButton.OK, MessageBoxImage.Warning);
+        return;
+    }
+
+    if (!correo.Contains('@') || !correo.Contains('.'))
+    {
+        MessageBox.Show("Introduce un correo electrónico válido.", "Formato inválido", MessageBoxButton.OK, MessageBoxImage.Warning);
+        return;
+    }
+
+    if (pass1 != pass2)
+    {
+        MessageBox.Show("Las contraseñas no coinciden.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        return;
+    }
+
+    if (chkTerminos.IsChecked != true)
+    {
+        MessageBox.Show("Debes aceptar los términos y condiciones.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Information);
+        return;
+    }
+
+    MessageBox.Show("Registro completado con éxito.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+}`
+    },
+    {
+        title: "Inyección de Dependencias (ServiceCollection y Func<T>) en App.xaml.cs",
+        category: "Lógica C#",
+        origin: "proyectoDefinitivo / App.xaml.cs",
+        desc: "Cómo arrancar la aplicación desde App.xaml.cs inyectando ventanas y factorías sin acoplar clases.",
+        keywords: "inyeccion dependencias servicecollection addtransient func onstartup app.xaml.cs",
+        xaml: `<!-- En App.xaml: QUITAR el atributo StartupUri="MainWindow.xaml" -->
+<Application x:Class="proyectoDefinitivo.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">`,
+        cs: `using Microsoft.Extensions.DependencyInjection;
+
+public partial class App : Application
+{
+    private readonly IServiceProvider _serviceProvider;
+
+    public App()
+    {
+        var services = new ServiceCollection();
+        services.AddTransient<MainWindow>();
+        services.AddTransient<PantallaLogin>();
+        services.AddTransient<Func<MainWindow>>(sp => () => sp.GetRequiredService<MainWindow>());
+        _serviceProvider = services.BuildServiceProvider();
+    }
+
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        base.OnStartup(e);
+        var login = _serviceProvider.GetRequiredService<PantallaLogin>();
+        MainWindow = login;
+        login.Show();
+    }
+}`
+    },
+    {
+        title: "Cambio de Ventana Login ↔ MainWindow y Cierre de Sesión Seguro",
+        category: "Lógica C#",
+        origin: "proyectoDefinitivo / MainWindow.xaml.cs",
+        desc: "Cómo pasar del Login a la ventana principal o cerrar sesión reasignando Application.Current.MainWindow.",
+        keywords: "login mainwindow cerrar sesion logout application.current.mainwindow shutdown",
+        xaml: `<Button x:Name="CerrarSesionBtn" Content="Cerrar Sesión" Click="CerrarSesionBtn_Click"/>
+<Button x:Name="SalirBtn" Content="Salir" Click="SalirBtn_Click"/>`,
+        cs: `// Pasar de Login a MainWindow (o de MainWindow a Login al cerrar sesión):
+private void CerrarSesionBtn_Click(object sender, RoutedEventArgs e)
+{
+    var loginWindow = new PantallaLogin();
+    Application.Current.MainWindow = loginWindow;
+    loginWindow.Show();
+    this.Close();
+}
+
+// Cerrar toda la aplicación por completo:
+private void SalirBtn_Click(object sender, RoutedEventArgs e)
+{
+    Application.Current.Shutdown();
+}`
+    }
+];
+
+let activeCategory = "todos";
+let searchQuery = "";
+
+const grid = document.getElementById("cardsGrid");
+const searchInput = document.getElementById("searchInput");
+const clearBtn = document.getElementById("clearBtn");
+const filterBtns = document.querySelectorAll(".filter-btn");
+
+function escapeHtml(str) {
+    return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+}
+
+function updateCounts() {
+    const categories = ["Estilos/Temas", "Controles XAML", "Tablas/Bindings", "Ventanas/Diálogos", "Lógica C#"];
+    document.getElementById("cnt-todos").textContent = SNIPPETS.length;
+    categories.forEach(cat => {
+        const el = document.getElementById("cnt-" + cat);
+        if (el) {
+            el.textContent = SNIPPETS.filter(s => s.category === cat).length;
+        }
+    });
+}
+
+function renderCards() {
+    const q = searchQuery.trim().toLowerCase();
+    const filtered = SNIPPETS.filter(item => {
+        const matchesCat = activeCategory === "todos" || item.category === activeCategory;
+        if (!matchesCat) return false;
+        if (!q) return true;
+        const haystack = `${item.title} ${item.desc} ${item.origin} ${item.keywords} ${item.xaml} ${item.cs}`.toLowerCase();
+        return q.split(/\s+/).every(word => haystack.includes(word));
+    });
+
+    if (filtered.length === 0) {
+        grid.innerHTML = `<div class="empty-state">No se encontraron bloques para "<b>${escapeHtml(searchQuery)}</b>". Prueba con otra palabra clave.</div>`;
+        return;
+    }
+
+    grid.innerHTML = filtered.map((item, idx) => `
+        <article class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">${escapeHtml(item.title)}</div>
+                    <div class="card-desc">${escapeHtml(item.desc)}</div>
+                </div>
+                <div class="badges">
+                    <span class="badge badge-cat">${escapeHtml(item.category)}</span>
+                    <span class="badge badge-origin">📁 ${escapeHtml(item.origin)}</span>
+                </div>
+            </div>
+            <div class="code-section">
+                <div class="code-box">
+                    <div class="code-bar">
+                        <span class="lang-xaml">◆ XAML</span>
+                        <button class="copy-btn" data-type="xaml" data-idx="${SNIPPETS.indexOf(item)}">📋 Copiar XAML</button>
+                    </div>
+                    <pre><code>${escapeHtml(item.xaml)}</code></pre>
+                </div>
+                <div class="code-box">
+                    <div class="code-bar">
+                        <span class="lang-cs">● C# / Config</span>
+                        <button class="copy-btn" data-type="cs" data-idx="${SNIPPETS.indexOf(item)}">📋 Copiar C#</button>
+                    </div>
+                    <pre><code>${escapeHtml(item.cs)}</code></pre>
+                </div>
+            </div>
+        </article>
+    `).join("");
+}
+
+grid.addEventListener("click", async (e) => {
+    const btn = e.target.closest(".copy-btn");
+    if (!btn) return;
+    const idx = parseInt(btn.getAttribute("data-idx"), 10);
+    const type = btn.getAttribute("data-type");
+    const text = type === "xaml" ? SNIPPETS[idx].xaml : SNIPPETS[idx].cs;
+
+    try {
+        await navigator.clipboard.writeText(text);
+    } catch {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+    }
+
+    const original = btn.textContent;
+    btn.textContent = "✓ ¡Copiado!";
+    btn.classList.add("copied");
+    setTimeout(() => {
+        btn.textContent = original;
+        btn.classList.remove("copied");
+    }, 1200);
+});
+
+filterBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        filterBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        activeCategory = btn.getAttribute("data-cat");
+        renderCards();
+    });
+});
+
+searchInput.addEventListener("input", (e) => {
+    searchQuery = e.target.value;
+    clearBtn.style.display = searchQuery ? "block" : "none";
+    renderCards();
+});
+
+clearBtn.addEventListener("click", () => {
+    searchInput.value = "";
+    searchQuery = "";
+    clearBtn.style.display = "none";
+    searchInput.focus();
+    renderCards();
+});
+
+window.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        searchInput.focus();
+        searchInput.select();
+    }
+});
+
+updateCounts();
+renderCards();
+</script>
+</body>
+</html>

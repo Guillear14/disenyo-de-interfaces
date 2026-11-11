@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <!-- Cualquier imagen, icono o fuente dentro de Recursos/ se compila automáticamente como Resource de WPF -->
+  <ItemGroup>
+    <None Remove="Recursos\**\*" />
+    <Resource Include="Recursos\**\*" />
+  </ItemGroup>
+
+  <!-- Estructura de carpetas lista para el examen -->
+  <ItemGroup>
+    <Folder Include="Datos\" />
+    <Folder Include="Modelos\" />
+    <Folder Include="Recursos\Estilos\" />
+    <Folder Include="Recursos\Iconos\" />
+    <Folder Include="Recursos\Imagenes\" />
+    <Folder Include="Servicios\" />
+    <Folder Include="ViewModel\" />
+    <Folder Include="Vista\Dialogo\" />
+    <Folder Include="Vista\UserControl\" />
+  </ItemGroup>
+
+  <!-- Paquetes NuGet listos para dotnet restore (MaterialDesign, MahApps, SQLite y DI) -->
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.4.11" />
+    <PackageReference Include="MaterialDesignThemes.MahApps" Version="5.3.2" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+  </ItemGroup>
+
+</Project>

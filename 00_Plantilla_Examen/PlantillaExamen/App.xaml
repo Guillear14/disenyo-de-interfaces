@@ -1,0 +1,31 @@
+<Application x:Class="PlantillaExamen.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PlantillaExamen"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- 1. Tema base de MaterialDesign (Light/Dark, PrimaryColor, SecondaryColor) -->
+                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Indigo" SecondaryColor="Amber" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
+
+                <!-- 2. Diccionarios de MahApps.Metro -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- 3. Paleta de colores globales reutilizables con {StaticResource ...} -->
+            <SolidColorBrush x:Key="PrimaryColor" Color="#0F2C59"/>
+            <SolidColorBrush x:Key="SecondaryColor" Color="#1E3E62"/>
+            <SolidColorBrush x:Key="AccentColor" Color="#FF6500"/>
+            <SolidColorBrush x:Key="BackgroundLight" Color="#F5F7FA"/>
+            <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="TextDark" Color="#1E293B"/>
+            <SolidColorBrush x:Key="TextMuted" Color="#64748B"/>
+            <SolidColorBrush x:Key="BorderSubtle" Color="#E2E8F0"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
