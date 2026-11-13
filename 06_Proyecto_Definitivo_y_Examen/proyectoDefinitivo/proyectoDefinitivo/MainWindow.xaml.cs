@@ -1,1 +1,30 @@
-using System;\nusing System.Windows;\nusing MahApps.Metro.Controls;\nusing proyectoDefinitivo.ViewModel;\nusing proyectoDefinitivo.Vista.Dialogo;\n\nnamespace proyectoDefinitivo\n{\n    // Ejercicio de WPF. Esta clase representa la ventana principal del programa.\n    // En este archivo se inicializa la interfaz definida en XAML y se gestionan los eventos del formulario.\n    public partial class MainWindow : MetroWindow\n    {\n        private readonly MainViewModel _viewModel;\n        private readonly Func<PantallaLogin> _loginFactory;\n        private bool _navegandoALogin;\n\n        // Constructor: se ejecuta al abrir la ventana y carga el contenido del archivo XAML.\n        public MainWindow(MainViewModel viewModel, Func<PantallaLogin> loginFactory)\n        {\n            InitializeComponent();\n            _viewModel = viewModel;\n            _loginFactory = loginFactory;\n            DataContext = _viewModel;\n        }\n\n        private void BtnCerrarSesion_Click(object sender, RoutedEventArgs e)\n        {\n            if (_navegandoALogin)\n                return;\n\n            _navegandoALogin = true;\n            _viewModel.CerrarSesion();\n            PantallaLogin pantallaLogin = _loginFactory();\n            Application.Current.MainWindow = pantallaLogin;\n            pantallaLogin.Show();\n            Close();\n        }\n    }\n}\n
+// =========================================================================
+// LÓGICA C# DE MAINWINDOW (CERRAR SESIÓN Y VOLVER AL LOGIN)
+// =========================================================================
+
+using proyectoDefinitivo.Vista.Dialogo;
+using System;
+using System.Windows;
+
+namespace proyectoDefinitivo
+{
+    public partial class MainWindow : Window
+    {
+        private readonly Func<PantallaLogin> _loginFactory;
+
+        public MainWindow(Func<PantallaLogin> loginFactory)
+        {
+            InitializeComponent();
+            _loginFactory = loginFactory;
+        }
+
+        // Al pulsar "Cerrar Sesión", crea una nueva instancia de PantallaLogin, la muestra y cierra esta ventana
+        private void btmcerrarsesion_Click(object sender, RoutedEventArgs e)
+        {
+            PantallaLogin pantallaLogin = _loginFactory();
+            Application.Current.MainWindow = pantallaLogin;
+            pantallaLogin.Show();
+            this.Close();
+        }
+    }
+}
